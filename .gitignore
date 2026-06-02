@@ -1,0 +1,159 @@
+# ============================================================
+# C/C++ / Build artifacts
+# ============================================================
+
+*.d
+*.slo
+*.lo
+*.o
+*.obj
+*.gch
+*.pch
+*.ilk
+*.pdb
+*.dwo
+
+*.so
+*.dylib
+*.dll
+
+*.lai
+*.la
+*.a
+*.lib
+
+*.exe
+*.out
+*.app
+
+/build/
+build/
+
+
+# ============================================================
+# Verilator
+# ============================================================
+
+obj_dir/
+**/obj_dir/
+*.verilator_deplist.tmp
+
+
+# ============================================================
+# Simulation / Waveforms
+# ============================================================
+
+*.vcd
+*.fst
+*.wlf
+*.wdb
+*.wcfg
+
+sim/waves/*
+!sim/waves/.gitkeep
+
+
+# ============================================================
+# Vivado / FPGA generated files
+# ============================================================
+
+**/build/vivado/
+**/.Xil/
+**/*.cache/
+**/*.gen/
+**/*.hw/
+**/*.ip_user_files/
+**/*.runs/
+**/*.sim/
+**/*.srcs/
+**/xsim.dir/
+**/webtalk/
+
+vivado*.jou
+vivado*.log
+webtalk*.jou
+webtalk*.log
+
+xvlog.log
+xelab.log
+xsim.log
+
+*.jou
+*.log
+*.str
+
+*.bit
+*.bin
+*.ltx
+*.dcp
+
+fpga/vivado/*
+!fpga/vivado/.gitkeep
+
+fpga/bitstream/*
+!fpga/bitstream/.gitkeep
+
+
+# ============================================================
+# ASIC / Oasys / Nitro generated files
+# ============================================================
+
+asic/**/reports/*
+asic/**/outputs/*
+!asic/**/reports/.gitkeep
+!asic/**/outputs/.gitkeep
+
+*.rpt
+*.sdf
+*.spef
+*.def
+*.gds
+*.lef
+*.db
+
+*.cmd
+*.history
+*.backup
+*.bak
+*.tmp
+
+
+# ============================================================
+# Python
+# ============================================================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+env/
+
+
+# ============================================================
+# Generated CPU programs
+# ============================================================
+
+# If ASM is treated as the only source of truth, uncomment these:
+# sw/programs/*.hex
+# sw/programs/*.coe
+
+
+# ============================================================
+# Editor / IDE local files
+# ============================================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# ============================================================
+# OS local files
+# ============================================================
+
+.DS_Store
+Thumbs.db
