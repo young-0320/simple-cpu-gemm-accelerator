@@ -2,33 +2,42 @@
 
 ## 1. 폴더 구조
 
+이 레포는 큰 IP 프로젝트가 아니라 Simple CPU + GEMM accelerator를 검증하는 수업 프로젝트이다. 그래서 폴더는 역할이 헷갈리지 않을 정도로만 나누고, 아직 파일이 없는 기술/산출물 단위 폴더는 필요해질 때 만든다.
+
 ```
 repo/
-├── rtl/                         ← synthesizable RTL 설계 소스
-│   ├── simple_cpu/              ← Simple CPU core, decoder, controller, register file 등
-│   └── gemm_accelerator/        ← GEMM accelerator, MMIO register block, FSM, MAC datapath, LSU 등
-├── sw/                          ← CPU 구동용 어셈블리, 어셈블러, 프로그램 코드
-├── sim/                         ← 테스트벤치, Verilator, 파형, transactional verification 파일
-├── model/                       ← Python/C++ 참조 모델 및 golden output 생성 코드
-│   ├── python/                  ← Python reference model, random test vector 생성
-│   └── cpp/                     ← C/C++ reference model 또는 Verilator 연동 코드
-├── asic/                        ← ASIC 합성/검증 관련 파일
-│   ├── oasys/                   ← Oasys 합성 스크립트, constraint, log, report
-│   └── nitro/                   ← Nitro P&R 스크립트, constraint, log, report
-├── fpga/                        ← FPGA/Vivado 검증 관련 파일
-│   ├── scripts/                 ← Vivado project 생성, build, bitstream 생성 자동화 스크립트
-│   ├── vivado/                  ← Vivado project, block design, generated output
-│   └── Zybo-Z7.xdc              ← Zybo Z7 FPGA pin/clock constraint
-└── docs/                        ← 프로젝트 문서
-    ├── spec/                    ← CPU, GEMM accelerator, memory/interface 설계 스펙
-    ├── report/                  ← 최종 보고서, 실험 결과, 성능/전력 분석 자료
-    ├── project2.md              ← 프로젝트 요구사항 정리
+├── rtl/                         ← 합성 가능한 Verilog/SystemVerilog RTL, top-level/shared RTL
+│   ├── simple_cpu/              ← CPU core, decoder, controller, register file
+│   └── gemm_accelerator/        ← GEMM MMIO, FSM, LSU, buffer, MAC datapath
+├── sw/                          ← CPU에서 실행할 프로그램과 보조 도구
+│   ├── programs/                ← assembly/source program, test workload
+│   └── tools/                   ← assembler, loader, hex/coe 변환 스크립트
+├── sim/                         ← RTL 검증 환경
+│   ├── tb/                      ← unit/top-level testbench
+│   ├── tests/                   ← test case, random seed, expected output, vector manifest
+│   └── waves/                   ← waveform 산출물, Git에는 .gitkeep만 남김
+├── model/                       ← golden/reference model과 test vector 생성 코드
+├── asic/                        ← ASIC flow 입력 파일과 결과 정리
+│   ├── oasys/                   ← Oasys synthesis script, constraint, report 정리
+│   └── nitro/                   ← Nitro P&R script, constraint, report 정리
+├── fpga/                        ← FPGA/Vivado bring-up 파일
+│   ├── Zybo-Z7.xdc              ← Zybo Z7 FPGA pin/clock constraint
+│   ├── scripts/                 ← Vivado project/build/bitstream 자동화 스크립트
+│   └── vivado/                  ← generated Vivado project, Git에는 .gitkeep만 남김
+└── docs/                        ← 사람이 읽는 문서
+    ├── spec/                    ← 설계 스펙과 인터페이스 계약
+    ├── report/                  ← 최종 보고서, 실험 결과, 성능/전력 분석
+    ├── project2.md              ← 과제 요구사항 정리
     └── CONTRIBUTING.md          ← 협업 규칙
 ```
 
-새 파일은 담당 모듈 기준으로 가장 가까운 하위 폴더에 둔다. 예를 들어 GEMM FSM RTL은 `rtl/gemm_accelerator/`, CPU instruction 관련 RTL은 `rtl/simple_cpu/`, Vivado 자동화 스크립트는 `fpga/scripts/`, 설계 설명 문서는 `docs/spec/`에 둔다.
+### 배치 기준
 
-비어 있는 폴더를 Git에 남겨야 하면 해당 폴더에 `.gitkeep`을 둔다.
+1. RTL은 소유 모듈 기준으로 둔다. CPU 전용이면 `rtl/simple_cpu/`, GEMM 전용이면 `rtl/gemm_accelerator/`, top-level이나 둘이 같이 쓰는 파일은 `rtl/` 바로 아래에 둔다.
+2. `sw/`는 실제 CPU가 실행하는 program과 이를 만들기 위한 tool만 둔다. 검증용 Python golden model은 `sw/`가 아니라 `model/`에 둔다.
+3. `sim/`에는 testbench와 test case를 둔다. Verilator가 만든 `obj_dir`, waveform, log 같은 산출물은 Git에 올리지 않는다.
+4. `fpga/`와 `asic/`에는 source 역할을 하는 script, constraint, report 요약만 남긴다. Vivado project output, bitstream, tool log는 생성 산출물로 보고 Git 추적을 피한다.
+5. `docs/spec/`는 설계가 바뀔 때 같이 업데이트한다. 결과 캡처, 표, 최종 보고서 초안은 `docs/report/`에 둔다.
 
 ## 2. 파일 네이밍 규칙
 
@@ -41,18 +50,51 @@ repo/
 
 ### **기본 원칙**
 
-**중요) 작업 전에 항상 최신 코드를 받는다.**
-`git pull origin main`
+**중요 : 작업 전에 항상 최신 코드를 받는다.**
 
-작업 완료 후 push 한다.
+먼저 현재 작업 중인 변경사항이 있는지 확인한다.
 
 ```
-git add .
+git status
+```
+
+작업 중인 변경사항이 없다면 최신 코드를 받는다.
+
+`git pull origin main`
+
+작업 완료 후에는 바로 `git add .`를 하기 전에 변경 파일과 변경량을 확인한다.
+
+```
+git status
+git diff --stat
+```
+
+커밋에 넣을 파일만 골라서 stage 한다.
+
+```
+git add <파일 경로>
+```
+
+예시:
+
+```
+git add rtl/simple_cpu/alu.v
+git add sim/tb/tb_alu.v
+git add docs/spec/simple_cpu.md
+```
+
+모든 변경사항을 의도적으로 커밋할 때만 `git add .`를 사용한다.
+
+변경사항을 확인한 뒤 commit과 push를 한다.
+
+```
 git commit -m "커밋 메시지"
 git push origin main
 ```
 
 ### **커밋 메시지**
+
+선택 사항입니다.
 
 ```
 feat:     새 기능 추가
@@ -73,6 +115,5 @@ docs: spec 업데이트
 
 ## 4. 주의사항
 
-1. 다른 사람 담당 모듈은 수정 금지
-2. 작업 전에 꼭 `git pull`로 최신 코드 반영
-3. `git push`하기 전 한번만 더 확인
+1. 작업 전에 꼭 `git pull`로 최신 코드 반영
+2. `git push`하기 전 한번만 더 확인
