@@ -52,6 +52,8 @@ obj_dir/
 sim/waves/*
 !sim/waves/.gitkeep
 
+sim/vectors/**/*.mem
+
 
 # ============================================================
 # Vivado / FPGA generated files
