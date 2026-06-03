@@ -26,15 +26,16 @@ class TestGoldenGemm(unittest.TestCase):
         self.assertEqual(GemmStatus(busy=0, done=1, error=1, invalid_size=1).to_word(), 0x0000000E)
         self.assertEqual(GemmStatus(busy=1, done=0, error=0, invalid_size=0).to_word(), 0x00000001)
 
-    def test_packed_int8_matrix_uses_row_major_and_zero_padding(self) -> None:
+    def test_packed_int8_matrix_uses_row_based_packing_and_zero_padding(self) -> None:
         memory = {0x100: 0xFFFF_FFFF, 0x101: 0xFFFF_FFFF}
         matrix = [[-1, 2, -3], [4, 5, -6]]
 
         write_packed_int8_matrix(memory, 0x100, matrix)
 
-        self.assertEqual(memory[0x100], pack_int8x4([-1, 2, -3, 4]))
-        self.assertEqual(memory[0x101], pack_int8x4([5, -6]))
-        self.assertEqual(unpack_int8x4(memory[0x101]), [5, -6, 0, 0])
+        self.assertEqual(memory[0x100], pack_int8x4([-1, 2, -3]))
+        self.assertEqual(memory[0x101], pack_int8x4([4, 5, -6]))
+        self.assertEqual(unpack_int8x4(memory[0x100]), [-1, 2, -3, 0])
+        self.assertEqual(unpack_int8x4(memory[0x101]), [4, 5, -6, 0])
         self.assertEqual(read_packed_int8_matrix(memory, 0x100, 2, 3), matrix)
 
     def test_valid_transaction_writes_expected_c_matrix(self) -> None:

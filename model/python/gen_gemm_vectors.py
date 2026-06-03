@@ -20,7 +20,7 @@ from golden_gemm import (
     WORD_MASK,
     GemmTransaction,
     is_valid_transaction,
-    packed_word_count,
+    row_packed_word_count,
     require_matrix_shape,
     require_signed_int8_matrix,
     run_gemm_transaction,
@@ -43,8 +43,8 @@ GENERATED_OUTPUT_PATTERNS = (
 )
 DEFAULT_RANDOM_VALID_CASES = 50
 DEFAULT_RANDOM_INVALID_CASES = 20
-MAX_A_WORDS = packed_word_count(MAX_DIM * MAX_DIM)
-MAX_B_WORDS = packed_word_count(MAX_DIM * MAX_DIM)
+MAX_A_WORDS = row_packed_word_count(MAX_DIM, MAX_DIM)
+MAX_B_WORDS = row_packed_word_count(MAX_DIM, MAX_DIM)
 MAX_C_WORDS = MAX_DIM * MAX_DIM
 
 
@@ -88,7 +88,7 @@ def parse_int(value: Any, field: str) -> int:
 
 
 def words_for_valid_dims(m: int, n: int, k: int) -> tuple[int, int, int]:
-    return packed_word_count(m * k), packed_word_count(k * n), m * n
+    return row_packed_word_count(m, k), row_packed_word_count(k, n), m * n
 
 
 def words_for_case(txn: GemmTransaction) -> tuple[int, int, int]:

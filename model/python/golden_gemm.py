@@ -135,11 +135,6 @@ def require_signed_int8_matrix(matrix: list[list[int]], name: str) -> None:
                 raise ValueError(f"{name} matrix value {value} is not signed int8")
 
 
-def flatten_row_major(matrix: list[list[int]]) -> list[int]:
-    matrix_shape(matrix)
-    return [value for row in matrix for value in row]
-
-
 def pack_int8x4(values: list[int]) -> int:
     if len(values) > 4:
         raise ValueError("pack_int8x4 accepts at most four values")
@@ -154,6 +149,12 @@ def unpack_int8x4(word: int) -> list[int]:
     return [to_signed_int8((word >> (8 * lane)) & BYTE_MASK) for lane in range(4)]
 
 
+def row_packed_word_count(rows: int, cols: int) -> int:
+    if rows < 0 or cols < 0:
+        raise ValueError("matrix dimensions must be non-negative")
+    return rows * packed_word_count(cols)
+
+
 def read_packed_int8_matrix(
     memory: dict[int, int],
     base: int,
@@ -161,12 +162,12 @@ def read_packed_int8_matrix(
     cols: int,
 ) -> list[list[int]]:
     matrix: list[list[int]] = []
+    row_words = packed_word_count(cols)
     for row in range(rows):
         matrix_row: list[int] = []
         for col in range(cols):
-            index = row * cols + col
-            word = memory.get(base + index // 4, 0)
-            matrix_row.append(unpack_int8x4(word)[index % 4])
+            word = memory.get(base + row * row_words + col // 4, 0)
+            matrix_row.append(unpack_int8x4(word)[col % 4])
         matrix.append(matrix_row)
     return matrix
 
@@ -176,10 +177,14 @@ def write_packed_int8_matrix(
     base: int,
     matrix: list[list[int]],
 ) -> None:
-    values = flatten_row_major(matrix)
-    for word_index in range(packed_word_count(len(values))):
-        start = word_index * 4
-        memory[base + word_index] = pack_int8x4(values[start : start + 4])
+    _rows, cols = matrix_shape(matrix)
+    row_words = packed_word_count(cols)
+    for row, matrix_row in enumerate(matrix):
+        for word_index in range(row_words):
+            start = word_index * 4
+            memory[base + row * row_words + word_index] = pack_int8x4(
+                matrix_row[start : start + 4]
+            )
 
 
 def read_int32_matrix(
