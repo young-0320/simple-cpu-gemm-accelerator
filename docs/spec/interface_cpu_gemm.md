@@ -39,21 +39,27 @@ GEMM_MMIO_BASE = 12'hFF0
 
 ## Control Bits
 
-| Field | Direction | 동작 |
-| --- | --- | --- |
-| `CTRL.start` | CPU to GEMM | 현재 설정된 base address와 dimension으로 transaction을 시작한다. |
-| `CTRL.clear_done` | CPU to GEMM | `done`, `error`, error detail flag를 clear하고 IDLE로 복귀시킨다. |
+`GEMM_CTRL` write는 stored state가 아니라 pulse command로 해석한다. CPU가 해당 bit에 `1`을 write하면 MMIO register block은 GEMM 쪽으로 one-cycle pulse를 만든다.
+
+| Bit | Field | Direction | 동작 |
+| --- | --- | --- | --- |
+| `[0]` | `CTRL.start` | CPU to GEMM | 현재 설정된 base address와 dimension으로 transaction을 시작한다. |
+| `[1]` | `CTRL.clear_done` | CPU to GEMM | sticky `done`, `error`, error detail flag를 clear하고 IDLE로 복귀시킨다. |
+| `[31:2]` | Reserved | CPU to GEMM | Write ignored |
 
 `start`는 IDLE 상태에서만 의미가 있다. CPU는 `STATUS.busy=1`인 동안 새로운 `start`를 보내지 않는다.
 
 ## Status Bits
 
-| Field | Direction | 의미 |
-| --- | --- | --- |
-| `STATUS.busy` | GEMM to CPU | accelerator가 LOAD, COMPUTE, STORE 중이다. |
-| `STATUS.done` | GEMM to CPU | transaction이 종료되었다. 성공 여부는 `error`와 함께 판단한다. |
-| `STATUS.error` | GEMM to CPU | transaction이 정상 완료되지 않았다. |
-| `STATUS.invalid_size` | GEMM to CPU | `M`, `N`, `K`가 지원 범위를 벗어났다. |
+`GEMM_STATUS` read는 아래 bit field를 가진 32-bit status word를 반환한다.
+
+| Bit | Field | Direction | 의미 |
+| --- | --- | --- | --- |
+| `[0]` | `STATUS.busy` | GEMM to CPU | accelerator가 LOAD, COMPUTE, STORE 중이다. |
+| `[1]` | `STATUS.done` | GEMM to CPU | transaction이 종료되었다. 성공 여부는 `error`와 함께 판단한다. |
+| `[2]` | `STATUS.error` | GEMM to CPU | transaction을 정상 수행할 수 없었다. |
+| `[3]` | `STATUS.invalid_size` | GEMM to CPU | `M`, `N`, `K`가 지원 범위 `1..4`를 벗어났다. |
+| `[31:4]` | Reserved | GEMM to CPU | Read 0 |
 
 `done`과 error-related flag는 sticky 상태이다. CPU가 `CTRL.clear_done`을 write하기 전까지 유지된다.
 
