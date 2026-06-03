@@ -6,7 +6,7 @@ CPU와 GEMM accelerator는 MMIO register block으로 대화한다. CPU는 regist
 
 ## Address Map
 
-Simple CPU는 12-bit word address와 32-bit load/store data path를 사용한다. GEMM MMIO register는 CPU address space의 최상위 16-word region에 배치한다.
+Simple CPU는 12-bit word address와 32-bit load/store data path를 사용한다. 현재 RTL은 `0xFF0`부터 `0xFF7`까지를 active GEMM MMIO register block으로 decode한다.
 
 ```text
 GEMM_MMIO_BASE = 12'hFF0
@@ -22,7 +22,8 @@ GEMM_MMIO_BASE = 12'hFF0
 | `0xFF5` | `GEMM_K` | Write |
 | `0xFF6` | `GEMM_CTRL` | Write |
 | `0xFF7` | `GEMM_STATUS` | Read |
-| `0xFF8` - `0xFFF` | Reserved | Reads return 0, writes ignored |
+
+`0xFF8`부터 `0xFFF`까지는 향후 MMIO 확장을 위한 reserved address range이다. 현재 RTL은 이 범위를 MMIO로 decode하지 않으므로 software와 tests는 이 주소들을 접근하지 않는다.
 
 ## Register View
 
