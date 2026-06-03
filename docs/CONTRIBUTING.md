@@ -2,8 +2,6 @@
 
 ## 1. 폴더 구조
 
-이 레포는 큰 IP 프로젝트가 아니라 Simple CPU + GEMM accelerator를 검증하는 수업 프로젝트이다. 그래서 폴더는 역할이 헷갈리지 않을 정도로만 나누고, 아직 파일이 없는 기술/산출물 단위 폴더는 필요해질 때 만든다.
-
 ```
 repo/
 ├── rtl/                         ← 합성 가능한 Verilog/SystemVerilog RTL, top-level/shared RTL
