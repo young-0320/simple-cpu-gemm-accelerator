@@ -1,10 +1,10 @@
 # 디지털회로설계및언어 프로젝트2
 
-## simple cpu gemm coprocessor
+## simple cpu gemm accelerator
 
 📅 **마감 기한 6월 19일 10:30**
 
-GitHub Repository URL:
+GitHub Repository URL: https://github.com/young-0320/simple-cpu-gemm-accelerator
 
 2조: 박성모, 유경민, 한영웅
 
