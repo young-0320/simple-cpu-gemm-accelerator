@@ -48,7 +48,7 @@ GEMM_MMIO_BASE = 12'hFF0
 | `[1]` | `CTRL.clear_done` | CPU to GEMM | sticky `done`, `error`, error detail flag를 clear하고 IDLE로 복귀시킨다. |
 | `[31:2]` | Reserved | CPU to GEMM | Write ignored |
 
-`start`는 IDLE 상태에서만 의미가 있다. CPU는 `STATUS.busy=1`인 동안 새로운 `start`를 보내지 않는다.
+`start`는 IDLE 상태에서만 의미가 있다. Integrated RTL에서는 `STATUS.busy=1`인 동안 CPU가 freeze되므로 software가 새로운 `start`를 발행하지 않는다. Direct testbench도 busy 중 start를 생성하지 않는다.
 
 ## Status Bits
 
@@ -71,9 +71,9 @@ CPU                         GEMM
  | write A/B/C base           |
  | write M/N/K                |
  | write CTRL.start --------> | validate dimensions
- |                            | LOAD -> COMPUTE -> STORE
- | poll STATUS.done <-------- | done=1, busy=0
- | read STATUS.error          |
+ | freeze while busy          | LOAD -> COMPUTE -> STORE
+ | resume when busy=0         | done=1, busy=0
+ | read STATUS.done/error <---|
  | write CTRL.clear_done ---> | clear sticky flags, return IDLE
 ```
 
@@ -88,7 +88,7 @@ Verilator testbench도 위 protocol을 그대로 사용하는 transaction driver
 | 항목 | 의미 |
 | --- | --- |
 | Input setup | `A_BASE`, `B_BASE`, `C_BASE`, `M`, `N`, `K`, A/B matrix contents |
-| Stimulus | `CTRL.start` write와 `STATUS.done` polling |
+| Stimulus | `CTRL.start` write, busy 동안 CPU freeze, 완료 후 `GEMM_STATUS` read |
 | Expected status | 정상 transaction은 `error=0`, invalid transaction은 `error=1`, `invalid_size=1` |
 | Expected memory | 정상 transaction에서 `C_BASE` 이후 `M*N` word가 golden model 결과와 일치해야 한다. |
 
