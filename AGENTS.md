@@ -117,12 +117,12 @@ The verification owner should start with a Python reference/golden model before 
 - valid and invalid dimension behavior
 - expected status bits and expected memory contents per transaction
 
-Random tests should be constrained by the same transaction structure: choose valid or invalid dimensions, generate A/B values, choose non-overlapping base addresses, write A/B into external memory layout, start GEMM through MMIO, poll `done`, then compare status and C memory against the golden model.
+Random tests should be constrained by the same transaction structure: choose valid or invalid dimensions, generate A/B values, choose non-overlapping base addresses, write A/B into external memory layout, start GEMM through MMIO, wait for GEMM busy/freeze to finish, read final `done`, then compare status and C memory against the golden model.
 
 ## Module Boundaries
 
-The CPU only configures GEMM through MMIO, starts a transaction, polls status, and optionally reads C after completion. The CPU does not perform MAC operations, A/B unpacking, or C writeback.
+The CPU only configures GEMM through MMIO, starts a transaction, resumes after GEMM completion to read status, and optionally reads C after completion. The CPU does not perform MAC operations, A/B unpacking, or C writeback.
 
-The GEMM accelerator owns A/B load, local buffering, MAC accumulation, and C store during a transaction. While GEMM is busy, the CPU should not perform normal data memory accesses; it should only poll GEMM MMIO status.
+The GEMM accelerator owns A/B load, local buffering, MAC accumulation, and C store during a transaction. While GEMM is busy, current integrated RTL freezes the CPU; the CPU issues no normal data memory accesses and no status polling cycles.
 
 The MMIO Register Block is the CPU-facing boundary. It is acceptable for the verification owner to implement or test this block if the scope stays limited to register storage, start/clear pulse generation, and status readback. Controller sequencing, LSU behavior, and MAC datapath should remain separate GEMM design responsibilities unless explicitly assigned.
