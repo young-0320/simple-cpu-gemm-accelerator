@@ -2,7 +2,27 @@
 
 CPU와 GEMM accelerator는 MMIO register block으로 대화한다. CPU는 register write로 작업 조건을 넘기고, status read로 accelerator의 진행 상태를 확인한다.
 
-> 이 문서는 logical register 계약을 정의한다. 실제 address offset은 RTL register map을 확정할 때 고정한다.
+> 이 문서는 CPU가 GEMM accelerator를 제어하기 위한 32-bit MMIO register map과 logical control/status 계약을 정의한다.
+
+## Address Map
+
+Simple CPU는 12-bit word address와 32-bit load/store data path를 사용한다. GEMM MMIO register는 CPU address space의 최상위 16-word region에 배치한다.
+
+```text
+GEMM_MMIO_BASE = 12'hFF0
+```
+
+| Word address | Register | CPU access |
+| --- | --- | --- |
+| `0xFF0` | `GEMM_A_BASE` | Write |
+| `0xFF1` | `GEMM_B_BASE` | Write |
+| `0xFF2` | `GEMM_C_BASE` | Write |
+| `0xFF3` | `GEMM_M` | Write |
+| `0xFF4` | `GEMM_N` | Write |
+| `0xFF5` | `GEMM_K` | Write |
+| `0xFF6` | `GEMM_CTRL` | Write |
+| `0xFF7` | `GEMM_STATUS` | Read |
+| `0xFF8` - `0xFFF` | Reserved | Reads return 0, writes ignored |
 
 ## Register View
 

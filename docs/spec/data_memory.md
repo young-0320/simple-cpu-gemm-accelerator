@@ -22,6 +22,18 @@ mem[0x101] = word 1
 mem[0x102] = word 2
 ```
 
+## Unified CPU Address Map
+
+Simple CPU는 12-bit word address를 사용하므로 CPU가 접근할 수 있는 전체 주소 공간은 `0x000`부터 `0xFFF`까지이다. 이 프로젝트에서는 instruction, matrix data, GEMM MMIO register를 같은 CPU address space 안에서 구분한다.
+
+| Word address range | Region | 용도 |
+| --- | --- | --- |
+| `0x000` - `0x07F` | Instruction region | CPU instruction 저장 |
+| `0x080` - `0xFEF` | Data region | A/B input matrix와 C output matrix 저장 |
+| `0xFF0` - `0xFFF` | MMIO / reserved region | GEMM register 접근과 향후 확장 |
+
+A/B/C matrix storage는 data region 안에 배치한다. `A_BASE`, `B_BASE`, `C_BASE`는 GEMM MMIO register에 저장되는 word address 값이며, 각 값은 matrix data가 시작되는 data-region address를 가리킨다.
+
 ## Matrix Storage
 
 | Matrix | Element type | Memory format | Word당 element 수 |
