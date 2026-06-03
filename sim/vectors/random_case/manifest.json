@@ -1,0 +1,3573 @@
+{
+  "schema": "gemm_vectors_v1",
+  "mode": "random",
+  "seed": 20260603,
+  "directed_file": null,
+  "memory_words": 4096,
+  "data_region": {
+    "start": "00000080",
+    "end": "00000fef"
+  },
+  "random": {
+    "valid_cases": 50,
+    "invalid_cases": 20
+  },
+  "cases": [
+    {
+      "name": "random_000",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000bd8",
+      "b_base": "0000036f",
+      "c_base": "00000aa0",
+      "m": 4,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_000_init.mem",
+      "expected_mem": "random_000_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 3066976935515955157,
+      "a_matrix": [
+        [
+          95,
+          15,
+          45,
+          -36
+        ],
+        [
+          -115,
+          13,
+          115,
+          115
+        ],
+        [
+          -3,
+          -22,
+          109,
+          -67
+        ],
+        [
+          -65,
+          73,
+          -50,
+          56
+        ]
+      ],
+      "b_matrix": [
+        [
+          104,
+          97
+        ],
+        [
+          120,
+          29
+        ],
+        [
+          -73,
+          75
+        ],
+        [
+          68,
+          125
+        ]
+      ],
+      "c_matrix": [
+        [
+          5947,
+          8525
+        ],
+        [
+          -10975,
+          12222
+        ],
+        [
+          -15465,
+          -1129
+        ],
+        [
+          9458,
+          -938
+        ]
+      ]
+    },
+    {
+      "name": "random_001",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000004f6",
+      "b_base": "00000084",
+      "c_base": "00000dda",
+      "m": 3,
+      "n": 3,
+      "k": 1,
+      "init_mem": "random_001_init.mem",
+      "expected_mem": "random_001_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 14299285649019839949,
+      "a_matrix": [
+        [
+          101
+        ],
+        [
+          127
+        ],
+        [
+          -96
+        ]
+      ],
+      "b_matrix": [
+        [
+          29,
+          0,
+          82
+        ]
+      ],
+      "c_matrix": [
+        [
+          2929,
+          0,
+          8282
+        ],
+        [
+          3683,
+          0,
+          10414
+        ],
+        [
+          -2784,
+          0,
+          -7872
+        ]
+      ]
+    },
+    {
+      "name": "random_002",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000bdd",
+      "b_base": "00000545",
+      "c_base": "00000b50",
+      "m": 1,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_002_init.mem",
+      "expected_mem": "random_002_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 11699983223757051881,
+      "a_matrix": [
+        [
+          70
+        ]
+      ],
+      "b_matrix": [
+        [
+          -100
+        ]
+      ],
+      "c_matrix": [
+        [
+          -7000
+        ]
+      ]
+    },
+    {
+      "name": "random_003",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000e18",
+      "b_base": "00000d24",
+      "c_base": "00000885",
+      "m": 2,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_003_init.mem",
+      "expected_mem": "random_003_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 18259991429359998562,
+      "a_matrix": [
+        [
+          99,
+          -70,
+          -85,
+          -116
+        ],
+        [
+          22,
+          -59,
+          -117,
+          59
+        ]
+      ],
+      "b_matrix": [
+        [
+          95
+        ],
+        [
+          -120
+        ],
+        [
+          -73
+        ],
+        [
+          81
+        ]
+      ],
+      "c_matrix": [
+        [
+          14614
+        ],
+        [
+          22490
+        ]
+      ]
+    },
+    {
+      "name": "random_004",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000044f",
+      "b_base": "00000add",
+      "c_base": "000006af",
+      "m": 2,
+      "n": 4,
+      "k": 4,
+      "init_mem": "random_004_init.mem",
+      "expected_mem": "random_004_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13007159754840558926,
+      "a_matrix": [
+        [
+          117,
+          126,
+          -81,
+          -1
+        ],
+        [
+          56,
+          31,
+          108,
+          104
+        ]
+      ],
+      "b_matrix": [
+        [
+          71,
+          -124,
+          -11,
+          -20
+        ],
+        [
+          -3,
+          41,
+          44,
+          -90
+        ],
+        [
+          45,
+          117,
+          -41,
+          -122
+        ],
+        [
+          -50,
+          29,
+          5,
+          -121
+        ]
+      ],
+      "c_matrix": [
+        [
+          4334,
+          -18848,
+          7573,
+          -3677
+        ],
+        [
+          3543,
+          9979,
+          -3160,
+          -29670
+        ]
+      ]
+    },
+    {
+      "name": "random_005",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000f2e",
+      "b_base": "00000166",
+      "c_base": "000003fd",
+      "m": 2,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_005_init.mem",
+      "expected_mem": "random_005_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 9104295170785491200,
+      "a_matrix": [
+        [
+          57
+        ],
+        [
+          -110
+        ]
+      ],
+      "b_matrix": [
+        [
+          -84
+        ]
+      ],
+      "c_matrix": [
+        [
+          -4788
+        ],
+        [
+          9240
+        ]
+      ]
+    },
+    {
+      "name": "random_006",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000979",
+      "b_base": "0000030e",
+      "c_base": "00000baa",
+      "m": 4,
+      "n": 2,
+      "k": 3,
+      "init_mem": "random_006_init.mem",
+      "expected_mem": "random_006_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 585003146642118332,
+      "a_matrix": [
+        [
+          127,
+          -43,
+          11
+        ],
+        [
+          22,
+          86,
+          -74
+        ],
+        [
+          120,
+          -61,
+          44
+        ],
+        [
+          -12,
+          -92,
+          -55
+        ]
+      ],
+      "b_matrix": [
+        [
+          36,
+          93
+        ],
+        [
+          -122,
+          -21
+        ],
+        [
+          -46,
+          8
+        ]
+      ],
+      "c_matrix": [
+        [
+          9312,
+          12802
+        ],
+        [
+          -6296,
+          -352
+        ],
+        [
+          9738,
+          12793
+        ],
+        [
+          13322,
+          376
+        ]
+      ]
+    },
+    {
+      "name": "random_007",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000e32",
+      "b_base": "0000035f",
+      "c_base": "0000011c",
+      "m": 4,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_007_init.mem",
+      "expected_mem": "random_007_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 6103755593030004112,
+      "a_matrix": [
+        [
+          76,
+          127,
+          -32,
+          100
+        ],
+        [
+          32,
+          -59,
+          -69,
+          -80
+        ],
+        [
+          -116,
+          16,
+          55,
+          -110
+        ],
+        [
+          99,
+          -12,
+          -70,
+          -80
+        ]
+      ],
+      "b_matrix": [
+        [
+          -37
+        ],
+        [
+          86
+        ],
+        [
+          -19
+        ],
+        [
+          28
+        ]
+      ],
+      "c_matrix": [
+        [
+          11518
+        ],
+        [
+          -7187
+        ],
+        [
+          1543
+        ],
+        [
+          -5605
+        ]
+      ]
+    },
+    {
+      "name": "random_008",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000e0d",
+      "b_base": "000008e2",
+      "c_base": "00000699",
+      "m": 2,
+      "n": 4,
+      "k": 2,
+      "init_mem": "random_008_init.mem",
+      "expected_mem": "random_008_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 4849100189236949050,
+      "a_matrix": [
+        [
+          -91,
+          -106
+        ],
+        [
+          -53,
+          74
+        ]
+      ],
+      "b_matrix": [
+        [
+          -76,
+          -16,
+          124,
+          -35
+        ],
+        [
+          -3,
+          117,
+          74,
+          14
+        ]
+      ],
+      "c_matrix": [
+        [
+          7234,
+          -10946,
+          -19128,
+          1701
+        ],
+        [
+          3806,
+          9506,
+          -1096,
+          2891
+        ]
+      ]
+    },
+    {
+      "name": "random_009",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000048b",
+      "b_base": "000002a7",
+      "c_base": "00000604",
+      "m": 2,
+      "n": 4,
+      "k": 3,
+      "init_mem": "random_009_init.mem",
+      "expected_mem": "random_009_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 455739760656568363,
+      "a_matrix": [
+        [
+          45,
+          -8,
+          80
+        ],
+        [
+          113,
+          -28,
+          -95
+        ]
+      ],
+      "b_matrix": [
+        [
+          68,
+          -123,
+          93,
+          -65
+        ],
+        [
+          -19,
+          -70,
+          84,
+          64
+        ],
+        [
+          -17,
+          61,
+          6,
+          106
+        ]
+      ],
+      "c_matrix": [
+        [
+          1852,
+          -95,
+          3993,
+          5043
+        ],
+        [
+          9831,
+          -17734,
+          7587,
+          -19207
+        ]
+      ]
+    },
+    {
+      "name": "random_010",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000c46",
+      "b_base": "00000801",
+      "c_base": "00000220",
+      "m": 1,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_010_init.mem",
+      "expected_mem": "random_010_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 7777007144446685235,
+      "a_matrix": [
+        [
+          5,
+          -8,
+          56,
+          -55
+        ]
+      ],
+      "b_matrix": [
+        [
+          -84,
+          89,
+          -115
+        ],
+        [
+          -19,
+          -13,
+          107
+        ],
+        [
+          62,
+          -56,
+          115
+        ],
+        [
+          -16,
+          -22,
+          96
+        ]
+      ],
+      "c_matrix": [
+        [
+          4084,
+          -1377,
+          -271
+        ]
+      ]
+    },
+    {
+      "name": "random_011",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000059b",
+      "b_base": "00000a4b",
+      "c_base": "000009fa",
+      "m": 3,
+      "n": 3,
+      "k": 3,
+      "init_mem": "random_011_init.mem",
+      "expected_mem": "random_011_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 5186874352783600887,
+      "a_matrix": [
+        [
+          7,
+          -62,
+          -110
+        ],
+        [
+          119,
+          11,
+          -114
+        ],
+        [
+          -64,
+          28,
+          -94
+        ]
+      ],
+      "b_matrix": [
+        [
+          -85,
+          27,
+          30
+        ],
+        [
+          14,
+          -115,
+          -9
+        ],
+        [
+          69,
+          -62,
+          88
+        ]
+      ],
+      "c_matrix": [
+        [
+          -9053,
+          14139,
+          -8912
+        ],
+        [
+          -17827,
+          9016,
+          -6561
+        ],
+        [
+          -654,
+          880,
+          -10444
+        ]
+      ]
+    },
+    {
+      "name": "random_012",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000004d8",
+      "b_base": "0000066b",
+      "c_base": "00000f08",
+      "m": 3,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_012_init.mem",
+      "expected_mem": "random_012_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 1659770616882036692,
+      "a_matrix": [
+        [
+          104,
+          69,
+          51,
+          87
+        ],
+        [
+          58,
+          109,
+          14,
+          -124
+        ],
+        [
+          2,
+          -94,
+          89,
+          -82
+        ]
+      ],
+      "b_matrix": [
+        [
+          -108
+        ],
+        [
+          23
+        ],
+        [
+          21
+        ],
+        [
+          73
+        ]
+      ],
+      "c_matrix": [
+        [
+          -2223
+        ],
+        [
+          -12515
+        ],
+        [
+          -6495
+        ]
+      ]
+    },
+    {
+      "name": "random_013",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000000e6",
+      "b_base": "00000f78",
+      "c_base": "00000ab0",
+      "m": 3,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_013_init.mem",
+      "expected_mem": "random_013_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 3865610073288150917,
+      "a_matrix": [
+        [
+          -89,
+          110,
+          -61,
+          38
+        ],
+        [
+          69,
+          -36,
+          -77,
+          -21
+        ],
+        [
+          -56,
+          119,
+          -51,
+          54
+        ]
+      ],
+      "b_matrix": [
+        [
+          97,
+          18,
+          -45
+        ],
+        [
+          103,
+          -22,
+          -69
+        ],
+        [
+          25,
+          -41,
+          9
+        ],
+        [
+          80,
+          -18,
+          46
+        ]
+      ],
+      "c_matrix": [
+        [
+          4212,
+          -2205,
+          -2386
+        ],
+        [
+          -620,
+          5569,
+          -2280
+        ],
+        [
+          9870,
+          -2507,
+          -3666
+        ]
+      ]
+    },
+    {
+      "name": "random_014",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000002cf",
+      "b_base": "00000645",
+      "c_base": "00000575",
+      "m": 4,
+      "n": 3,
+      "k": 2,
+      "init_mem": "random_014_init.mem",
+      "expected_mem": "random_014_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 12764081688396142483,
+      "a_matrix": [
+        [
+          122,
+          -44
+        ],
+        [
+          55,
+          -44
+        ],
+        [
+          59,
+          17
+        ],
+        [
+          -24,
+          74
+        ]
+      ],
+      "b_matrix": [
+        [
+          30,
+          -127,
+          123
+        ],
+        [
+          -16,
+          -58,
+          44
+        ]
+      ],
+      "c_matrix": [
+        [
+          4364,
+          -12942,
+          13070
+        ],
+        [
+          2354,
+          -4433,
+          4829
+        ],
+        [
+          1498,
+          -8479,
+          8005
+        ],
+        [
+          -1904,
+          -1244,
+          304
+        ]
+      ]
+    },
+    {
+      "name": "random_015",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000b0e",
+      "b_base": "0000031f",
+      "c_base": "00000473",
+      "m": 3,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_015_init.mem",
+      "expected_mem": "random_015_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 4880064490839878481,
+      "a_matrix": [
+        [
+          116,
+          54,
+          -128,
+          51
+        ],
+        [
+          101,
+          -124,
+          -110,
+          94
+        ],
+        [
+          78,
+          106,
+          -25,
+          112
+        ]
+      ],
+      "b_matrix": [
+        [
+          -50
+        ],
+        [
+          60
+        ],
+        [
+          -27
+        ],
+        [
+          28
+        ]
+      ],
+      "c_matrix": [
+        [
+          2324
+        ],
+        [
+          -6888
+        ],
+        [
+          6271
+        ]
+      ]
+    },
+    {
+      "name": "random_016",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000b65",
+      "b_base": "000006ff",
+      "c_base": "00000ee9",
+      "m": 1,
+      "n": 3,
+      "k": 1,
+      "init_mem": "random_016_init.mem",
+      "expected_mem": "random_016_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13843412644047881915,
+      "a_matrix": [
+        [
+          21
+        ]
+      ],
+      "b_matrix": [
+        [
+          102,
+          66,
+          81
+        ]
+      ],
+      "c_matrix": [
+        [
+          2142,
+          1386,
+          1701
+        ]
+      ]
+    },
+    {
+      "name": "random_017",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000179",
+      "b_base": "000006e4",
+      "c_base": "0000073b",
+      "m": 4,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_017_init.mem",
+      "expected_mem": "random_017_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 6839579978318496154,
+      "a_matrix": [
+        [
+          51,
+          -62,
+          76,
+          16
+        ],
+        [
+          30,
+          58,
+          -126,
+          -9
+        ],
+        [
+          4,
+          -54,
+          11,
+          -74
+        ],
+        [
+          -45,
+          -61,
+          -77,
+          123
+        ]
+      ],
+      "b_matrix": [
+        [
+          -99
+        ],
+        [
+          22
+        ],
+        [
+          123
+        ],
+        [
+          -47
+        ]
+      ],
+      "c_matrix": [
+        [
+          2183
+        ],
+        [
+          -16769
+        ],
+        [
+          3247
+        ],
+        [
+          -12139
+        ]
+      ]
+    },
+    {
+      "name": "random_018",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000a75",
+      "b_base": "000005b6",
+      "c_base": "00000930",
+      "m": 2,
+      "n": 4,
+      "k": 4,
+      "init_mem": "random_018_init.mem",
+      "expected_mem": "random_018_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 9622527145919972092,
+      "a_matrix": [
+        [
+          58,
+          -61,
+          81,
+          109
+        ],
+        [
+          73,
+          19,
+          92,
+          -63
+        ]
+      ],
+      "b_matrix": [
+        [
+          -8,
+          92,
+          22,
+          28
+        ],
+        [
+          66,
+          93,
+          38,
+          43
+        ],
+        [
+          65,
+          42,
+          10,
+          42
+        ],
+        [
+          -47,
+          -24,
+          -25,
+          -71
+        ]
+      ],
+      "c_matrix": [
+        [
+          -4348,
+          449,
+          -2957,
+          -5336
+        ],
+        [
+          9611,
+          13859,
+          4823,
+          11198
+        ]
+      ]
+    },
+    {
+      "name": "random_019",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000b5b",
+      "b_base": "00000157",
+      "c_base": "00000590",
+      "m": 1,
+      "n": 1,
+      "k": 3,
+      "init_mem": "random_019_init.mem",
+      "expected_mem": "random_019_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 15701831372163684672,
+      "a_matrix": [
+        [
+          -14,
+          -52,
+          114
+        ]
+      ],
+      "b_matrix": [
+        [
+          -124
+        ],
+        [
+          72
+        ],
+        [
+          -111
+        ]
+      ],
+      "c_matrix": [
+        [
+          -14662
+        ]
+      ]
+    },
+    {
+      "name": "random_020",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000250",
+      "b_base": "000006dc",
+      "c_base": "000006b4",
+      "m": 1,
+      "n": 2,
+      "k": 1,
+      "init_mem": "random_020_init.mem",
+      "expected_mem": "random_020_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13182907278086181197,
+      "a_matrix": [
+        [
+          -21
+        ]
+      ],
+      "b_matrix": [
+        [
+          42,
+          61
+        ]
+      ],
+      "c_matrix": [
+        [
+          -882,
+          -1281
+        ]
+      ]
+    },
+    {
+      "name": "random_021",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000a12",
+      "b_base": "00000d66",
+      "c_base": "00000fd5",
+      "m": 3,
+      "n": 4,
+      "k": 3,
+      "init_mem": "random_021_init.mem",
+      "expected_mem": "random_021_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 1643653655073430414,
+      "a_matrix": [
+        [
+          45,
+          118,
+          117
+        ],
+        [
+          -103,
+          16,
+          -35
+        ],
+        [
+          2,
+          36,
+          106
+        ]
+      ],
+      "b_matrix": [
+        [
+          -98,
+          109,
+          42,
+          76
+        ],
+        [
+          102,
+          19,
+          -17,
+          -32
+        ],
+        [
+          69,
+          74,
+          81,
+          -57
+        ]
+      ],
+      "c_matrix": [
+        [
+          15699,
+          15805,
+          9361,
+          -7025
+        ],
+        [
+          9311,
+          -13513,
+          -7433,
+          -6345
+        ],
+        [
+          10790,
+          8746,
+          8058,
+          -7042
+        ]
+      ]
+    },
+    {
+      "name": "random_022",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000d54",
+      "b_base": "0000088e",
+      "c_base": "000001dd",
+      "m": 4,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_022_init.mem",
+      "expected_mem": "random_022_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 8463455436571160287,
+      "a_matrix": [
+        [
+          36,
+          -17,
+          -101,
+          80
+        ],
+        [
+          -11,
+          -52,
+          31,
+          -121
+        ],
+        [
+          -22,
+          -59,
+          26,
+          28
+        ],
+        [
+          -102,
+          -107,
+          83,
+          -12
+        ]
+      ],
+      "b_matrix": [
+        [
+          -126,
+          -105,
+          79
+        ],
+        [
+          113,
+          -74,
+          65
+        ],
+        [
+          -15,
+          -21,
+          114
+        ],
+        [
+          111,
+          -23,
+          -121
+        ]
+      ],
+      "c_matrix": [
+        [
+          3938,
+          -2241,
+          -19455
+        ],
+        [
+          -18386,
+          7135,
+          13926
+        ],
+        [
+          -1177,
+          5486,
+          -5997
+        ],
+        [
+          -1816,
+          17161,
+          -4099
+        ]
+      ]
+    },
+    {
+      "name": "random_023",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000118",
+      "b_base": "00000674",
+      "c_base": "00000460",
+      "m": 1,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_023_init.mem",
+      "expected_mem": "random_023_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 7586318409301671610,
+      "a_matrix": [
+        [
+          -120,
+          69,
+          33,
+          -16
+        ]
+      ],
+      "b_matrix": [
+        [
+          44,
+          83
+        ],
+        [
+          22,
+          -24
+        ],
+        [
+          0,
+          -104
+        ],
+        [
+          -88,
+          96
+        ]
+      ],
+      "c_matrix": [
+        [
+          -2354,
+          -16584
+        ]
+      ]
+    },
+    {
+      "name": "random_024",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000078d",
+      "b_base": "000001a3",
+      "c_base": "000003a9",
+      "m": 3,
+      "n": 2,
+      "k": 2,
+      "init_mem": "random_024_init.mem",
+      "expected_mem": "random_024_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 5452604093418945985,
+      "a_matrix": [
+        [
+          54,
+          108
+        ],
+        [
+          67,
+          -126
+        ],
+        [
+          -69,
+          -79
+        ]
+      ],
+      "b_matrix": [
+        [
+          79,
+          -88
+        ],
+        [
+          41,
+          -108
+        ]
+      ],
+      "c_matrix": [
+        [
+          8694,
+          -16416
+        ],
+        [
+          127,
+          7712
+        ],
+        [
+          -8690,
+          14604
+        ]
+      ]
+    },
+    {
+      "name": "random_025",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000331",
+      "b_base": "00000c8a",
+      "c_base": "00000763",
+      "m": 3,
+      "n": 2,
+      "k": 3,
+      "init_mem": "random_025_init.mem",
+      "expected_mem": "random_025_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 3244003394941327376,
+      "a_matrix": [
+        [
+          -56,
+          -67,
+          -87
+        ],
+        [
+          3,
+          -10,
+          -98
+        ],
+        [
+          -127,
+          -128,
+          0
+        ]
+      ],
+      "b_matrix": [
+        [
+          65,
+          46
+        ],
+        [
+          13,
+          -10
+        ],
+        [
+          1,
+          -52
+        ]
+      ],
+      "c_matrix": [
+        [
+          -4598,
+          2618
+        ],
+        [
+          -33,
+          5334
+        ],
+        [
+          -9919,
+          -4562
+        ]
+      ]
+    },
+    {
+      "name": "random_026",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000365",
+      "b_base": "00000e7d",
+      "c_base": "000003df",
+      "m": 2,
+      "n": 2,
+      "k": 2,
+      "init_mem": "random_026_init.mem",
+      "expected_mem": "random_026_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 15591345889258994078,
+      "a_matrix": [
+        [
+          -91,
+          -82
+        ],
+        [
+          26,
+          -98
+        ]
+      ],
+      "b_matrix": [
+        [
+          98,
+          -66
+        ],
+        [
+          -89,
+          81
+        ]
+      ],
+      "c_matrix": [
+        [
+          -1620,
+          -636
+        ],
+        [
+          11270,
+          -9654
+        ]
+      ]
+    },
+    {
+      "name": "random_027",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000008d4",
+      "b_base": "00000eeb",
+      "c_base": "000002c7",
+      "m": 3,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_027_init.mem",
+      "expected_mem": "random_027_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 16351813009564509464,
+      "a_matrix": [
+        [
+          -37,
+          -44,
+          -35,
+          -122
+        ],
+        [
+          81,
+          36,
+          25,
+          74
+        ],
+        [
+          -74,
+          32,
+          -70,
+          32
+        ]
+      ],
+      "b_matrix": [
+        [
+          98
+        ],
+        [
+          55
+        ],
+        [
+          -58
+        ],
+        [
+          -39
+        ]
+      ],
+      "c_matrix": [
+        [
+          742
+        ],
+        [
+          5582
+        ],
+        [
+          -2680
+        ]
+      ]
+    },
+    {
+      "name": "random_028",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000a7e",
+      "b_base": "0000072e",
+      "c_base": "000009cf",
+      "m": 1,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_028_init.mem",
+      "expected_mem": "random_028_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 3140122117211973325,
+      "a_matrix": [
+        [
+          -120,
+          -55,
+          -51,
+          50
+        ]
+      ],
+      "b_matrix": [
+        [
+          -66,
+          16,
+          23
+        ],
+        [
+          120,
+          -87,
+          -10
+        ],
+        [
+          97,
+          -99,
+          108
+        ],
+        [
+          107,
+          -48,
+          -75
+        ]
+      ],
+      "c_matrix": [
+        [
+          1723,
+          5514,
+          -11468
+        ]
+      ]
+    },
+    {
+      "name": "random_029",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000d7a",
+      "b_base": "00000aa5",
+      "c_base": "00000716",
+      "m": 2,
+      "n": 3,
+      "k": 3,
+      "init_mem": "random_029_init.mem",
+      "expected_mem": "random_029_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13893036653836331424,
+      "a_matrix": [
+        [
+          102,
+          48,
+          -30
+        ],
+        [
+          78,
+          82,
+          46
+        ]
+      ],
+      "b_matrix": [
+        [
+          122,
+          -77,
+          -35
+        ],
+        [
+          -105,
+          -52,
+          75
+        ],
+        [
+          105,
+          -69,
+          122
+        ]
+      ],
+      "c_matrix": [
+        [
+          4254,
+          -8280,
+          -3630
+        ],
+        [
+          5736,
+          -13444,
+          9032
+        ]
+      ]
+    },
+    {
+      "name": "random_030",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000fe5",
+      "b_base": "0000018b",
+      "c_base": "00000d0c",
+      "m": 1,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_030_init.mem",
+      "expected_mem": "random_030_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 16262922989031932179,
+      "a_matrix": [
+        [
+          -37,
+          97,
+          -48,
+          -2
+        ]
+      ],
+      "b_matrix": [
+        [
+          8,
+          80
+        ],
+        [
+          -110,
+          -103
+        ],
+        [
+          42,
+          -15
+        ],
+        [
+          -105,
+          126
+        ]
+      ],
+      "c_matrix": [
+        [
+          -12772,
+          -12483
+        ]
+      ]
+    },
+    {
+      "name": "random_031",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000a2f",
+      "b_base": "000005fc",
+      "c_base": "0000068e",
+      "m": 1,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_031_init.mem",
+      "expected_mem": "random_031_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 11781211265394499781,
+      "a_matrix": [
+        [
+          -112
+        ]
+      ],
+      "b_matrix": [
+        [
+          -23
+        ]
+      ],
+      "c_matrix": [
+        [
+          2576
+        ]
+      ]
+    },
+    {
+      "name": "random_032",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000b05",
+      "b_base": "00000f5e",
+      "c_base": "000004af",
+      "m": 2,
+      "n": 4,
+      "k": 1,
+      "init_mem": "random_032_init.mem",
+      "expected_mem": "random_032_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 11965951502631444857,
+      "a_matrix": [
+        [
+          77
+        ],
+        [
+          -14
+        ]
+      ],
+      "b_matrix": [
+        [
+          55,
+          -86,
+          59,
+          -64
+        ]
+      ],
+      "c_matrix": [
+        [
+          4235,
+          -6622,
+          4543,
+          -4928
+        ],
+        [
+          -770,
+          1204,
+          -826,
+          896
+        ]
+      ]
+    },
+    {
+      "name": "random_033",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000060e",
+      "b_base": "00000db6",
+      "c_base": "00000d71",
+      "m": 2,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_033_init.mem",
+      "expected_mem": "random_033_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 5688153544045961151,
+      "a_matrix": [
+        [
+          71,
+          -56,
+          -30,
+          125
+        ],
+        [
+          76,
+          76,
+          -82,
+          49
+        ]
+      ],
+      "b_matrix": [
+        [
+          -22
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          44
+        ]
+      ],
+      "c_matrix": [
+        [
+          3478
+        ],
+        [
+          372
+        ]
+      ]
+    },
+    {
+      "name": "random_034",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000008d",
+      "b_base": "00000bbe",
+      "c_base": "00000a12",
+      "m": 1,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_034_init.mem",
+      "expected_mem": "random_034_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 8083782673578810246,
+      "a_matrix": [
+        [
+          -16,
+          -104,
+          -10,
+          -128
+        ]
+      ],
+      "b_matrix": [
+        [
+          -92,
+          -52,
+          25
+        ],
+        [
+          96,
+          -79,
+          2
+        ],
+        [
+          -38,
+          -99,
+          -23
+        ],
+        [
+          -56,
+          7,
+          -24
+        ]
+      ],
+      "c_matrix": [
+        [
+          -964,
+          9142,
+          2694
+        ]
+      ]
+    },
+    {
+      "name": "random_035",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000119",
+      "b_base": "000007f3",
+      "c_base": "000003c9",
+      "m": 1,
+      "n": 2,
+      "k": 3,
+      "init_mem": "random_035_init.mem",
+      "expected_mem": "random_035_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 12369596910938363426,
+      "a_matrix": [
+        [
+          -20,
+          -85,
+          18
+        ]
+      ],
+      "b_matrix": [
+        [
+          24,
+          -127
+        ],
+        [
+          53,
+          -26
+        ],
+        [
+          -33,
+          12
+        ]
+      ],
+      "c_matrix": [
+        [
+          -5579,
+          4966
+        ]
+      ]
+    },
+    {
+      "name": "random_036",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "0000077d",
+      "b_base": "00000f2e",
+      "c_base": "0000096c",
+      "m": 1,
+      "n": 4,
+      "k": 4,
+      "init_mem": "random_036_init.mem",
+      "expected_mem": "random_036_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 12591578755803805932,
+      "a_matrix": [
+        [
+          -39,
+          -90,
+          44,
+          98
+        ]
+      ],
+      "b_matrix": [
+        [
+          80,
+          87,
+          -120,
+          101
+        ],
+        [
+          44,
+          69,
+          73,
+          -85
+        ],
+        [
+          -106,
+          107,
+          -18,
+          44
+        ],
+        [
+          -18,
+          124,
+          29,
+          48
+        ]
+      ],
+      "c_matrix": [
+        [
+          -13508,
+          7257,
+          160,
+          10351
+        ]
+      ]
+    },
+    {
+      "name": "random_037",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000ba8",
+      "b_base": "00000671",
+      "c_base": "000005a9",
+      "m": 2,
+      "n": 4,
+      "k": 3,
+      "init_mem": "random_037_init.mem",
+      "expected_mem": "random_037_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13611369574086922159,
+      "a_matrix": [
+        [
+          92,
+          63,
+          50
+        ],
+        [
+          -43,
+          69,
+          3
+        ]
+      ],
+      "b_matrix": [
+        [
+          20,
+          -40,
+          -53,
+          99
+        ],
+        [
+          46,
+          -3,
+          60,
+          111
+        ],
+        [
+          -111,
+          60,
+          86,
+          97
+        ]
+      ],
+      "c_matrix": [
+        [
+          -812,
+          -869,
+          3204,
+          20951
+        ],
+        [
+          1981,
+          1693,
+          6677,
+          3693
+        ]
+      ]
+    },
+    {
+      "name": "random_038",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000668",
+      "b_base": "000000bc",
+      "c_base": "00000a10",
+      "m": 1,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_038_init.mem",
+      "expected_mem": "random_038_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 2186691613378544348,
+      "a_matrix": [
+        [
+          107,
+          40,
+          -21,
+          -39
+        ]
+      ],
+      "b_matrix": [
+        [
+          74,
+          -54
+        ],
+        [
+          46,
+          -58
+        ],
+        [
+          100,
+          -112
+        ],
+        [
+          98,
+          -97
+        ]
+      ],
+      "c_matrix": [
+        [
+          3836,
+          -1963
+        ]
+      ]
+    },
+    {
+      "name": "random_039",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000004e0",
+      "b_base": "00000c52",
+      "c_base": "00000c42",
+      "m": 4,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_039_init.mem",
+      "expected_mem": "random_039_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 6689362203659626343,
+      "a_matrix": [
+        [
+          42,
+          88,
+          120,
+          115
+        ],
+        [
+          -66,
+          77,
+          -127,
+          124
+        ],
+        [
+          63,
+          -80,
+          64,
+          -12
+        ],
+        [
+          95,
+          49,
+          73,
+          111
+        ]
+      ],
+      "b_matrix": [
+        [
+          77
+        ],
+        [
+          125
+        ],
+        [
+          121
+        ],
+        [
+          103
+        ]
+      ],
+      "c_matrix": [
+        [
+          40599
+        ],
+        [
+          1948
+        ],
+        [
+          1359
+        ],
+        [
+          33706
+        ]
+      ]
+    },
+    {
+      "name": "random_040",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000474",
+      "b_base": "00000c4c",
+      "c_base": "00000a08",
+      "m": 2,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_040_init.mem",
+      "expected_mem": "random_040_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 158823130805927763,
+      "a_matrix": [
+        [
+          -94
+        ],
+        [
+          -6
+        ]
+      ],
+      "b_matrix": [
+        [
+          119
+        ]
+      ],
+      "c_matrix": [
+        [
+          -11186
+        ],
+        [
+          -714
+        ]
+      ]
+    },
+    {
+      "name": "random_041",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000817",
+      "b_base": "00000dce",
+      "c_base": "00000433",
+      "m": 3,
+      "n": 4,
+      "k": 2,
+      "init_mem": "random_041_init.mem",
+      "expected_mem": "random_041_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 18239943274683485002,
+      "a_matrix": [
+        [
+          123,
+          80
+        ],
+        [
+          108,
+          -79
+        ],
+        [
+          -110,
+          -80
+        ]
+      ],
+      "b_matrix": [
+        [
+          -72,
+          20,
+          21,
+          -65
+        ],
+        [
+          -47,
+          -3,
+          -111,
+          32
+        ]
+      ],
+      "c_matrix": [
+        [
+          -12616,
+          2220,
+          -6297,
+          -5435
+        ],
+        [
+          -4063,
+          2397,
+          11037,
+          -9548
+        ],
+        [
+          11680,
+          -1960,
+          6570,
+          4590
+        ]
+      ]
+    },
+    {
+      "name": "random_042",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000b7c",
+      "b_base": "00000d36",
+      "c_base": "00000830",
+      "m": 3,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_042_init.mem",
+      "expected_mem": "random_042_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 12995193893547078941,
+      "a_matrix": [
+        [
+          85,
+          -66,
+          -13,
+          -15
+        ],
+        [
+          56,
+          -119,
+          -127,
+          -97
+        ],
+        [
+          86,
+          61,
+          -46,
+          107
+        ]
+      ],
+      "b_matrix": [
+        [
+          -78,
+          20,
+          23
+        ],
+        [
+          -120,
+          -106,
+          86
+        ],
+        [
+          -7,
+          127,
+          4
+        ],
+        [
+          -47,
+          -89,
+          96
+        ]
+      ],
+      "c_matrix": [
+        [
+          2086,
+          8380,
+          -5213
+        ],
+        [
+          15360,
+          6238,
+          -18766
+        ],
+        [
+          -18735,
+          -20111,
+          17312
+        ]
+      ]
+    },
+    {
+      "name": "random_043",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000009b6",
+      "b_base": "00000b21",
+      "c_base": "0000056f",
+      "m": 4,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_043_init.mem",
+      "expected_mem": "random_043_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 8717280539360285439,
+      "a_matrix": [
+        [
+          22,
+          -28,
+          -9,
+          21
+        ],
+        [
+          -117,
+          2,
+          -19,
+          -6
+        ],
+        [
+          -61,
+          54,
+          -118,
+          38
+        ],
+        [
+          123,
+          -92,
+          37,
+          -74
+        ]
+      ],
+      "b_matrix": [
+        [
+          116,
+          -51
+        ],
+        [
+          48,
+          27
+        ],
+        [
+          25,
+          -121
+        ],
+        [
+          -56,
+          -32
+        ]
+      ],
+      "c_matrix": [
+        [
+          -193,
+          -1461
+        ],
+        [
+          -13615,
+          8512
+        ],
+        [
+          -9562,
+          17631
+        ],
+        [
+          14921,
+          -10866
+        ]
+      ]
+    },
+    {
+      "name": "random_044",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000008b9",
+      "b_base": "00000481",
+      "c_base": "00000166",
+      "m": 4,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_044_init.mem",
+      "expected_mem": "random_044_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13278226584046544444,
+      "a_matrix": [
+        [
+          -125
+        ],
+        [
+          45
+        ],
+        [
+          -96
+        ],
+        [
+          -50
+        ]
+      ],
+      "b_matrix": [
+        [
+          -13
+        ]
+      ],
+      "c_matrix": [
+        [
+          1625
+        ],
+        [
+          -585
+        ],
+        [
+          1248
+        ],
+        [
+          650
+        ]
+      ]
+    },
+    {
+      "name": "random_045",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000df6",
+      "b_base": "0000045b",
+      "c_base": "00000b3a",
+      "m": 1,
+      "n": 2,
+      "k": 3,
+      "init_mem": "random_045_init.mem",
+      "expected_mem": "random_045_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 3201410992918656488,
+      "a_matrix": [
+        [
+          -123,
+          -32,
+          -121
+        ]
+      ],
+      "b_matrix": [
+        [
+          -47,
+          4
+        ],
+        [
+          75,
+          114
+        ],
+        [
+          -120,
+          -108
+        ]
+      ],
+      "c_matrix": [
+        [
+          17901,
+          8928
+        ]
+      ]
+    },
+    {
+      "name": "random_046",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000499",
+      "b_base": "0000031f",
+      "c_base": "000002a4",
+      "m": 4,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_046_init.mem",
+      "expected_mem": "random_046_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 14341155720147074617,
+      "a_matrix": [
+        [
+          -127
+        ],
+        [
+          79
+        ],
+        [
+          -92
+        ],
+        [
+          16
+        ]
+      ],
+      "b_matrix": [
+        [
+          -97
+        ]
+      ],
+      "c_matrix": [
+        [
+          12319
+        ],
+        [
+          -7663
+        ],
+        [
+          8924
+        ],
+        [
+          -1552
+        ]
+      ]
+    },
+    {
+      "name": "random_047",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000002b7",
+      "b_base": "00000d27",
+      "c_base": "00000fdb",
+      "m": 4,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_047_init.mem",
+      "expected_mem": "random_047_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 13310839832625426188,
+      "a_matrix": [
+        [
+          -78
+        ],
+        [
+          -128
+        ],
+        [
+          84
+        ],
+        [
+          56
+        ]
+      ],
+      "b_matrix": [
+        [
+          -82
+        ]
+      ],
+      "c_matrix": [
+        [
+          6396
+        ],
+        [
+          10496
+        ],
+        [
+          -6888
+        ],
+        [
+          -4592
+        ]
+      ]
+    },
+    {
+      "name": "random_048",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "00000226",
+      "b_base": "0000047b",
+      "c_base": "000007ef",
+      "m": 3,
+      "n": 1,
+      "k": 4,
+      "init_mem": "random_048_init.mem",
+      "expected_mem": "random_048_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 599513984827079941,
+      "a_matrix": [
+        [
+          26,
+          -91,
+          -78,
+          85
+        ],
+        [
+          105,
+          99,
+          112,
+          85
+        ],
+        [
+          77,
+          57,
+          -82,
+          -83
+        ]
+      ],
+      "b_matrix": [
+        [
+          58
+        ],
+        [
+          86
+        ],
+        [
+          20
+        ],
+        [
+          46
+        ]
+      ],
+      "c_matrix": [
+        [
+          -3968
+        ],
+        [
+          20754
+        ],
+        [
+          3910
+        ]
+      ]
+    },
+    {
+      "name": "random_049",
+      "source": "random",
+      "kind": "valid",
+      "a_base": "000005cf",
+      "b_base": "00000f44",
+      "c_base": "000004de",
+      "m": 2,
+      "n": 3,
+      "k": 4,
+      "init_mem": "random_049_init.mem",
+      "expected_mem": "random_049_expected.mem",
+      "expected_status": {
+        "word": "00000002",
+        "busy": 0,
+        "done": 1,
+        "error": 0,
+        "invalid_size": 0
+      },
+      "memory_seed": 17785692790640173026,
+      "a_matrix": [
+        [
+          -97,
+          -60,
+          -21,
+          -78
+        ],
+        [
+          73,
+          -19,
+          124,
+          -79
+        ]
+      ],
+      "b_matrix": [
+        [
+          41,
+          -87,
+          80
+        ],
+        [
+          120,
+          53,
+          -59
+        ],
+        [
+          27,
+          106,
+          -91
+        ],
+        [
+          -112,
+          -82,
+          121
+        ]
+      ],
+      "c_matrix": [
+        [
+          -3008,
+          9429,
+          -11747
+        ],
+        [
+          12909,
+          12264,
+          -13882
+        ]
+      ]
+    },
+    {
+      "name": "random_050",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "000006e4",
+      "b_base": "000006d7",
+      "c_base": "0000029b",
+      "m": 5,
+      "n": 2,
+      "k": 1,
+      "init_mem": "random_050_init.mem",
+      "expected_mem": "random_050_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 1235990448117162281,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_051",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000aeb",
+      "b_base": "000002e1",
+      "c_base": "000009f3",
+      "m": 0,
+      "n": 2,
+      "k": 1,
+      "init_mem": "random_051_init.mem",
+      "expected_mem": "random_051_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 1281484638275520101,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_052",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "000007ea",
+      "b_base": "000007df",
+      "c_base": "00000282",
+      "m": 3,
+      "n": 5,
+      "k": 4,
+      "init_mem": "random_052_init.mem",
+      "expected_mem": "random_052_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 853966067291572029,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_053",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "0000032b",
+      "b_base": "000003c0",
+      "c_base": "00000584",
+      "m": 5,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_053_init.mem",
+      "expected_mem": "random_053_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 9731341022171674788,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_054",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "000002af",
+      "b_base": "00000693",
+      "c_base": "00000450",
+      "m": 0,
+      "n": 4,
+      "k": 2,
+      "init_mem": "random_054_init.mem",
+      "expected_mem": "random_054_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 14553684388829105138,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_055",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "000002a3",
+      "b_base": "000002d9",
+      "c_base": "00000e23",
+      "m": 1,
+      "n": 0,
+      "k": 1,
+      "init_mem": "random_055_init.mem",
+      "expected_mem": "random_055_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 7088151823596431014,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_056",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000de0",
+      "b_base": "000007fa",
+      "c_base": "000008d9",
+      "m": 0,
+      "n": 4,
+      "k": 3,
+      "init_mem": "random_056_init.mem",
+      "expected_mem": "random_056_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 7289095741280799848,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_057",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000d18",
+      "b_base": "00000f74",
+      "c_base": "000004e0",
+      "m": 0,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_057_init.mem",
+      "expected_mem": "random_057_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 12510808479925612914,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_058",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "0000063f",
+      "b_base": "00000f28",
+      "c_base": "00000441",
+      "m": 3,
+      "n": 0,
+      "k": 2,
+      "init_mem": "random_058_init.mem",
+      "expected_mem": "random_058_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 16387473037040690003,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_059",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000ddf",
+      "b_base": "0000052f",
+      "c_base": "00000dff",
+      "m": 5,
+      "n": 3,
+      "k": 2,
+      "init_mem": "random_059_init.mem",
+      "expected_mem": "random_059_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 12468521445681547723,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_060",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000721",
+      "b_base": "00000a93",
+      "c_base": "00000454",
+      "m": 1,
+      "n": 1,
+      "k": 0,
+      "init_mem": "random_060_init.mem",
+      "expected_mem": "random_060_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 4392393737457310005,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_061",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000dd1",
+      "b_base": "00000108",
+      "c_base": "000009fa",
+      "m": 5,
+      "n": 4,
+      "k": 3,
+      "init_mem": "random_061_init.mem",
+      "expected_mem": "random_061_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 16822044529036280482,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_062",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000368",
+      "b_base": "000000bb",
+      "c_base": "00000620",
+      "m": 0,
+      "n": 1,
+      "k": 2,
+      "init_mem": "random_062_init.mem",
+      "expected_mem": "random_062_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 10426570562055895018,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_063",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000e0b",
+      "b_base": "00000cf7",
+      "c_base": "00000b0f",
+      "m": 4,
+      "n": 2,
+      "k": 0,
+      "init_mem": "random_063_init.mem",
+      "expected_mem": "random_063_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 12243875843195068528,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_064",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000d64",
+      "b_base": "00000512",
+      "c_base": "0000097d",
+      "m": 3,
+      "n": 1,
+      "k": 0,
+      "init_mem": "random_064_init.mem",
+      "expected_mem": "random_064_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 2602302799301447567,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_065",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000457",
+      "b_base": "00000752",
+      "c_base": "000006ed",
+      "m": 5,
+      "n": 1,
+      "k": 1,
+      "init_mem": "random_065_init.mem",
+      "expected_mem": "random_065_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 16141514405474388320,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_066",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000d2e",
+      "b_base": "00000bb6",
+      "c_base": "00000b4f",
+      "m": 4,
+      "n": 5,
+      "k": 4,
+      "init_mem": "random_066_init.mem",
+      "expected_mem": "random_066_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 360867503289236865,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_067",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "000009f1",
+      "b_base": "00000a25",
+      "c_base": "00000406",
+      "m": 0,
+      "n": 2,
+      "k": 4,
+      "init_mem": "random_067_init.mem",
+      "expected_mem": "random_067_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 10513354966670432577,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_068",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000496",
+      "b_base": "000007a2",
+      "c_base": "00000f6f",
+      "m": 1,
+      "n": 0,
+      "k": 3,
+      "init_mem": "random_068_init.mem",
+      "expected_mem": "random_068_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 2286245637175985572,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    },
+    {
+      "name": "random_069",
+      "source": "random",
+      "kind": "invalid",
+      "a_base": "00000cc8",
+      "b_base": "00000904",
+      "c_base": "00000304",
+      "m": 1,
+      "n": 2,
+      "k": 0,
+      "init_mem": "random_069_init.mem",
+      "expected_mem": "random_069_expected.mem",
+      "expected_status": {
+        "word": "0000000e",
+        "busy": 0,
+        "done": 1,
+        "error": 1,
+        "invalid_size": 1
+      },
+      "memory_seed": 2352181608335172186,
+      "a_matrix": null,
+      "b_matrix": null,
+      "c_matrix": null
+    }
+  ]
+}
