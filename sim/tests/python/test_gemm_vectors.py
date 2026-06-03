@@ -110,6 +110,38 @@ class TestGemmVectorGeneration(unittest.TestCase):
                 (out_b / "random_000_init.mem").read_text(),
             )
 
+    def test_directed_invalid_case_allows_placeholder_bases(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            directed_file = tmp_path / "directed_invalid.json"
+            directed_file.write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "invalid_size_placeholder_bases",
+                            "m": 0,
+                            "n": 1,
+                            "k": 1,
+                            "a_base": "00000000",
+                            "b_base": "00000000",
+                            "c_base": "00000000",
+                        }
+                    ]
+                )
+            )
+            out_dir = tmp_path / "vectors"
+
+            manifest = generate_vectors(out_dir=out_dir, directed_file=directed_file)
+            case = manifest["cases"][0]
+
+            self.assertEqual(case["kind"], "invalid")
+            self.assertEqual(case["expected_status"]["word"], "0000000e")
+            self.assertIsNone(case["c_matrix"])
+            self.assertEqual(
+                (out_dir / "directed_000_init.mem").read_text(),
+                (out_dir / "directed_000_expected.mem").read_text(),
+            )
+
     def test_invalid_random_case_has_invalid_status_and_unchanged_memory(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             out_dir = Path(tmp) / "vectors"

@@ -108,6 +108,9 @@ def ranges_overlap(base_a: int, words_a: int, base_b: int, words_b: int) -> bool
 
 
 def validate_bases(txn: GemmTransaction) -> None:
+    if not is_valid_transaction(txn):
+        return
+
     sizes = words_for_case(txn)
     bases = (txn.a_base, txn.b_base, txn.c_base)
     for base, words, label in zip(bases, sizes, ("A", "B", "C")):
@@ -133,7 +136,11 @@ def choose_non_overlapping_bases(
 ) -> tuple[int, int, int]:
     sizes = (a_words, b_words, c_words)
     for _attempt in range(10_000):
-        bases = tuple(choose_base(rng, words) for words in sizes)
+        bases = (
+            choose_base(rng, a_words),
+            choose_base(rng, b_words),
+            choose_base(rng, c_words),
+        )
         if all(
             not ranges_overlap(bases[left], sizes[left], bases[right], sizes[right])
             for left in range(len(bases))
@@ -209,7 +216,11 @@ def read_optional_bases(entry: dict[str, Any]) -> Optional[tuple[int, int, int]]
         raise ValueError("directed case must provide all or none of a_base/b_base/c_base")
     if not any(present):
         return None
-    return tuple(parse_int(entry[field], field) for field in fields)
+    return (
+        parse_int(entry["a_base"], "a_base"),
+        parse_int(entry["b_base"], "b_base"),
+        parse_int(entry["c_base"], "c_base"),
+    )
 
 
 def build_directed_cases(path: Path) -> list[VectorCase]:
