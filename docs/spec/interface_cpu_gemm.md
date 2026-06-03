@@ -51,3 +51,18 @@ CPU                         GEMM
 ```
 
 지원하는 dimension은 baseline에서 `1 <= M,N,K <= 4`이다. 범위를 벗어나면 GEMM은 memory access를 시작하지 않고 `done=1`, `error=1`, `invalid_size=1`을 보고한다.
+
+## Transactional Verification Contract
+
+Verilator testbench도 위 protocol을 그대로 사용하는 transaction driver 형태로 작성한다. 검증 코드는 accelerator 내부 state를 직접 force하거나 local buffer를 직접 비교하지 않는다. 대신 transaction 입력을 만들고, MMIO register write/read와 external memory read/write만으로 결과를 확인한다.
+
+각 test transaction은 아래 정보를 가진다.
+
+| 항목 | 의미 |
+| --- | --- |
+| Input setup | `A_BASE`, `B_BASE`, `C_BASE`, `M`, `N`, `K`, A/B matrix contents |
+| Stimulus | `CTRL.start` write와 `STATUS.done` polling |
+| Expected status | 정상 transaction은 `error=0`, invalid transaction은 `error=1`, `invalid_size=1` |
+| Expected memory | 정상 transaction에서 `C_BASE` 이후 `M*N` word가 golden model 결과와 일치해야 한다. |
+
+Random test는 이 transaction 구조 안에서 `M`, `N`, `K`, A/B 값, base address를 constrained-random으로 생성한다. A/B packing과 zero padding은 `data_memory.md`의 layout contract를 따른다.

@@ -1,19 +1,23 @@
 # GEMM Accelerator Spec
 
-GEMM accelerator는 Simple CPU가 넘긴 matrix 위치와 크기를 받아 `C = A x B`를 계산하는 coprocessor이다. CPU는 작업을 시작하고 상태를 확인하는 역할만 맡고, accelerator가 A/B load, MAC accumulation, C writeback을 수행한다.
+GEMM accelerator는 Simple CPU가 넘긴 matrix 위치와 크기를 받아 `C = A x B`를 계산하는 co-processor이다. CPU는 작업을 시작하고 상태를 확인하는 역할만 맡고, accelerator가 A/B load, MAC accumulation, C writeback을 수행한다.
+
+이 문서는 accelerator 내부 구조와 동작 순서를 정의한다. Controller FSM, local buffer, LSU, MAC datapath의 책임과 transaction 흐름이 이 문서의 범위이다.
+
+External data memory의 주소 단위, A/B packed lane mapping, zero padding, C word layout 같은 memory layout 규칙의 source of truth는 `data_memory.md`이다. 이 문서는 그 layout contract를 전제로 accelerator가 데이터를 어떻게 읽고 계산하고 쓰는지만 설명한다.
 
 ## Design Snapshot
 
-| 항목 | Baseline 결정 |
-| --- | --- |
-| Operation | `C = A x B` |
-| Matrix size | `1 <= M,N,K <= 4` |
-| Input type | signed int8 |
-| Product type | signed int16 |
-| Accumulator / output type | signed int32 |
-| Input layout | A/B packed, 4 int8 per 32-bit word |
-| Output layout | C unpacked, 1 int32 per 32-bit word |
-| Compute datapath | 1-MAC serial |
+| 항목                      | Baseline 결정                       |
+| ------------------------- | ----------------------------------- |
+| Operation                 | `C = A x B`                       |
+| Matrix size               | `1 <= M,N,K <= 4`                 |
+| Input type                | signed int8                         |
+| Product type              | signed int16                        |
+| Accumulator / output type | signed int32                        |
+| Input layout              | A/B packed, 4 int8 per 32-bit word  |
+| Output layout             | C unpacked, 1 int32 per 32-bit word |
+| Compute datapath          | 1-MAC serial                        |
 
 ## Dataflow
 
@@ -43,13 +47,13 @@ Store C to external memory
 
 ## Block Responsibilities
 
-| Block | 이 블록이 끝까지 책임지는 일 |
-| --- | --- |
-| MMIO Register Block | CPU가 쓴 base address, dimension, control bit를 보관하고 status bit를 CPU에게 보여준다. |
-| Controller FSM | IDLE, LOAD, COMPUTE, STORE, DONE 순서를 결정하고 각 블록의 enable 조건을 만든다. |
-| Memory Interface / LSU | A/B packed word read, int8 lane unpack, C int32 writeback을 처리한다. |
-| Local Buffer | 최대 4x4 A/B/C tile을 accelerator 내부에 잡아두어 compute와 memory access를 분리한다. |
-| MAC Datapath | signed int8 곱셈과 signed int32 누산으로 C element를 만든다. |
+| Block                  | 이 블록이 끝까지 책임지는 일                                                            |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| MMIO Register Block    | CPU가 쓴 base address, dimension, control bit를 보관하고 status bit를 CPU에게 보여준다. |
+| Controller FSM         | IDLE, LOAD, COMPUTE, STORE, DONE 순서를 결정하고 각 블록의 enable 조건을 만든다.        |
+| Memory Interface / LSU | A/B packed word read, int8 lane unpack, C int32 writeback을 처리한다.                   |
+| Local Buffer           | 최대 4x4 A/B/C tile을 accelerator 내부에 잡아두어 compute와 memory access를 분리한다.   |
+| MAC Datapath           | signed int8 곱셈과 signed int32 누산으로 C element를 만든다.                            |
 
 ## Architecture
 
@@ -89,6 +93,24 @@ flowchart TB
 
 Invalid dimension이면 memory access를 시작하지 않는다. 이 경우 `done=1`, `error=1`, `invalid_size=1`을 보고하고 CPU의 `clear_done`을 기다린다.
 
+## Verification Approach
+
+검증은 transaction 단위로 수행한다. Testbench가 내부 FSM state를 직접 조작하거나 cycle별 중간 결과를 pass/fail 기준으로 삼지 않고, CPU가 실제로 사용하는 MMIO protocol과 external memory 관찰 결과로 하나의 transaction을 검증한다.
+
+하나의 valid transaction은 아래 순서를 하나의 검증 단위로 묶는다.
+
+```text
+1. A/B input matrix를 external memory에 배치한다.
+2. CPU MMIO write와 동일한 방식으로 A_BASE, B_BASE, C_BASE, M, N, K를 설정한다.
+3. CTRL.start를 write한다.
+4. STATUS.done이 1이 될 때까지 기다린다.
+5. STATUS.error가 0인지 확인한다.
+6. C memory contents를 golden model의 C = A x B 결과와 비교한다.
+7. CTRL.clear_done을 write해 다음 transaction을 준비한다.
+```
+
+Invalid dimension transaction은 memory 결과 비교 대신 `done=1`, `error=1`, `invalid_size=1`과 memory access 미발생 여부를 확인한다. 내부 signal 관찰은 debug 용도로만 사용하고, 최종 pass/fail은 transaction boundary에서 보이는 register와 memory 결과로 판단한다.
+
 ## GEMM Operation
 
 Matrix shape은 아래와 같다.
@@ -121,11 +143,11 @@ compute_cycles = M * N * K
 
 ## Local Buffers
 
-| Buffer | Element type | 최대 element 수 | 용도 |
-| --- | --- | --- | --- |
-| `a_buf` | signed int8 | 16 | A tile 저장 |
-| `b_buf` | signed int8 | 16 | B tile 저장 |
-| `c_buf` | signed int32 | 16 | C tile 누산 결과 저장 |
+| Buffer    | Element type | 최대 element 수 | 용도                  |
+| --------- | ------------ | --------------- | --------------------- |
+| `a_buf` | signed int8  | 16              | A tile 저장           |
+| `b_buf` | signed int8  | 16              | B tile 저장           |
+| `c_buf` | signed int32 | 16              | C tile 누산 결과 저장 |
 
 4x4까지 지원하므로 각 buffer는 최대 16개 element를 담으면 충분하다.
 
@@ -193,8 +215,8 @@ done = 1
 
 ## Extension Roadmap
 
-| 단계 | Compute 구조 | 기대 효과 |
-| --- | --- | --- |
-| Baseline | 1-MAC serial | 구현과 검증이 단순하다. |
-| Extension | 4-MAC row-parallel | 한 row의 여러 column을 병렬로 계산할 수 있다. |
-| Stretch | 8-MAC 또는 systolic array | 더 큰 병렬성을 실험할 수 있다. |
+| 단계      | Compute 구조              | 기대 효과                                     |
+| --------- | ------------------------- | --------------------------------------------- |
+| Baseline  | 1-MAC serial              | 구현과 검증이 단순하다.                       |
+| Extension | 4-MAC row-parallel        | 한 row의 여러 column을 병렬로 계산할 수 있다. |
+| Stretch   | 8-MAC 또는 systolic array | 더 큰 병렬성을 실험할 수 있다.                |
