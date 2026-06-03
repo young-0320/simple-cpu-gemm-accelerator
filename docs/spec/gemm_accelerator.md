@@ -15,7 +15,7 @@ External data memory의 주소 단위, A/B packed lane mapping, zero padding, C 
 | Input type                | signed int8                         |
 | Product type              | signed int16                        |
 | Accumulator / output type | signed int32                        |
-| Input layout              | A/B packed, 4 int8 per 32-bit word  |
+| Input layout              | A/B row-based packed, up to 4 int8 per word |
 | Output layout             | C unpacked, 1 int32 per 32-bit word |
 | Compute datapath          | 1-MAC serial                        |
 
@@ -51,7 +51,7 @@ Store C to external memory
 | ---------------------- | --------------------------------------------------------------------------------------- |
 | MMIO Register Block    | CPU가 쓴 base address, dimension, control bit를 보관하고 status bit를 CPU에게 보여준다. |
 | Controller FSM         | IDLE, LOAD, COMPUTE, STORE, DONE 순서를 결정하고 각 블록의 enable 조건을 만든다.        |
-| Memory Interface / LSU | A/B packed word read, int8 lane unpack, C int32 writeback을 처리한다.                   |
+| Memory Interface / LSU | A/B row-based packed word read, int8 lane unpack, C int32 writeback을 처리한다.          |
 | Local Buffer           | 최대 4x4 A/B/C tile을 accelerator 내부에 잡아두어 compute와 memory access를 분리한다.   |
 | MAC Datapath           | signed int8 곱셈과 signed int32 누산으로 C element를 만든다.                            |
 
@@ -165,7 +165,7 @@ Valid transaction이면 `LOAD`로 이동한다. Invalid transaction이면 실제
 
 ### LOAD
 
-External memory에 packed format으로 저장된 A/B matrix를 읽어 내부 buffer에 적재한다.
+External memory에 row-based packed format으로 저장된 A/B matrix를 읽어 내부 buffer에 적재한다.
 
 ```text
 packed A/B word read
@@ -177,7 +177,7 @@ int8 lane unpack
 a_buf / b_buf write
 ```
 
-A/B는 32-bit word 하나에 signed int8 4개가 들어간다. LSU는 필요한 word를 읽고 lane을 골라 signed int8 element로 해석한다. LOAD가 끝나면 `COMPUTE`로 이동한다.
+A/B는 32-bit word 하나에 같은 row의 signed int8 element가 최대 4개 들어간다. LSU는 row-based packed address로 필요한 word를 읽고 lane을 골라 signed int8 element로 해석한다. LOAD가 끝나면 `COMPUTE`로 이동한다.
 
 ### COMPUTE
 

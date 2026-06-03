@@ -15,7 +15,7 @@ CPU가 GEMM을 시작하면 memory data path의 주인은 GEMM accelerator이다
 
 ## Read Path: A/B Load
 
-A와 B는 32-bit word 하나에 int8 element 4개가 들어간 packed format이다. Load-Store Unit은 memory에서 word를 읽고, lane별 signed int8로 unpack한 뒤 local buffer에 저장한다.
+A와 B는 row-based packed format이다. 32-bit word 하나에는 같은 row의 int8 element를 최대 4개까지 저장한다. Load-Store Unit은 memory에서 word를 읽고, lane별 signed int8로 unpack한 뒤 local buffer에 저장한다.
 
 ```text
 external memory word
@@ -30,18 +30,16 @@ sign-extended int8 element
 a_buf / b_buf
 ```
 
-row-major element index는 다음과 같다.
+A/B packed word address와 lane은 row와 column에서 계산한다. Row가 끝나면 남은 lane은 zero padding이고, 다음 row는 다음 word에서 시작한다.
 
 ```text
-A_index = i * K + k
-B_index = k * N + j
-```
+A_row_words = ceil(K / 4) = (K + 3) / 4
+A_word_addr = A_BASE + i * A_row_words + k / 4
+A_lane      = k % 4
 
-packed word address와 lane은 element index에서 계산한다.
-
-```text
-word_addr = BASE + index / 4
-lane      = index % 4
+B_row_words = ceil(N / 4) = (N + 3) / 4
+B_word_addr = B_BASE + k * B_row_words + j / 4
+B_lane      = j % 4
 ```
 
 ## Write Path: C Store
@@ -66,8 +64,8 @@ C_word_addr = C_BASE + C_index
 
 | 단계 | 책임 |
 | --- | --- |
-| LOAD A | `A_BASE`부터 필요한 packed word를 읽고 `a_buf`를 채운다. |
-| LOAD B | `B_BASE`부터 필요한 packed word를 읽고 `b_buf`를 채운다. |
+| LOAD A | `A_BASE`부터 A row-based packed word를 읽고 `a_buf`를 채운다. |
+| LOAD B | `B_BASE`부터 B row-based packed word를 읽고 `b_buf`를 채운다. |
 | STORE C | `c_buf`의 int32 결과를 `C_BASE`부터 row-major 순서로 쓴다. |
 
 Baseline에서는 memory error response를 별도로 정의하지 않는다. Error flag는 dimension validation 같은 accelerator 내부 조건을 보고하는 데 사용한다.

@@ -11,7 +11,7 @@ from pathlib import Path
 MODEL_DIR = Path(__file__).resolve().parents[3] / "model" / "python"
 sys.path.insert(0, str(MODEL_DIR))
 
-from gen_gemm_vectors import MEMORY_WORDS, build_arg_parser, generate_vectors, main, resolve_case_counts, resolve_out_dir  # noqa: E402
+from gen_gemm_vectors import MEMORY_WORDS, build_arg_parser, generate_vectors, main, resolve_case_counts, resolve_out_dir, words_for_valid_dims  # noqa: E402
 
 
 def read_mem_words(path: Path) -> list[int]:
@@ -19,6 +19,9 @@ def read_mem_words(path: Path) -> list[int]:
 
 
 class TestGemmVectorGeneration(unittest.TestCase):
+    def test_valid_word_counts_use_row_based_packing(self) -> None:
+        self.assertEqual(words_for_valid_dims(m=4, n=2, k=3), (4, 3, 8))
+
     def test_directed_only_generation_writes_manifest_tsv_and_full_mem(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
@@ -86,6 +89,8 @@ class TestGemmVectorGeneration(unittest.TestCase):
             expected_words = read_mem_words(out_dir / "directed_000_expected.mem")
             self.assertEqual(len(init_words), MEMORY_WORDS)
             self.assertEqual(len(expected_words), MEMORY_WORDS)
+            self.assertEqual(init_words[0x084], 0x00000005)
+            self.assertEqual(init_words[0x085], 0x000000FA)
             self.assertNotEqual(init_words[0x088], expected_words[0x088])
             self.assertEqual(expected_words[0x088], 0xFFFF_FFD9)
 

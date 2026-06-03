@@ -37,14 +37,14 @@ Directed only:
 
 ```bash
 python3 model/python/gen_gemm_vectors.py \
-  --directed-file model/python/gemm_directed_cases.json
+  --directed-file model/gemm_directed_cases.json
 ```
 
 Mixed:
 
 ```bash
 python3 model/python/gen_gemm_vectors.py \
-  --directed-file model/python/gemm_directed_cases.json \
+  --directed-file model/gemm_directed_cases.json \
   --seed 20260603 \
   --valid-cases 50 \
   --invalid-cases 20
@@ -85,7 +85,7 @@ random_000_expected.mem
 
 `cases.tsv`는 SystemVerilog testbench가 읽을 compact case table이다. `exp_status`는 expected 32-bit `GEMM_STATUS` word이다. Seed 정보는 `manifest.json`에서 확인한다.
 
-`.mem` 파일은 case당 full 4096-word memory image이다. 한 줄이 32-bit word 하나이며, 8자리 hex로 저장된다. SystemVerilog testbench는 `$readmemh`로 읽으면 된다.
+`.mem` 파일은 case당 full 4096-word memory image이다. 한 줄이 32-bit word 하나이며, 8자리 hex로 저장된다. A/B는 row-based packed layout으로 배치하고, SystemVerilog testbench는 `$readmemh`로 읽으면 된다.
 
 Generator는 실행 전에 출력 디렉토리의 기존 generated 파일(`manifest.json`, `cases.tsv`, `*_init.mem`, `*_expected.mem`)을 지우고 새로 생성한다. 다른 메모나 파일은 건드리지 않는다.
 
