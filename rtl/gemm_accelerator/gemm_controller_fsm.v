@@ -20,6 +20,7 @@ module gemm_controller_fsm (
     input  wire [2:0]  m_dim,
     input  wire [2:0]  n_dim,
     input  wire [2:0]  k_dim,
+    input  wire        dim_oor,    // a written dim was out of [1,4] (full 32-bit)
 
     // ---- to MMIO (status sources) ----
     output reg         busy,
@@ -51,7 +52,10 @@ module gemm_controller_fsm (
     function valid_dim(input [2:0] d);
         valid_dim = (d >= `GEMM_DIM_MIN) && (d <= `GEMM_DIM_MAX);
     endfunction
-    wire dims_ok = valid_dim(m_dim) & valid_dim(n_dim) & valid_dim(k_dim);
+    // dims valid iff each truncated dim passes AND no out-of-range write
+    // was flagged on the full 32-bit value (catches aliasing like 9->1).
+    wire dims_ok = valid_dim(m_dim) & valid_dim(n_dim) & valid_dim(k_dim)
+                   & ~dim_oor;
 
     // -------------------------------------------------------
     // State register

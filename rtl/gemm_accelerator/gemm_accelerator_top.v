@@ -34,6 +34,7 @@ module gemm_accelerator_top #(
     // ---- MMIO <-> FSM ----
     wire [11:0] a_base, b_base, c_base;
     wire [2:0]  m_dim, n_dim, k_dim;
+    wire        dim_oor;
     wire        start_pulse, clear_pulse;
     wire        set_done, set_error, set_invsize;
 
@@ -51,7 +52,8 @@ module gemm_accelerator_top #(
     wire [3:0]  mac_a_raddr;
     wire [7:0]  buf_a_rdata, buf_b_rdata;
     wire [3:0]  mac_b_raddr;             // 1-MAC single B read
-    wire [2:0]  mac_b_row_k, mac_b_row_n;// 4-MAC B row read
+    wire [2:0]  mac_b_row_k;
+    wire [2:0]  mac_b_row_n;
     wire [7:0]  buf_brow0, buf_brow1, buf_brow2, buf_brow3;
 
     // ---- C ----
@@ -72,6 +74,7 @@ module gemm_accelerator_top #(
         .mmio_off(mmio_off), .mmio_wdata(mmio_wdata), .mmio_rdata(mmio_rdata),
         .a_base(a_base), .b_base(b_base), .c_base(c_base),
         .m_dim(m_dim), .n_dim(n_dim), .k_dim(k_dim),
+        .dim_oor(dim_oor),
         .start_pulse(start_pulse), .clear_pulse(clear_pulse),
         .fsm_busy(busy),
         .fsm_set_done(set_done), .fsm_set_error(set_error),
@@ -82,6 +85,7 @@ module gemm_accelerator_top #(
         .clk(clk), .reset(reset),
         .start_pulse(start_pulse), .clear_pulse(clear_pulse),
         .m_dim(m_dim), .n_dim(n_dim), .k_dim(k_dim),
+        .dim_oor(dim_oor),
         .busy(busy),
         .set_done(set_done), .set_error(set_error), .set_invsize(set_invsize),
         .lsu_load_en(lsu_load_en), .lsu_load_done(lsu_load_done),
