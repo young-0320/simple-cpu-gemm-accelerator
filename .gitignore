@@ -37,6 +37,7 @@ build/
 obj_dir/
 **/obj_dir/
 sim/build/
+sim/results/
 *.verilator_deplist.tmp
 
 
