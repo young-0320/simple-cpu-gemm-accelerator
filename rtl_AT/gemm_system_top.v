@@ -1,10 +1,10 @@
-//adder_tree + cpu + bram 1
+//adder_tree + cpu + bram 2
 `timescale 1ns / 1ps
 `include "define.vh"
 `include "gemm_define.vh"
 
 module gemm_system_top #(
-    parameter MAC_MODE = 4
+    // parameter MAC_MODE = 
 ) (
     input  wire        clk,
     input  wire        reset,
@@ -25,32 +25,29 @@ module gemm_system_top #(
     wire        cpu_run;          
 
     // ---- Glue <-> GEMM MMIO 연결선 ----
-    wire [2:0]  gemm_cpu_addr;
-    wire [31:0] gemm_cpu_wdata;
-    wire        gemm_cpu_wen;
-    wire        gemm_cpu_ren;
-    wire [31:0] gemm_cpu_rdata;
+    wire [2:0]  mmio_off;
+    wire [31:0] mmio_wdata;
+    wire        mmio_we;
+    wire        mmio_sel;
+    wire [31:0] mmio_rdata;
+
     wire        gemm_busy;
 
     // ---- GEMM LSU <-> Glue 연결선 ----
-    wire [31:0] gemm_bram_addr_a;
-    wire        gemm_bram_wen_a;
-    wire [31:0] gemm_bram_wdata_a;
-    wire [31:0] gemm_bram_rdata_a;
-
-    wire [31:0] gemm_bram_addr_b;
-    wire [31:0] gemm_bram_rdata_b;
+    wire [11:0] lsu_addr_a;
+    wire [11:0] lsu_addr_b;
+    wire [31:0] lsu_wdata;
+    wire        lsu_we;
+    
 
     // ---- Real Dual-Port BRAM 연결선 ----
-    wire [31:0] real_bram_addr_a;
-    wire        real_bram_wen_a;
-    wire [31:0] real_bram_wdata_a;
-    wire [31:0] real_bram_rdata_a;
+    wire [31:0] bram_addr_a;
+    wire        bram_we_a;
+    wire [31:0] bram_wdata_a;
+    wire [31:0] bram_rdata_a;
 
-    wire [31:0] real_bram_addr_b;
-    wire        real_bram_wen_b;
-    wire [31:0] real_bram_wdata_b;
-    wire [31:0] real_bram_rdata_b;
+    wire [31:0] bram_addr_b;
+    wire [31:0] bram_rdata_b;
 
     assign gemm_busy_debug = gemm_busy;
 
@@ -84,7 +81,7 @@ module gemm_system_top #(
     // 주의: 기존 top_cpu의 주소는 12비트이므로 시스템 주소 규격에 맞게 16비트로 확장 인가
     gemm_cpu_glue u_glue (
         .clk(clk),
-        .rst_n(~reset),
+        .rst_n(reset),
         
         // CPU 측
         .cpu_addr({4'd0, cpu_addr}), 
@@ -95,32 +92,29 @@ module gemm_system_top #(
         .cpu_run(cpu_run),
         
         // 가속기 제어/상태 측
-        .gemm_cpu_addr(gemm_cpu_addr),
-        .gemm_cpu_wdata(gemm_cpu_wdata),
-        .gemm_cpu_wen(gemm_cpu_wen),
-        .gemm_cpu_ren(gemm_cpu_ren),
-        .gemm_cpu_rdata(gemm_cpu_rdata),
+        .mmio_off(mmio_off),
+        .mmio_wdata(mmio_wdata),
+        .mmio_we(mmio_we),
+        .mmio_sel(mmio_sel),
+        .mmio_rdata(mmio_rdata),
+
         .gemm_busy(gemm_busy),
         
         // 가속기 LSU 측
-        .gemm_bram_addr_a(gemm_bram_addr_a),
-        .gemm_bram_wen_a(gemm_bram_wen_a),
-        .gemm_bram_wdata_a(gemm_bram_wdata_a),
-        .gemm_bram_rdata_a(gemm_bram_rdata_a),
-        
-        .gemm_bram_addr_b(gemm_bram_addr_b),
-        .gemm_bram_rdata_b(gemm_bram_rdata_b),
+        .lsu_addr_a(lsu_addr_a),
+        .lsu_addr_b(lsu_addr_b),        
+        .lsu_we(lsu_we),
+        .lsu_wdata(lsu_wdata),
         
         // 물리적 BRAM 측
-        .real_bram_addr_a(real_bram_addr_a),
-        .real_bram_wen_a(real_bram_wen_a),
-        .real_bram_wdata_a(real_bram_wdata_a),
-        .real_bram_rdata_a(real_bram_rdata_a),
+        .bram_we_a(bram_we_a),
+        .bram_wdata_a(bram_wdata_a),
+
+        .bram_addr_a(bram_addr_a),
+        .bram_rdata_a(bram_rdata_a),
         
-        .real_bram_addr_b(real_bram_addr_b),
-        .real_bram_wen_b(real_bram_wen_b),
-        .real_bram_wdata_b(real_bram_wdata_b),
-        .real_bram_rdata_b(real_bram_rdata_b)
+        .bram_addr_b(bram_addr_b),
+        .bram_rdata_b(bram_rdata_b)
     );
 
     // =======================================================
@@ -128,26 +122,28 @@ module gemm_system_top #(
     // =======================================================
     gemm_accelerator_top u_gemm (
         .clk(clk), 
-        .rst_n(~reset),
+        .rst_n(reset),
         
         // Glue와 연결되는 MMIO
-        .cpu_addr(gemm_cpu_addr),
-        .cpu_wdata(gemm_cpu_wdata),
-        .cpu_wen(gemm_cpu_wen),
-        .cpu_ren(gemm_cpu_ren),
-        .cpu_rdata(gemm_cpu_rdata),
+        .mmio_off(mmio_off),
+        .mmio_wdata(mmio_wdata),
+        .mmio_we(mmio_we),
+        .mmio_sel(mmio_sel),
+        .mmio_rdata(mmio_rdata),
         
         .gemm_busy(gemm_busy), // Top에서 끌어올린 상태 핀
         
         // Glue와 연결되는 BRAM Port A
-        .bram_addr_a(gemm_bram_addr_a),
-        .bram_wen(gemm_bram_wen_a),
-        .bram_wdata(gemm_bram_wdata_a),
-        .bram_rdata_a(gemm_bram_rdata_a),
+        .mem_addr_a(lsu_addr_a),
+        .mem_we(lsu_we),
+        .mem_wdata(lsu_wdata),
+        .mem_rdata_a(bram_rdata_a),
         
         // Glue와 연결되는 BRAM Port B
-        .bram_addr_b(gemm_bram_addr_b),
-        .bram_rdata_b(gemm_bram_rdata_b)
+        .mem_addr_b(lsu_addr_b),
+        .mem_rdata_b(bram_rdata_b)
+
+        .state_debug(gemm_state_debug)
     );
 
     // =======================================================
@@ -157,23 +153,20 @@ module gemm_system_top #(
     reg [31:0] bram_rdata_a_r;
     reg [31:0] bram_rdata_b_r;
     
-    // 바이트 단위 주소를 워드 인덱스로 변환 (>> 2)
-    wire [11:0] word_addr_a = real_bram_addr_a[11:0];
-    wire [11:0] word_addr_b = real_bram_addr_b[11:0];
-
     always @(posedge clk) begin
         // Port A (읽기/쓰기)
-        if (real_bram_wen_a) begin
-            mem[word_addr_a] <= real_bram_wdata_a;
+        if (bram_we_a) begin
+            mem[bram_addr_a] <= bram_wdata_a;
         end
+
         bram_rdata_a_r <= mem[word_addr_a];
-        
+
         // Port B (읽기 전용 - B행렬 수집용)
-        bram_rdata_b_r <= mem[word_addr_b];
+        bram_rdata_b_r <= mem[bram_addr_b];
     end
     
-    assign real_bram_rdata_a = bram_rdata_a_r;
-    assign real_bram_rdata_b = bram_rdata_b_r;
+    assign bram_rdata_a = bram_rdata_a_r;
+    assign bram_rdata_b = bram_rdata_b_r;
 
 `ifdef GEMM_MEM_INIT
     initial $readmemh(`GEMM_MEM_INIT, mem);

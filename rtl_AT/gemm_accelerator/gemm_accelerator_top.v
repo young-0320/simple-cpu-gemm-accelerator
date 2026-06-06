@@ -5,28 +5,30 @@ module gemm_accelerator_top (
     input  wire        clk,
     input  wire        rst_n,
     
-    output wire        gemm_busy,
+    output wire        busy,
     // ====================================================
     // CPU Bus Interface (MMIO - 32-bit Memory Mapped I/O)
     // ====================================================
-    input  wire [2:0]  cpu_addr,
-    input  wire [31:0] cpu_wdata,
-    input  wire        cpu_wen,
-    input  wire        cpu_ren,
-    output wire [31:0] cpu_rdata,
+    input  wire [2:0]  mmio_off,
+    input  wire [31:0] mmio_wdata,
+    input  wire        mmio_we,
+    input  wire        mmio_sel,
+    output wire [31:0] mmio_rdata,
 
     // ====================================================
     // External Data Memory Interface (Dual-Port BRAM)
     // ====================================================
     // Port A (A 행렬 읽기 및 C 행렬 쓰기 전용)
-    output wire [31:0] bram_addr_a,
-    output wire        bram_wen,
-    output wire [31:0] bram_wdata,
-    input  wire [31:0] bram_rdata_a,
+    output wire [31:0] mem_addr_a,
+    output wire        mem_en,
+    output wire [31:0] mem_wdata,
+    input  wire [31:0] mem_rdata_a,
     
     // Port B (B 행렬 수집 읽기 전용)
-    output wire [31:0] bram_addr_b,
-    input  wire [31:0] bram_rdata_b
+    output wire [31:0] mem_addr_b,
+    input  wire [31:0] mem_rdata_b,
+
+    output wire [2:0] state_debug
 );
 
     // ====================================================
@@ -63,7 +65,7 @@ module gemm_accelerator_top (
     wire [31:0] a_buf, b_buf, c_buf;
     wire [31:0] c_datapath_out;
 
-    assign gemm_busy = status_busy;
+    assign busy = status_busy;
     
     // ====================================================
     // 1. MMIO Register Block 인스턴스화
@@ -72,11 +74,11 @@ module gemm_accelerator_top (
         .clk            (clk),
         .rst_n          (rst_n),
         
-        .addr           (cpu_addr),
-        .wdata          (cpu_wdata),
-        .wen            (cpu_wen),
-        .ren            (cpu_ren),
-        .rdata          (cpu_rdata),
+        .addr           (mmio_off),
+        .wdata          (mmio_wdata),
+        .wen            (mmio_we),
+        .ren            (mmio_sel),
+        .rdata          (mmio_rdata),
         
         .gemm_a_base    (gemm_a_base),
         .gemm_b_base    (gemm_b_base),
@@ -100,7 +102,7 @@ module gemm_accelerator_top (
     gemm_controller_fsm u_fsm (
         .clk                 (clk),
         .rst_n               (rst_n),
-        
+        .clear_pulse         (clear_pulse),
         .start_pulse         (start_pulse),
         .gemm_m              (gemm_m),
         .gemm_n              (gemm_n),
@@ -120,7 +122,8 @@ module gemm_accelerator_top (
         .cnt_m               (cnt_m),
         .cnt_n               (cnt_n),
         .cnt_k               (cnt_k),
-        .load_sub_cnt        (load_sub_cnt)
+        .load_sub_cnt        (load_sub_cnt),
+        .state_debug         (state_debug)
     );
 
     // ====================================================
@@ -144,8 +147,8 @@ module gemm_accelerator_top (
         
         .bram_addr_a    (bram_addr_a),
         .bram_addr_b    (bram_addr_b),
-        .bram_wen       (bram_wen),
-        .bram_wdata     (bram_wdata),
+        .bram_wen       (mem_en),
+        .bram_wdata     (mem_wdata),
         .bram_rdata_a   (bram_rdata_a),
         .bram_rdata_b   (bram_rdata_b),
         

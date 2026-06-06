@@ -54,7 +54,7 @@ module gemm_mmio_reg (
             gemm_m      <= 32'd0;
             gemm_n      <= 32'd0;
             gemm_k      <= 32'd0;
-        end else if (wen && !status_busy) begin 
+        end else if (wen && wen) begin 
             // [수정됨] 8'h00 대신 3비트 매크로 사용
             case (addr)
                 `GEMM_OFF_A_BASE: gemm_a_base <= wdata;

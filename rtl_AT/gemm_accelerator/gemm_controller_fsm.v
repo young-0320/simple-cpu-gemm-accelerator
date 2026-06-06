@@ -6,6 +6,7 @@ module gemm_controller_fsm (
 
     // CPU - MMIO 상위 커맨드 포트 바인딩
     input  wire        start_pulse,
+    input  wire        clear_pulse,
     input  wire [31:0] gemm_m,
     input  wire [31:0] gemm_n,
     input  wire [31:0] gemm_k,
@@ -27,7 +28,9 @@ module gemm_controller_fsm (
     output reg  [31:0] cnt_m,
     output reg  [31:0] cnt_n,
     output reg  [31:0] cnt_k,
-    output reg  [1:0]  load_sub_cnt     // 비전치 행렬 수집용 서브 카운터 (0~3)
+    output reg  [1:0]  load_sub_cnt,     // 비전치 행렬 수집용 서브 카운터 (0~3)
+
+    output wire [2:0] state_debug
 );
 
     // 스펙 문서 명시 공식 상태 벡터 코드 매핑
@@ -39,6 +42,7 @@ module gemm_controller_fsm (
     localparam DONE    = 3'd5;
 
     reg [2:0] state;
+    assign state_debug = state;
 
     // 범위 검사 로직 완벽 보수 완료 (`&&` 연산자로 분리 교정)
     wire valid_m = (gemm_m >= 32'd1) && (gemm_m <= 32'd4);
@@ -122,6 +126,7 @@ module gemm_controller_fsm (
                 end
 
                 DONE: begin
+                    if (clear_pulse)
                     state <= IDLE;
                 end
                 
