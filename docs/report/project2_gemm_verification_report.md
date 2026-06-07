@@ -77,7 +77,7 @@ Project2 1번 요구사항은 Verilator를 이용해 CPU와 GEMM co-processor를
 python3 sim/scripts/run_gemm_regression.py --target rtl --jobs 1
 python3 sim/scripts/run_gemm_regression.py --target rtl_AT --jobs 1
 python3 sim/scripts/run_gemm_regression.py --target rtl_v2 --jobs 1
-python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-id project2_item1_system_v2_trace
+python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-id project2_item1_system_v2_trace_final
 ```
 
 각 runner는 Verilator build log, simulation log, transaction 결과, warning summary, 사람이 읽을 수 있는 `report.md`를 `sim/results` 아래에 생성한다.
@@ -91,7 +91,7 @@ python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-i
 | `rtl`       | `20260607_222646_rtl`       |       6 | 504/504 PASS | PASS | `sim/results/regression/20260607_222646_rtl/report.md`      |
 | `rtl_AT`    | `20260607_222703_rtl_at`    |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222703_rtl_at/report.md`   |
 | `rtl_v2`    | `20260607_222712_rtl_v2`    |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222712_rtl_v2/report.md`   |
-| `system_v2` | `project2_item1_system_v2_trace` |       1 |   18/18 PASS | PASS | `sim/results/system_v2/project2_item1_system_v2_trace/report.md` |
+| `system_v2` | `project2_item1_system_v2_trace_final` |       1 |   18/18 PASS | PASS | `sim/results/system_v2/project2_item1_system_v2_trace_final/report.md` |
 
 Accelerator 단독 vector 검증은 총 1008개 transaction을 모두 통과했다. `system_v2` 통합 검증은 valid 12개와 invalid 6개, 총 18개 case를 모두 통과했다.
 
@@ -146,13 +146,13 @@ Pass/fail의 1차 근거는 scoreboard와 golden memory compare 산출물이다.
 대표 waveform은 system-level 검증 명령에 `--trace-fst`를 추가해 생성한다. 현재 제출용 대표 waveform 산출물은 아래 경로이다.
 
 ```text
-sim/results/system_v2/project2_item1_system_v2_trace/tb_gemm_system_v2.fst
+sim/results/system_v2/project2_item1_system_v2_trace_final/tb_gemm_system_v2.fst
 ```
 
 재생성 명령은 다음과 같다.
 
 ```bash
-python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-id project2_item1_system_v2_trace
+python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-id project2_item1_system_v2_trace_final
 ```
 
 Vector TB waveform이 필요하면 개별 vector runner에 `--trace-fst`를 추가한다.
