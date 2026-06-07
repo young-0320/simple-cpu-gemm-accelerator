@@ -1,53 +1,62 @@
 # GEMM Simulation / Verification
 
-`sim/tb/tb_gemm_vectors_single.sv`, `sim/tb/tb_gemm_vectors_compat.sv`, `sim/tb/tb_gemm_vectors_dual.sv`는 vector set을 transaction 단위로 replay하는 SystemVerilog transaction testbench이다. Generator, mailbox, driver, monitor, scoreboard 흐름으로 분리되어 있으며, DUT는 MMIO register와 external memory interface만 통해 검증한다.
+실제 검증 산출물을 새로 만들 때는 아래 4개 명령을 repository root에서 실행한다.
 
-`sim/scripts/run_gemm_verification.py`는 Verilator build, simulation 실행, log capture, warning parsing, report 생성을 한 번에 수행하는 verification runner이다.
+```bash
+python3 sim/scripts/run_gemm_regression.py --target rtl --jobs 1
+python3 sim/scripts/run_gemm_regression.py --target rtl_AT --jobs 1
+python3 sim/scripts/run_gemm_regression.py --target rtl_v2 --jobs 1
+python3 sim/scripts/run_gemm_system_verification.py --jobs 1
+```
 
-## 실행 모드
+`sim/scripts/run_gemm_regression.py`는 GEMM accelerator RTL target 하나에 대해 표준 vector 검증 묶음을 실행하는 상위 파이프라인이다. 내부적으로 `run_gemm_verification.py`를 반복 호출해 target별 TB, MAC mode, directed/random/mixed vector set 조합을 실행하고, batch 단위 `report.md`와 `summary.tsv`를 만든다.
 
-| 모드       | Testbench                    | 용도                                            | Report 지원 |
-| ---------- | ---------------------------- | ----------------------------------------------- | ----------- |
-| `single` | `tb_gemm_vectors_single.sv` | single-port transaction-level 검증 기본 모드 | Yes         |
-| `compat` | `tb_gemm_vectors_compat.sv` | `MEMORY_PORTS` 호환형 top 검증 | Yes         |
-| `dual`   | `tb_gemm_vectors_dual.sv`   | fixed dual-port top 검증 | Yes         |
+개별 실행이 필요하면 `run_gemm_verification.py`로 `single`, `compat`, `dual` vector TB를 직접 실행한다. `rtl_v2/gemm_system_top.v`까지 포함한 CPU-driven 통합 검증은 별도 runner인 `run_gemm_system_verification.py`를 사용한다.
 
-기본 모드는 `single`이다. 보고서 산출물은 `single`, `compat`, `dual` 모드에서 모두 생성한다.
-
-## 표준 실행 예시
+## 표준 검증 파이프라인
 
 아래 명령은 repository root로 이동한 뒤 실행한다.
 
-Directed vector set 검증:
-
 ```bash
-python3 sim/scripts/run_gemm_verification.py \
-  --vector-dir sim/vectors/directed_case
+python3 sim/scripts/run_gemm_regression.py --target rtl
+python3 sim/scripts/run_gemm_regression.py --target rtl_AT
+python3 sim/scripts/run_gemm_regression.py --target rtl_v2
 ```
 
-Random vector set 검증:
+| Target | RTL dir | TB | MAC mode | Vector set |
+| --- | --- | --- | --- | --- |
+| `rtl` | `rtl/gemm_accelerator` | `single` | `1`, `4` | directed, random, mixed |
+| `rtl_AT` | `rtl_AT/gemm_accelerator` | `compat` | `0` | directed, random, mixed |
+| `rtl_v2` | `rtl_v2/gemm_accelerator` | `dual` | `4` | directed, random, mixed |
+
+파이프라인 요약은 `sim/results/regression/<batch_id>/report.md`와 `summary.tsv`에 기록된다. 이 파이프라인은 GEMM accelerator 단독 vector 검증용이며, `system_v2` 통합 TB는 포함하지 않는다.
+
+## Testbench별 사용법
+
+| 구분 | Testbench | Runner | 대표 대상 | 용도 |
+| --- | --- | --- | --- | --- |
+| `single` | `tb_gemm_vectors_single.sv` | `run_gemm_verification.py` | `rtl/gemm_accelerator` | single-port GEMM transaction 검증 |
+| `compat` | `tb_gemm_vectors_compat.sv` | `run_gemm_verification.py` | `rtl_AT/gemm_accelerator` | `MEMORY_PORTS` 호환형 GEMM top 검증 |
+| `dual` | `tb_gemm_vectors_dual.sv` | `run_gemm_verification.py` | `rtl_v2/gemm_accelerator` | fixed dual-port GEMM top 검증 |
+| `system_v2` | `tb_gemm_system_v2.sv` | `run_gemm_system_verification.py` | `rtl_v2/gemm_system_top.v` | CPU-driven system-level 통합 검증 |
+
+### 1. `single` TB
+
+`single`은 기본 vector TB이다. `rtl/gemm_accelerator`를 single-port memory interface 기준으로 검증한다.
 
 ```bash
 python3 sim/scripts/run_gemm_verification.py \
-  --vector-dir sim/vectors/random_case
-```
-
-Mixed vector set 검증:
-
-```bash
-python3 sim/scripts/run_gemm_verification.py \
-  --vector-dir sim/vectors/mixed_case
-```
-
-Run id를 직접 지정:
-
-```bash
-python3 sim/scripts/run_gemm_verification.py \
+  --rtl-dir rtl/gemm_accelerator \
   --vector-dir sim/vectors/directed_case \
-  --run-id demo_directed_single
+  --tb single \
+  --mac-mode 4
 ```
 
-rtl_AT 호환형 검증:
+`--vector-dir`는 `sim/vectors/directed_case`, `sim/vectors/random_case`, `sim/vectors/mixed_case` 중 하나로 바꿔 실행한다. `rtl` target의 표준 regression은 `MAC_MODE=1/4`와 세 vector set을 모두 돌린다.
+
+### 2. `compat` TB
+
+`compat`은 `MEMORY_PORTS` parameter를 가진 호환형 top을 검증한다. 현재 대표 대상은 `rtl_AT/gemm_accelerator`이다.
 
 ```bash
 python3 sim/scripts/run_gemm_verification.py \
@@ -57,7 +66,11 @@ python3 sim/scripts/run_gemm_verification.py \
   --mac-mode 0
 ```
 
-rtl_v2 fixed dual-port 검증:
+`compat` 결과의 `case_results.tsv`에는 공통 cycle 정보에 더해 `port_a_read_cycles`, `port_b_read_cycles`, `port_a_write_cycles`, `dual_read_cycles`가 기록된다.
+
+### 3. `dual` TB
+
+`dual`은 fixed dual-port interface를 가진 GEMM top을 검증한다. 현재 대표 대상은 `rtl_v2/gemm_accelerator`이다.
 
 ```bash
 python3 sim/scripts/run_gemm_verification.py \
@@ -67,20 +80,19 @@ python3 sim/scripts/run_gemm_verification.py \
   --mac-mode 4
 ```
 
-RTL target별 표준 검증 파이프라인:
+`dual`은 `MEMORY_PORTS` parameter를 쓰지 않는 fixed dual-port RTL에 맞춘 TB이다. `rtl_v2` GEMM accelerator 단독 검증은 이 TB를 사용한다.
+
+### 4. `system_v2` TB
+
+`system_v2`는 GEMM 단독이 아니라 `rtl_v2/gemm_system_top.v` 전체를 검증한다. TB가 CPU instruction과 A/B data를 shared memory에 preload하고, CPU가 MMIO register write, `CTRL.start`, `GEMM_STATUS` 확인, `CTRL.clear_done` sequence를 실행한다.
 
 ```bash
-python3 sim/scripts/run_gemm_regression.py --target rtl
-python3 sim/scripts/run_gemm_regression.py --target rtl_AT
-python3 sim/scripts/run_gemm_regression.py --target rtl_v2
+python3 sim/scripts/run_gemm_system_verification.py --jobs 1
 ```
 
-`rtl` target은 `single` TB로 `MAC_MODE=1/4`와 directed/random/mixed vector set을 모두 실행한다.
-`rtl_AT` target은 `compat` TB로 directed/random/mixed vector set을 실행한다.
-`rtl_v2` target은 `dual` TB로 directed/random/mixed vector set을 실행한다.
-파이프라인 요약은 `sim/results/regression/<batch_id>/report.md`와 `summary.tsv`에 기록된다.
+이 검증은 directed valid 2개, random valid 10개, invalid dimension 6개를 실행한다. Valid case는 C memory를 golden 결과와 비교하고, invalid case는 `done|error|invalid_size` status, C memory 미변경, `load/compute/store_cycles=0`을 확인한다. A/B/C base address는 case별로 달라진다. 결과는 `sim/results/system_v2/<run_id>/report.md`에 기록된다.
 
-Waveform까지 생성:
+Waveform까지 생성하려면 vector TB 명령에 `--trace-fst`를 추가한다.
 
 ```bash
 python3 sim/scripts/run_gemm_verification.py \
@@ -88,19 +100,21 @@ python3 sim/scripts/run_gemm_verification.py \
   --trace-fst
 ```
 
-## 주요 옵션
+## Vector TB 주요 옵션
 
-| 옵션                 | 기본값                        | 설명                                                     |
-| -------------------- | ----------------------------- | -------------------------------------------------------- |
+| 옵션               | 기본값                      | 설명                                                 |
+| ------------------ | --------------------------- | ---------------------------------------------------- |
 | `--vector-dir`     | `sim/vectors/directed_case` | `cases.tsv`와 `.mem` 파일이 있는 vector set 디렉토리 |
-| `--tb`             | `single`                    | 사용할 testbench: `single`, `compat`, `dual`          |
-| `--results-root`   | `sim/results`               | 검증 산출물 root 디렉토리                                |
-| `--run-id`         | 실행 시각 기반 자동 생성      | 한 번의 검증 실행을 구분하는 이름                        |
-| `--rtl-dir`        | `rtl/gemm_accelerator`      | Verilator에 넘길 GEMM RTL 디렉토리                       |
-| `--mac-mode`       | `4`                         | `MAC_MODE` parameter 값                                |
-| `--jobs`           | `0`                         | Verilator build parallel job 수                          |
-| `--trace-fst`      | off                           | FST waveform 생성                                        |
-| `--no-clean-build` | off                           | 기존 `sim/build/...`를 재사용                          |
+| `--tb`             | `single`                    | 사용할 testbench: `single`, `compat`, `dual`         |
+| `--results-root`   | `sim/results`               | 검증 산출물 root 디렉토리                            |
+| `--run-id`         | 실행 시각 기반 자동 생성    | 한 번의 검증 실행을 구분하는 이름                    |
+| `--rtl-dir`        | `rtl/gemm_accelerator`      | Verilator에 넘길 GEMM RTL 디렉토리                   |
+| `--mac-mode`       | `4`                         | `MAC_MODE` parameter 값                              |
+| `--jobs`           | `0`                         | Verilator build parallel job 수                      |
+| `--trace-fst`      | off                         | FST waveform 생성                                    |
+| `--no-clean-build` | off                         | 기존 `sim/build/...`를 재사용                        |
+
+이 표는 `single`, `compat`, `dual` vector TB runner 기준이다. `system_v2`는 `run_gemm_system_verification.py`를 사용하며 `--tb`와 `--vector-dir`를 받지 않는다.
 
 Runner는 기본적으로 clean build를 수행한다. 이렇게 해야 `build.log`에 Verilator warning이 매 실행마다 다시 기록되고, warning summary가 재현 가능하게 생성된다. 빠른 반복 실행이 필요하면 `--no-clean-build`를 사용할 수 있다.
 
@@ -150,6 +164,8 @@ tb_gemm_vectors_<tb>.fst
 
 `tb_gemm_vectors_<tb>.fst`는 `--trace-fst`를 사용했을 때 유효한 waveform 파일이다. Trace를 켜지 않은 실행에서는 Verilator가 `$dumpvars`를 무시하므로 waveform 내용이 생성되지 않을 수 있다.
 
+System-level 통합 검증 산출물도 같은 파일 이름을 사용하되 경로는 `sim/results/system_v2/<run_id>/`이다. `case_results.tsv`는 `cpu_done`, `pc_at_done`, `gemm_state_at_done`, `c_compare_count`, `c_mismatch_count`를 포함해 CPU-driven completion과 C memory 비교 결과를 기록한다.
+
 ## 결과 해석
 
 정상 실행의 summary 예시는 다음과 같다.
@@ -165,7 +181,7 @@ tb_gemm_vectors_<tb>.fst
 }
 ```
 
-Invalid dimension transaction은 `done=1`, `error=1`, `invalid_size=1` status를 기대한다. 이 경우 `c_compare_count=0`이고, `mem_write_count=0`이면 invalid input에서 result memory를 건드리지 않았다는 근거가 된다.
+Invalid dimension transaction은 `done=1`, `error=1`, `invalid_size=1` status를 기대한다. System-level TB에서는 C result 영역 16 word를 sentinel 값으로 초기화한 뒤 그대로 유지되는지 비교하므로, invalid case의 `c_compare_count=16`, `c_mismatch_count=0`, `load/compute/store_cycles=0`이면 invalid input에서 result memory와 GEMM data phase를 건드리지 않았다는 근거가 된다.
 
 Valid GEMM transaction은 `c_compare_count = M * N`이고, `c_mismatch_count=0`이어야 PASS이다.
 
@@ -259,4 +275,12 @@ python3 sim/scripts/run_gemm_verification.py \
   --tb dual \
   --mac-mode 4 \
   --run-id smoke_dual_v2
+```
+
+rtl_v2 system-level verification runner smoke:
+
+```bash
+python3 sim/scripts/run_gemm_system_verification.py \
+  --run-id smoke_system_v2 \
+  --jobs 1
 ```
