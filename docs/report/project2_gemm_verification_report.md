@@ -65,7 +65,7 @@ Project2 1번 요구사항은 Verilator를 이용해 CPU와 GEMM co-processor를
 
 1-MAC에서 4-MAC으로 확장하면 같은 `rtl` target과 같은 mixed vector set 기준으로 compute total cycle이 `1656 -> 1307`로 줄었다. 이는 MAC 병렬화가 compute phase 병목을 줄인다는 근거이다. 다만 load total cycle은 `2161`로 그대로 남아 있어, MAC 병렬화 이후에는 memory load가 다음 병목으로 남는다.
 
-`rtl_v2`는 이 병목을 줄이기 위해 fixed dual-port memory interface를 적용한 target이다. `rtl 4-MAC`과 비교하면 compute/store total은 각각 `1307`, `676`으로 같고, load total만 `2161 -> 1394`로 줄었다. 따라서 `rtl_v2`의 cycle 감소는 연산 datapath 자체가 다시 바뀐 효과라기보다 A/B load 병목을 줄인 효과로 해석할 수 있다.
+`rtl_v2`는 이 병목을 줄이기 위해 fixed dual-port memory interface를 적용한 target이다. `rtl 4-MAC`과 비교하면 compute/store total은 각각 `1307`, `676`으로 같고, load total만 `2161 -> 1394`로 줄었다. 따라서 `rtl_v2`의 cycle 감소는 연산 datapath 자체가 다시 바뀐 효과라기보다 A/B load 병목을 줄인 효과로 해석할 수 있다. 반대로 store total cycle은 `676`으로 그대로 남아 있으므로, C writeback은 이후 최적화 후보로 남는다.
 
 `rtl_AT`는 AT datapath의 별도 연산 구조를 검증하기 위한 target이다. 이 target은 compute/store cycle이 크게 줄어드는 특성을 보였지만, 최종 대표 system-level target은 fixed dual-port 4-MAC 구조인 `rtl_v2`로 잡았다. PPA 전체 최적해 여부는 Project2 2번의 Oasys/Nitro 합성 결과까지 같이 봐야 하므로, 이 문서에서는 Verilator cycle 기준의 최적화 흐름으로만 해석한다.
 
@@ -86,11 +86,11 @@ python3 sim/scripts/run_gemm_system_verification.py --jobs 1 --trace-fst --run-i
 
 아래 표는 2026-06-07에 생성된 최종 산출물을 기준으로 한다.
 
-| Target        | Run group                     | 실행 수 |  Transaction | 결과 | 산출물                                                        |
-| ------------- | ----------------------------- | ------: | -----------: | ---- | ------------------------------------------------------------- |
-| `rtl`       | `20260607_222646_rtl`       |       6 | 504/504 PASS | PASS | `sim/results/regression/20260607_222646_rtl/report.md`      |
-| `rtl_AT`    | `20260607_222703_rtl_at`    |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222703_rtl_at/report.md`   |
-| `rtl_v2`    | `20260607_222712_rtl_v2`    |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222712_rtl_v2/report.md`   |
+| Target        | Run group                                | 실행 수 |  Transaction | 결과 | 산출물                                                                   |
+| ------------- | ---------------------------------------- | ------: | -----------: | ---- | ------------------------------------------------------------------------ |
+| `rtl`       | `20260607_222646_rtl`                  |       6 | 504/504 PASS | PASS | `sim/results/regression/20260607_222646_rtl/report.md`                 |
+| `rtl_AT`    | `20260607_222703_rtl_at`               |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222703_rtl_at/report.md`              |
+| `rtl_v2`    | `20260607_222712_rtl_v2`               |       3 | 252/252 PASS | PASS | `sim/results/regression/20260607_222712_rtl_v2/report.md`              |
 | `system_v2` | `project2_item1_system_v2_trace_final` |       1 |   18/18 PASS | PASS | `sim/results/system_v2/project2_item1_system_v2_trace_final/report.md` |
 
 Accelerator 단독 vector 검증은 총 1008개 transaction을 모두 통과했다. `system_v2` 통합 검증은 valid 12개와 invalid 6개, 총 18개 case를 모두 통과했다.
@@ -182,12 +182,12 @@ Waveform 파일은 크기가 커질 수 있으므로 기본 산출물로 항상 
 
 기본 산출물 위치는 `sim/results`이다. 이 디렉토리는 재생성 가능한 실행 결과를 보관한다.
 
-문서 제출용으로 결과를 고정해야 하는 경우에는 전체 `sim/results`를 복사하지 말고, 핵심 파일만 snapshot으로 보관한다.
+문서 제출용으로 결과를 고정해야 하는 경우에는 전체 `sim/results`를 복사하지 말고, 핵심 파일만 보관한다.
 
-권장 snapshot 위치는 다음과 같다.
+권장 위치는 다음과 같다.
 
 ```text
-docs/report/artifacts/project2_item1/
+docs/report/artifacts/item1/
 ```
 
 권장 포함 파일은 다음과 같다.
@@ -201,12 +201,13 @@ docs/report/artifacts/project2_item1/
 
 ## 10. 현재 한계
 
-이번 검증은 Project2 1번의 Verilator transactional verification을 닫기 위한 범위에 집중했다. 따라서 아래 항목은 별도 작업으로 남는다.
+이번 검증은 Project2 1번의 Verilator transactional verification을 완성하기에만 집중했다. 따라서 아래 항목은 별도 작업으로 남는다.
 
 - `sw/`의 실제 프로그램 바이너리를 CPU instruction memory에 적재해 실행하는 방식은 아니다.
 - CPU가 A/B matrix를 직접 store하지 않고, TB가 shared memory에 preload한다.
 - CPU가 C memory를 직접 읽어 결과를 확인하지 않고, TB scoreboard가 memory를 읽어 golden model과 비교한다.
 - system-level 통합 검증은 대표 target인 `rtl_v2`만 대상으로 한다.
+- `rtl_v2`는 4-MAC 이후 남은 A/B load 병목을 줄였지만, C writeback store cycle은 `rtl 4-MAC`과 동일하게 남아 있다. 따라서 store phase는 이후 memory write bandwidth 확장 또는 writeback scheduling 개선을 통해 추가 최적화할 수 있는 항목이다.
 - Verilator cycle 비교는 simulation 기준의 구조 비교이며, 면적/전력까지 포함한 최종 최적해 판단은 Oasys/Nitro 합성 결과가 필요하다.
 - Oasys/Nitro 합성 결과 분석과 FPGA 검증은 Project2 2번, 3번 범위이다.
 
