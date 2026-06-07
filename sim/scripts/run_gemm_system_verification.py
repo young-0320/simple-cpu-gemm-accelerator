@@ -103,7 +103,9 @@ def git_output(command: list[str]) -> str:
     except OSError:
         return "unavailable"
     text = proc.stdout.strip()
-    return text if proc.returncode == 0 and text else "unavailable"
+    if proc.returncode != 0:
+        return "unavailable"
+    return text if text else "clean"
 
 
 def parse_log_counts(log_text: str) -> tuple[dict[str, int], list[str]]:

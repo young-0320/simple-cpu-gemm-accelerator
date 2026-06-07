@@ -122,7 +122,9 @@ def git_output(command: list[str], cwd: Path) -> str:
     except OSError:
         return "unavailable"
     text = proc.stdout.strip()
-    return text if proc.returncode == 0 and text else "unavailable"
+    if proc.returncode != 0:
+        return "unavailable"
+    return text if text else "clean"
 
 
 def build_command(args: argparse.Namespace, config: dict[str, Any]) -> list[str]:
