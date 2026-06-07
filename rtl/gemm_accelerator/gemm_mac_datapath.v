@@ -54,6 +54,13 @@ module gemm_mac_datapath (
     wire signed [7:0]  b_s = b_rdata;
     wire signed [15:0] prod = a_s * b_s;
 
+    // prod는 int8 곱의 int16 결과이고, 누산기는 int32이다.
+    // 부호 확장을 명시해 Verilator WIDTHEXPAND 경고와 해석 여지를 없앤다.
+    wire signed [31:0] prod_acc = {{16{prod[15]}}, prod};
+    // 1-MAC 누산기 구조에서는 C buffer read data를 사용하지 않는다.
+    // unused_* 더미 소비로 의도적 미사용임을 Verilator에 명시한다.
+    wire unused_c_rdata = &c_rdata;
+
     wire k_last = (k == k_dim - 1);
     wire j_last = (j == n_dim - 1);
     wire i_last = (i == m_dim - 1);
@@ -85,12 +92,12 @@ module gemm_mac_datapath (
                 end
 
                 P_ITER: begin
-                    acc <= acc + $signed(prod);
+                    acc <= acc + prod_acc;
 
                     if (k_last) begin
                         c_we    <= 1'b1;
                         c_waddr <= i*n_dim + j;
-                        c_wdata <= acc + $signed(prod);
+                        c_wdata <= acc + prod_acc;
 
                         acc <= 0;
                         k   <= 0;

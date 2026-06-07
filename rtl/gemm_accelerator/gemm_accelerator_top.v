@@ -128,6 +128,9 @@ module gemm_accelerator_top #(
     if (MAC_MODE == 4) begin : g_mac4
         // 1-MAC single B read port unused
         assign mac_b_raddr = 4'd0;
+        // MAC_MODE=4는 B를 row read port로 읽으므로 single B read data는 구조적으로 미사용이다.
+        // unused_* 더미 소비로 의도적 미사용임을 Verilator에 명시한다.
+        wire unused_buf_b_rdata = &buf_b_rdata;
 
         gemm_mac_datapath4 u_mac (
             .clk(clk), .reset(reset),
@@ -148,6 +151,9 @@ module gemm_accelerator_top #(
         // 4-MAC row read port unused
         assign mac_b_row_k = 3'd0;
         assign mac_b_row_n = 3'd0;
+        // MAC_MODE=1은 B를 single read port로 읽으므로 row read data는 구조적으로 미사용이다.
+        // unused_* 더미 소비로 의도적 미사용임을 Verilator에 명시한다.
+        wire unused_buf_brow = &{buf_brow0, buf_brow1, buf_brow2, buf_brow3};
 
         gemm_mac_datapath u_mac (
             .clk(clk), .reset(reset),

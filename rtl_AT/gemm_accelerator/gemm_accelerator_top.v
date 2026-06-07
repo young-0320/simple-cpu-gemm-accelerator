@@ -75,8 +75,19 @@ module gemm_accelerator_top #(
                        mmio_wdata[`GEMM_CTRL_CLEAR_DONE_BIT];
 
   wire dual_memory = (MEMORY_PORTS == 2);
+  // compat top은 adder-tree datapath 고정이라 MAC_MODE 값으로 분기하지 않는다.
+  // 파라미터를 의도적으로 소비해 Verilator UNUSEDPARAM 경고를 없앤다.
+  wire unused_mac_mode = (MAC_MODE != 0);
   wire [31:0] active_a_rdata = dual_memory ? mem_rdata_a : mem_rdata;
   wire [31:0] active_b_rdata = dual_memory ? mem_rdata_b : mem_rdata;
+
+  // row/col/k 인덱스는 3비트지만 외부 메모리 주소는 12비트 word address이다.
+  // 주소 덧셈 폭을 명시해 Verilator WIDTHEXPAND 경고와 해석 여지를 없앤다.
+  wire [11:0] row_addr_offset = {9'd0, row_idx};
+  wire [11:0] next_row_addr_offset = {9'd0, row_idx} + 12'd1;
+  wire [11:0] next_k_addr_offset = {9'd0, k_idx} + 12'd1;
+  wire [5:0]  c_row_offset = {3'd0, row_idx} * {3'd0, n_dim};
+  wire [11:0] c_elem_offset = {6'd0, c_row_offset} + {9'd0, col_idx};
 
   wire [31:0] c_sum;
   gemm_mac_datapath u_at_mac (
@@ -240,9 +251,9 @@ module gemm_accelerator_top #(
             end else begin
               k_idx <= k_idx + 3'd1;
               if (dual_memory) begin
-                mem_addr_b <= b_base + k_idx + 12'd1;
+                mem_addr_b <= b_base + next_k_addr_offset;
               end else begin
-                mem_addr <= b_base + k_idx + 12'd1;
+                mem_addr <= b_base + next_k_addr_offset;
               end
               state <= S_READ_B_REQ;
             end
@@ -250,10 +261,10 @@ module gemm_accelerator_top #(
 
           S_STORE: begin
             if (dual_memory) begin
-              mem_addr_a <= c_base + (row_idx * n_dim) + col_idx;
+              mem_addr_a <= c_base + c_elem_offset;
               mem_en <= 1'b1;
             end else begin
-              mem_addr <= c_base + (row_idx * n_dim) + col_idx;
+              mem_addr <= c_base + c_elem_offset;
               mem_we <= 1'b1;
             end
             mem_wdata <= c_sum;
@@ -269,18 +280,18 @@ module gemm_accelerator_top #(
                 row_idx  <= row_idx + 3'd1;
                 col_idx  <= 3'd0;
                 if (dual_memory) begin
-                  mem_addr_a <= a_base + row_idx + 12'd1;
+                  mem_addr_a <= a_base + next_row_addr_offset;
                   mem_addr_b <= b_base;
                 end else begin
-                  mem_addr <= a_base + row_idx + 12'd1;
+                  mem_addr <= a_base + next_row_addr_offset;
                 end
               end else begin
                 col_idx  <= col_idx + 3'd1;
                 if (dual_memory) begin
-                  mem_addr_a <= a_base + row_idx;
+                  mem_addr_a <= a_base + row_addr_offset;
                   mem_addr_b <= b_base;
                 end else begin
-                  mem_addr <= a_base + row_idx;
+                  mem_addr <= a_base + row_addr_offset;
                 end
               end
               state <= S_READ_A_REQ;

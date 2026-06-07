@@ -44,7 +44,10 @@ module gemm_mac_datapath (
     // 2단계: 가산기 트리 (Adder Tree) 연산
     wire signed [16:0] sum_stage1_0 = msk_prod0 + msk_prod1;
     wire signed [16:0] sum_stage1_1 = msk_prod2 + msk_prod3;
-    wire signed [31:0] tree_sum     = sum_stage1_0 + sum_stage1_1;
+    // 17비트 중간합을 int32 누산 경로로 더하므로 부호 확장을 명시한다.
+    wire signed [31:0] sum_stage1_0_acc = {{15{sum_stage1_0[16]}}, sum_stage1_0};
+    wire signed [31:0] sum_stage1_1_acc = {{15{sum_stage1_1[16]}}, sum_stage1_1};
+    wire signed [31:0] tree_sum         = sum_stage1_0_acc + sum_stage1_1_acc;
 
     // 3단계: 기존 c_buf 결과와 누산 (Accumulator type: signed int32)
     assign c_out = c_buf + tree_sum;

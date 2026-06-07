@@ -82,6 +82,13 @@ module gemm_mac_datapath4 (
     wire signed [15:0] p2 = a_s * b2_s;
     wire signed [15:0] p3 = a_s * b3_s;
 
+    // p0~p3는 int8 곱의 int16 결과이고, 누산기는 int32이다.
+    // 부호 확장을 명시해 Verilator WIDTHEXPAND 경고와 해석 여지를 없앤다.
+    wire signed [31:0] p0_acc = {{16{p0[15]}}, p0};
+    wire signed [31:0] p1_acc = {{16{p1[15]}}, p1};
+    wire signed [31:0] p2_acc = {{16{p2[15]}}, p2};
+    wire signed [31:0] p3_acc = {{16{p3[15]}}, p3};
+
     wire k_last = (k == k_dim - 1);
 
     // pick the accumulator for the current writeback column
@@ -122,10 +129,10 @@ module gemm_mac_datapath4 (
 
                 P_ITER: begin
                     // accumulate this k into all four columns
-                    acc0 <= acc0 + $signed(p0);
-                    acc1 <= acc1 + $signed(p1);
-                    acc2 <= acc2 + $signed(p2);
-                    acc3 <= acc3 + $signed(p3);
+                    acc0 <= acc0 + p0_acc;
+                    acc1 <= acc1 + p1_acc;
+                    acc2 <= acc2 + p2_acc;
+                    acc3 <= acc3 + p3_acc;
 
                     if (k_last) begin
                         // row i complete -> writeback

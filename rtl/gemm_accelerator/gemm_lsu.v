@@ -89,6 +89,15 @@ module gemm_lsu (
     reg [1:0]  ss;
     reg [4:0]  selem;
 
+    // row는 작은 카운터지만 mem_addr는 12비트 word address이다.
+    // 주소 덧셈 폭을 명시해 암묵적 확장 경고를 없앤다.
+    wire [11:0] next_row_offset = {9'd0, row} + 12'd1;
+    // selem은 최대 16개 C 원소를 세기 위해 5비트이고, 외부 주소는 12비트이다.
+    wire [11:0] c_store_offset = {7'd0, selem};
+    // 현재 C buffer는 4x4=16개만 저장하므로 raddr는 4비트이다.
+    // 크기 확장 시에는 이 주소 폭도 함께 키워야 한다.
+    wire [3:0] next_c_raddr = selem[3:0] + 4'd1;
+
     always @(posedge clk) begin
         if (reset) begin
             ls <= LS_IDLE; row <= 0; col <= 0; word_reg <= 0;
@@ -131,7 +140,7 @@ module gemm_lsu (
                             ls <= LS_BADR;
                         end else begin
                             row <= row + 1;
-                            mem_addr <= a_base + (row + 1);
+                            mem_addr <= a_base + next_row_offset;
                             ls <= LS_AADR;
                         end
                     end else begin
@@ -156,7 +165,7 @@ module gemm_lsu (
                             ls <= LS_DONE;
                         end else begin
                             row <= row + 1;
-                            mem_addr <= b_base + (row + 1);
+                            mem_addr <= b_base + next_row_offset;
                             ls <= LS_BADR;
                         end
                     end else begin
@@ -182,14 +191,14 @@ module gemm_lsu (
                     end
                 end
                 SS_WR: begin
-                    mem_addr  <= c_base + selem;
+                    mem_addr  <= c_base + c_store_offset;
                     mem_wdata <= c_rdata;
                     mem_we    <= 1'b1;
                     if (selem == c_elems - 1) begin
                         ss <= SS_DONE;
                     end else begin
                         selem   <= selem + 1;
-                        c_raddr <= selem + 1;
+                        c_raddr <= next_c_raddr;
                         ss <= SS_WR;
                     end
                 end
