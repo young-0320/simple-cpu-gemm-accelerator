@@ -19,6 +19,13 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 TB_CONFIGS: dict[str, dict[str, Any]] = {
+    "compat": {
+        "top": "tb_gemm_vectors_compat",
+        "tb_file": Path("sim/tb/tb_gemm_vectors_compat.sv"),
+        "build_dir": Path("sim/build/gemm_vectors_compat"),
+        "dumpfile": "tb_gemm_vectors_compat.fst",
+        "supports_reports": True,
+    },
     "dual": {
         "top": "tb_gemm_vectors_dual",
         "tb_file": Path("sim/tb/tb_gemm_vectors_dual.sv"),

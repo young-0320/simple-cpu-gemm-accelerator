@@ -2,8 +2,8 @@
 `include "gemm_define.vh"
 
 // =======================================================
-// tb_gemm_vectors_dual
-//   Fixed dual-port transaction replay testbench. The flow is split into
+// tb_gemm_vectors_compat
+//   Compatibility transaction replay testbench. The flow is split into
 //   named transaction, generator, driver, monitor, and scoreboard blocks
 //   for transaction-level verification.
 //
@@ -12,7 +12,7 @@
 //     - failure_details.tsv
 //     - run.log
 // =======================================================
-module tb_gemm_vectors_dual #(
+module tb_gemm_vectors_compat #(
     parameter int MAC_MODE = 4,
     parameter int MEMORY_WORDS = 4096,
     parameter int DONE_TIMEOUT_CYCLES = 5000,
@@ -52,6 +52,10 @@ module tb_gemm_vectors_dual #(
         int          done_cycles;
         int          mem_read_cycles;
         int          mem_write_cycles;
+        int          port_a_read_cycles;
+        int          port_b_read_cycles;
+        int          port_a_write_cycles;
+        int          dual_read_cycles;
         int          mem_write_count;
         bit          timeout;
         bit          missing_init_mem;
@@ -91,7 +95,10 @@ module tb_gemm_vectors_dual #(
     logic [31:0] mem_rdata_a;
     logic [31:0] mem_rdata_b;
     logic [31:0] mem_wdata;
-    logic        mem_we;
+    logic        mem_en;
+    logic [11:0] unused_mem_addr;
+    logic        unused_mem_we;
+    wire         unused_single_port = &{unused_mem_addr, unused_mem_we};
 
     logic        busy;
     logic [2:0]  state_debug;
@@ -110,6 +117,10 @@ module tb_gemm_vectors_dual #(
     int activity_done_cycles;
     int activity_mem_read_cycles;
     int activity_mem_write_cycles;
+    int activity_port_a_read_cycles;
+    int activity_port_b_read_cycles;
+    int activity_port_a_write_cycles;
+    int activity_dual_read_cycles;
     int activity_mem_writes;
 
     int total_cases;
@@ -119,7 +130,8 @@ module tb_gemm_vectors_dual #(
     always #5 clk <= ~clk;
 
     gemm_accelerator_top #(
-        .MAC_MODE(MAC_MODE)
+        .MAC_MODE(MAC_MODE),
+        .MEMORY_PORTS(2)
     ) dut (
         .clk(clk),
         .reset(reset),
@@ -128,10 +140,13 @@ module tb_gemm_vectors_dual #(
         .mmio_off(mmio_off),
         .mmio_wdata(mmio_wdata),
         .mmio_rdata(mmio_rdata),
+        .mem_addr(unused_mem_addr),
+        .mem_rdata(32'd0),
+        .mem_we(unused_mem_we),
         .mem_addr_a(mem_addr_a),
         .mem_rdata_a(mem_rdata_a),
+        .mem_en(mem_en),
         .mem_wdata(mem_wdata),
-        .mem_we(mem_we),
         .mem_addr_b(mem_addr_b),
         .mem_rdata_b(mem_rdata_b),
         .busy(busy),
@@ -139,7 +154,7 @@ module tb_gemm_vectors_dual #(
     );
 
     always_ff @(posedge clk) begin
-        if (mem_we) begin
+        if (mem_en) begin
             mem[mem_addr_a] <= mem_wdata;
         end
         mem_rdata_a <= mem[mem_addr_a];
@@ -155,6 +170,10 @@ module tb_gemm_vectors_dual #(
             activity_done_cycles <= 0;
             activity_mem_read_cycles <= 0;
             activity_mem_write_cycles <= 0;
+            activity_port_a_read_cycles <= 0;
+            activity_port_b_read_cycles <= 0;
+            activity_port_a_write_cycles <= 0;
+            activity_dual_read_cycles <= 0;
             activity_mem_writes <= 0;
         end
         else if (activity_count_enable) begin
@@ -170,11 +189,15 @@ module tb_gemm_vectors_dual #(
                 `GEMM_S_DONE:    activity_done_cycles <= activity_done_cycles + 1;
                 default: ;
             endcase
-            if (state_debug == `GEMM_S_LOAD && !mem_we) begin
+            if (state_debug == `GEMM_S_LOAD && !mem_en) begin
                 activity_mem_read_cycles <= activity_mem_read_cycles + 1;
+                activity_port_a_read_cycles <= activity_port_a_read_cycles + 1;
+                activity_port_b_read_cycles <= activity_port_b_read_cycles + 1;
+                activity_dual_read_cycles <= activity_dual_read_cycles + 1;
             end
-            if (mem_we) begin
+            if (mem_en) begin
                 activity_mem_write_cycles <= activity_mem_write_cycles + 1;
+                activity_port_a_write_cycles <= activity_port_a_write_cycles + 1;
                 activity_mem_writes <= activity_mem_writes + 1;
             end
         end
@@ -225,7 +248,7 @@ module tb_gemm_vectors_dual #(
                 end
 
                 $fdisplay(case_results_fd,
-                          "txn_id\ttxn_name\tvector_set\tinit_mem\texpected_mem\tm\tn\tk\ta_base\tb_base\tc_base\texpected_status\tactual_status\tdone\terror\tinvalid_size\tcycles\tbusy_cycles\tidle_cycles\tload_cycles\tcompute_cycles\tstore_cycles\tdone_cycles\tmem_read_cycles\tmem_write_cycles\tmem_write_count\tc_compare_count\tc_mismatch_count\ttimeout\tresult\tfail_reason");
+                          "txn_id\ttxn_name\tvector_set\tinit_mem\texpected_mem\tm\tn\tk\ta_base\tb_base\tc_base\texpected_status\tactual_status\tdone\terror\tinvalid_size\tcycles\tbusy_cycles\tidle_cycles\tload_cycles\tcompute_cycles\tstore_cycles\tdone_cycles\tmem_read_cycles\tmem_write_cycles\tport_a_read_cycles\tport_b_read_cycles\tport_a_write_cycles\tdual_read_cycles\tmem_write_count\tc_compare_count\tc_mismatch_count\ttimeout\tresult\tfail_reason");
                 $fdisplay(failure_details_fd,
                           "txn_id\ttxn_name\tfailure_type\tlocation\texpected\tactual\tcycle\tdetail");
             end
@@ -277,7 +300,7 @@ module tb_gemm_vectors_dual #(
                 invalid_size_bit = obs.status[`GEMM_ST_INVSIZE_BIT] ? 1 : 0;
 
                 $fdisplay(case_results_fd,
-                          "%0d\t%s\t%s\t%s\t%s\t%0d\t%0d\t%0d\t0x%08h\t0x%08h\t0x%08h\t0x%08h\t0x%08h\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%s\t%s",
+                          "%0d\t%s\t%s\t%s\t%s\t%0d\t%0d\t%0d\t0x%08h\t0x%08h\t0x%08h\t0x%08h\t0x%08h\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%s\t%s",
                           obs.tx.txn_id,
                           obs.tx.case_name,
                           vector_set,
@@ -303,6 +326,10 @@ module tb_gemm_vectors_dual #(
                           obs.done_cycles,
                           obs.mem_read_cycles,
                           obs.mem_write_cycles,
+                          obs.port_a_read_cycles,
+                          obs.port_b_read_cycles,
+                          obs.port_a_write_cycles,
+                          obs.dual_read_cycles,
                           obs.mem_write_count,
                           c_compare_count,
                           c_mismatch_count,
@@ -396,6 +423,10 @@ module tb_gemm_vectors_dual #(
         output int done_cycles,
         output int mem_read_cycles,
         output int mem_write_cycles,
+        output int port_a_read_cycles,
+        output int port_b_read_cycles,
+        output int port_a_write_cycles,
+        output int dual_read_cycles,
         output int mem_write_count
     );
         begin
@@ -410,6 +441,10 @@ module tb_gemm_vectors_dual #(
             done_cycles = activity_done_cycles;
             mem_read_cycles = activity_mem_read_cycles;
             mem_write_cycles = activity_mem_write_cycles;
+            port_a_read_cycles = activity_port_a_read_cycles;
+            port_b_read_cycles = activity_port_b_read_cycles;
+            port_a_write_cycles = activity_port_a_write_cycles;
+            dual_read_cycles = activity_dual_read_cycles;
             mem_write_count = activity_mem_writes;
         end
     endtask
@@ -609,6 +644,10 @@ module tb_gemm_vectors_dual #(
                 obs.done_cycles = 0;
                 obs.mem_read_cycles = 0;
                 obs.mem_write_cycles = 0;
+                obs.port_a_read_cycles = 0;
+                obs.port_b_read_cycles = 0;
+                obs.port_a_write_cycles = 0;
+                obs.dual_read_cycles = 0;
                 obs.mem_write_count = 0;
                 obs.timeout = 1'b0;
                 obs.missing_init_mem = !file_exists(tx.init_mem_path);
@@ -644,6 +683,10 @@ module tb_gemm_vectors_dual #(
                                            obs.done_cycles,
                                            obs.mem_read_cycles,
                                            obs.mem_write_cycles,
+                                           obs.port_a_read_cycles,
+                                           obs.port_b_read_cycles,
+                                           obs.port_a_write_cycles,
+                                           obs.dual_read_cycles,
                                            obs.mem_write_count);
 
                     mon2sb.put(obs);
@@ -798,18 +841,18 @@ module tb_gemm_vectors_dual #(
                 total_cases++;
                 if (case_errors == 0) begin
                     passed_cases++;
-                    log_line($sformatf("[TXN %0d] %s PASS cycles=%0d load=%0d compute=%0d store=%0d mem_writes=%0d c_mismatch=%0d",
+                    log_line($sformatf("[TXN %0d] %s PASS cycles=%0d load=%0d compute=%0d store=%0d dual_reads=%0d mem_writes=%0d c_mismatch=%0d",
                                        obs.tx.txn_id, obs.tx.case_name,
                                        obs.cycles, obs.load_cycles, obs.compute_cycles,
-                                       obs.store_cycles, obs.mem_write_count, c_mismatch_count));
+                                       obs.store_cycles, obs.dual_read_cycles, obs.mem_write_count, c_mismatch_count));
                 end
                 else begin
                     total_errors += case_errors;
-                    log_line($sformatf("[TXN %0d] %s FAIL reason=%s errors=%0d cycles=%0d load=%0d compute=%0d store=%0d mem_writes=%0d c_mismatch=%0d",
+                    log_line($sformatf("[TXN %0d] %s FAIL reason=%s errors=%0d cycles=%0d load=%0d compute=%0d store=%0d dual_reads=%0d mem_writes=%0d c_mismatch=%0d",
                                        obs.tx.txn_id, obs.tx.case_name, fail_reason,
                                        case_errors, obs.cycles, obs.load_cycles,
                                        obs.compute_cycles, obs.store_cycles,
-                                       obs.mem_write_count, c_mismatch_count));
+                                       obs.dual_read_cycles, obs.mem_write_count, c_mismatch_count));
                 end
 
                 sb_ack.put(1);
@@ -836,6 +879,10 @@ module tb_gemm_vectors_dual #(
         activity_done_cycles = 0;
         activity_mem_read_cycles = 0;
         activity_mem_write_cycles = 0;
+        activity_port_a_read_cycles = 0;
+        activity_port_b_read_cycles = 0;
+        activity_port_a_write_cycles = 0;
+        activity_dual_read_cycles = 0;
         activity_mem_writes = 0;
         total_cases = 0;
         passed_cases = 0;
@@ -862,16 +909,16 @@ module tb_gemm_vectors_dual #(
 
         if (!$value$plusargs("DUMPFILE=%s", dumpfile_path)) begin
             if (result_files_enabled) begin
-                dumpfile_path = {result_dir, "/tb_gemm_vectors_dual.fst"};
+                dumpfile_path = {result_dir, "/tb_gemm_vectors_compat.fst"};
             end
             else begin
-                dumpfile_path = "tb_gemm_vectors_dual.fst";
+                dumpfile_path = "tb_gemm_vectors_compat.fst";
             end
         end
         $dumpfile(dumpfile_path);
-        $dumpvars(0, tb_gemm_vectors_dual);
+        $dumpvars(0, tb_gemm_vectors_compat);
 
-        log_line("== GEMM fixed dual-port transaction replay ==");
+        log_line("== GEMM compatibility transaction replay ==");
         log_line($sformatf("  run_id:     %s", run_id));
         log_line($sformatf("  vector_set: %s", vector_set));
         log_line($sformatf("  vector_dir: %s", vector_dir));
@@ -897,7 +944,7 @@ module tb_gemm_vectors_dual #(
             $fatal(1, "no vector cases were run");
         end
         if (total_errors != 0) begin
-            $fatal(1, "GEMM fixed dual-port vector replay failed");
+            $fatal(1, "GEMM compatibility vector replay failed");
         end
         $finish;
     end
