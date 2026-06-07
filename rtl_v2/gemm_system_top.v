@@ -39,6 +39,10 @@ module gemm_system_top #(
     wire        cpu_we;
     wire [31:0] cpu_rdata;
     wire        cpu_run;          // from glue: high when CPU may run
+    /* verilator lint_off UNUSEDSIGNAL */
+    wire        cpu_zero_flag_debug;
+    wire [1:0]  cpu_state_debug;
+    /* verilator lint_on UNUSEDSIGNAL */
 
     // ---- glue <-> GEMM ----
     wire        mmio_sel, mmio_we;
@@ -83,8 +87,8 @@ module gemm_system_top #(
         .out_port(out_port),
         .pc_debug(pc_debug),
         .acc_debug(acc_debug),
-        .zero_flag_debug(),
-        .state_debug()
+        .zero_flag_debug(cpu_zero_flag_debug),
+        .state_debug(cpu_state_debug)
     );
 
     // =======================================================
