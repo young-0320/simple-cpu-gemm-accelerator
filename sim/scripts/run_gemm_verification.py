@@ -19,17 +19,19 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 TB_CONFIGS: dict[str, dict[str, Any]] = {
-    "structured": {
-        "top": "tb_gemm_vectors_structured",
-        "tb_file": Path("sim/tb/tb_gemm_vectors_structured.sv"),
-        "build_dir": Path("sim/build/gemm_vectors_structured"),
+    "dual": {
+        "top": "tb_gemm_vectors_dual",
+        "tb_file": Path("sim/tb/tb_gemm_vectors_dual.sv"),
+        "build_dir": Path("sim/build/gemm_vectors_dual"),
+        "dumpfile": "tb_gemm_vectors_dual.fst",
         "supports_reports": True,
     },
-    "legacy": {
-        "top": "tb_gemm_vectors",
-        "tb_file": Path("sim/tb/tb_gemm_vectors.sv"),
-        "build_dir": Path("sim/build/gemm_vectors"),
-        "supports_reports": False,
+    "single": {
+        "top": "tb_gemm_vectors_single",
+        "tb_file": Path("sim/tb/tb_gemm_vectors_single.sv"),
+        "build_dir": Path("sim/build/gemm_vectors_single"),
+        "dumpfile": "tb_gemm_vectors_single.fst",
+        "supports_reports": True,
     },
 }
 
@@ -189,7 +191,7 @@ def simulation_command(
                 f"+RESULT_DIR={cmd_path(result_dir)}",
                 f"+RUN_ID={run_id}",
                 f"+VECTOR_SET={vector_set}",
-                f"+DUMPFILE={cmd_path(result_dir / 'tb_gemm_vectors_structured.fst')}",
+                f"+DUMPFILE={cmd_path(result_dir / config['dumpfile'])}",
             ]
         )
     return command
@@ -256,6 +258,23 @@ def int_field(row: dict[str, str], key: str) -> int:
         return 0
 
 
+CYCLE_BREAKDOWN_FIELDS = [
+    ("cycles", "total"),
+    ("busy_cycles", "busy"),
+    ("idle_cycles", "idle"),
+    ("load_cycles", "load"),
+    ("compute_cycles", "compute"),
+    ("store_cycles", "store"),
+    ("done_cycles", "done"),
+    ("mem_read_cycles", "mem_read"),
+    ("mem_write_cycles", "mem_write"),
+    ("port_a_read_cycles", "port_a_read"),
+    ("port_b_read_cycles", "port_b_read"),
+    ("port_a_write_cycles", "port_a_write"),
+    ("dual_read_cycles", "dual_read"),
+]
+
+
 def build_summary(rows: list[dict[str, str]], build_rc: int, run_rc: int | None) -> dict[str, Any]:
     total = len(rows)
     passed = sum(1 for row in rows if row.get("result") == "PASS")
@@ -265,6 +284,16 @@ def build_summary(rows: list[dict[str, str]], build_rc: int, run_rc: int | None)
     max_cycles = max((int_field(row, "cycles") for row in rows), default=0)
     total_mem_writes = sum(int_field(row, "mem_write_count") for row in rows)
     total_c_mismatches = sum(int_field(row, "c_mismatch_count") for row in rows)
+    cycle_breakdown = {}
+    for field, label in CYCLE_BREAKDOWN_FIELDS:
+        values = [int_field(row, field) for row in rows]
+        field_total = sum(values)
+        cycle_breakdown[label] = {
+            "field": field,
+            "total": field_total,
+            "avg": (field_total / total) if total else 0.0,
+            "max": max(values, default=0),
+        }
     return {
         "build_returncode": build_rc,
         "run_returncode": run_rc,
@@ -277,6 +306,7 @@ def build_summary(rows: list[dict[str, str]], build_rc: int, run_rc: int | None)
         "max_cycles": max_cycles,
         "total_mem_write_count": total_mem_writes,
         "total_c_mismatch_count": total_c_mismatches,
+        "cycle_breakdown": cycle_breakdown,
     }
 
 
@@ -349,6 +379,47 @@ def generate_report(
         )
     )
     lines.append("")
+    lines.append("## Cycle Breakdown")
+    lines.append(
+        markdown_table(
+            ["Metric", "Total", "Avg/Txn", "Max/Txn"],
+            [
+                [label, stats["total"], f"{stats['avg']:.2f}", stats["max"]]
+                for label, stats in summary["cycle_breakdown"].items()
+            ],
+        )
+    )
+    lines.append("")
+
+    slowest_cases = sorted(case_rows, key=lambda row: int_field(row, "cycles"), reverse=True)[:10]
+    lines.append("## Slowest Transactions")
+    if not slowest_cases:
+        lines.append("No transaction rows were captured.")
+    else:
+        lines.append(
+            markdown_table(
+                ["txn_id", "txn_name", "m", "n", "k", "cycles", "load", "compute", "store", "mem_read", "mem_write", "dual_read"],
+                [
+                    [
+                        row.get("txn_id", ""),
+                        row.get("txn_name", ""),
+                        row.get("m", ""),
+                        row.get("n", ""),
+                        row.get("k", ""),
+                        row.get("cycles", ""),
+                        row.get("load_cycles", ""),
+                        row.get("compute_cycles", ""),
+                        row.get("store_cycles", ""),
+                        row.get("mem_read_cycles", ""),
+                        row.get("mem_write_cycles", ""),
+                        row.get("dual_read_cycles", ""),
+                    ]
+                    for row in slowest_cases
+                ],
+            )
+        )
+    lines.append("")
+
     lines.append("## Verilator Warning Summary")
     if warning_counts:
         lines.append(markdown_table(["Type", "Count"], [[kind, warning_counts[kind]] for kind in sorted(warning_counts)]))
@@ -441,7 +512,7 @@ def generate_report(
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run GEMM Verilator verification")
     parser.add_argument("--vector-dir", type=Path, default=Path("sim/vectors/directed_case"))
-    parser.add_argument("--tb", choices=sorted(TB_CONFIGS), default="structured")
+    parser.add_argument("--tb", choices=sorted(TB_CONFIGS), default="single")
     parser.add_argument("--results-root", type=Path, default=Path("sim/results"))
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--rtl-dir", type=Path, default=Path("rtl/gemm_accelerator"))
@@ -476,12 +547,14 @@ def main(argv: list[str] | None = None) -> int:
     except FileNotFoundError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
+    build_dir = project_path(config["build_dir"])
     if args.clean_build:
         try:
-            clean_build_dir(project_path(config["build_dir"]))
+            clean_build_dir(build_dir)
         except ValueError as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 2
+    build_dir.parent.mkdir(parents=True, exist_ok=True)
 
     print(f"[RUN_ID] {run_id}")
     print(f"[RESULT_DIR] {cmd_path(result_dir)}")
@@ -528,7 +601,7 @@ def main(argv: list[str] | None = None) -> int:
         "build_command": build_cmd,
         "simulation_command": run_cmd,
         "reproduction_command": reproduction,
-        "supports_structured_reports": config["supports_reports"],
+        "supports_reports": config["supports_reports"],
         "clean_build": args.clean_build,
     }
     write_json(metadata_path, metadata)
