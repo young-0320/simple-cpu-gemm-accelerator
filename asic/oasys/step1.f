@@ -1,0 +1,12 @@
+rtl_v2/gemm_accelerator/gemm_mmio_reg.v
+rtl_v2/gemm_accelerator/gemm_controller_fsm.v
+rtl_v2/gemm_accelerator/gemm_define.vh
+rtl_v2/gemm_accelerator/gemm_local_buffer.v
+rtl_v2/gemm_accelerator/gemm_lsu.v
+rtl_v2/gemm_accelerator/gemm_mac_datapath.v
+rtl_v2/gemm_accelerator/gemm_mac_datapath4.v
+rtl_v2/gemm_accelerator/gemm_mac_datapath_at.v
+rtl_v2/gemm_accelerator/gemm_accelerator_top.v
+asic/oasys/step1_gemm_accelerator_top_mac0.v
+asic/oasys/step1_gemm_accelerator_top_mac1.v
+asic/oasys/step1_gemm_accelerator_top_mac4.v
