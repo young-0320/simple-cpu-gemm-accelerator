@@ -1,0 +1,13 @@
+Report Instance Areas: 
+-----+-----------+--------------------+------+---------
+     |Instance   |Module              |Cells |Cell Area
+-----+-----------+--------------------+------+---------
+1    |top        |                    |485039| 40166940
+2    |  u_system |gemm_system_top     |485039| 40166940
+3    |    u_gemm |gemm_accelerator_top|  6450|   408183
+4    |      u_buf|gemm_local_buffer   |  3095|   240318
+5    |      u_mac|gemm_mac_datapath_at|  2333|    96420
+6    |      u_lsu|gemm_lsu            |   830|    56384
+7    |    u_cpu  |top_cpu             |  1631|    72154
+8    |      u_alu|alu                 |  1201|    44507
+-----+-----------+--------------------+------+---------
