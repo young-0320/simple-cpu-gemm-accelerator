@@ -1,0 +1,109 @@
+> report_timing
+----------------------------------------------------------------------------------------------------
+Startpoint: u_gemm/u_mac/i_reg[0]/Q
+    (Clocked by clk R)
+Endpoint: u_gemm/u_mac/acc3_reg[31]/DATA
+    (Clocked by clk R)
+Path Group: default
+Data required time: 14752.9
+    (Clock shift: 15000.0, minus Uncertainty: 0.0, plus Latency 0.0, minus Setup time: 247.1)
+Data arrival time: 10991.3
+Slack: 3761.6
+Logic depth: 43
+----------------------------------------------------------------------------------------------------
+                                                                 Arrival          Total             
+Path                     Module/Cell              Slew    Delay     Time  Edge     Load     Location
+                                                  (ps)     (ps)     (ps)           (ff)      (um,um)
+----------------------------------------------------------------------------------------------------
+clk                      {create_clock}                     0.0      0.0     r      0.0   571,    0 
+u_gemm/u_mac/i_reg[0]/CLK->Q
+                         DFF*                      0.0    769.2    769.2    rr    242.4   579,  267 
+u_gemm/u_mac/i_0_416/B->Z
+                         NAND3*                   92.7    274.8   1044.0    rf     33.7   579,  267 
+u_gemm/u_mac/i_0_415/B->Z
+                         NAND2                    92.7    114.1   1158.2    fr     17.2   579,  267 
+u_gemm/u_mac/i_0_414/B->Z
+                         XNOR2                    64.6    360.6   1518.8    rf     36.1   579,  267 
+u_gemm/u_mac/i_0_400/A->Z
+                         XNOR2                   100.8    415.3   1934.1    ff     34.3   579,  267 
+u_gemm/u_mac/i_0_399/B->Z
+                         NOR2                     98.7    144.7   2078.8    fr     16.8   579,  267 
+u_gemm/u_mac/i_0_398/B->Z
+                         NOR2                     89.5     85.0   2163.8    rf     19.1   579,  267 
+u_gemm/u_mac/i_0_390/A->Z
+                         XNOR2*                   60.0    657.9   2821.7    ff    247.4   579,  267 
+u_gemm/u_buf/i_0_1_260/B->Z
+                         NAND2                    92.7    183.8   3005.5    fr     60.0   263,  591 
+u_gemm/u_buf/i_0_1_243/C->Z
+                         NOR3*                   120.9    298.5   3304.0    rf     84.5   263,  591 
+u_gemm/u_buf/i_0_1_193/B->Z
+                         AOI22*                   92.7    348.8   3652.8    fr     17.6   263,  591 
+u_gemm/u_buf/i_0_1_191/D->Z
+                         NAND4                    83.5    241.9   3894.7    rf     17.6   263,  591 
+u_gemm/u_buf/i_0_1_190/B->Z
+                         NOR2                    149.5    183.0   4077.7    fr     21.5   263,  591 
+u_gemm/u_buf/i_0_1_189/A->Z
+                         BUFI4                   101.8    279.7   4357.4    rf    315.5   263,  591 
+u_gemm/u_mac/i_6/i_210/A->Z
+                         BUFI4                   188.1    231.0   4588.3    fr    116.5   579,  267 
+u_gemm/u_mac/i_6/i_167/B->Z
+                         NOR2                    120.6     91.6   4680.0    rf     19.1   579,  267 
+u_gemm/u_mac/i_6/i_39/A->Z
+                         XNOR2                    60.0    389.3   5069.3    ff     27.9   579,  267 
+u_gemm/u_mac/i_6/i_341/D->Z
+                         AOI22*                   91.6    391.9   5461.1    fr     39.9   579,  267 
+u_gemm/u_mac/i_6/i_339/B->Z
+                         XNOR2                    92.7    341.2   5802.3    rf     27.6   579,  267 
+u_gemm/u_mac/i_6/i_390/B->Z
+                         AOI22*                   91.3    414.7   6217.0    fr     33.1   579,  267 
+u_gemm/u_mac/i_6/i_389/A->Z
+                         BUFI4                    92.7     61.0   6278.0    rf     20.0   579,  267 
+u_gemm/u_mac/i_6/i_387/B->Z
+                         AOI22*                   36.0    384.6   6662.6    fr     28.8   579,  267 
+u_gemm/u_mac/i_6/i_386/B->Z
+                         XNOR2                    92.7    354.8   7017.3    rf     33.5   579,  267 
+u_gemm/u_mac/i_6/i_357/B->Z
+                         NOR2                     97.9    208.4   7225.7    fr     38.7   579,  267 
+u_gemm/u_mac/i_6/i_355/A->Z
+                         BUFI4                   146.5     79.7   7305.4    rf     32.9   579,  267 
+u_gemm/u_mac/i_6/i_250/B->Z
+                         NAND2                    42.2    141.6   7447.0    fr     48.7   579,  267 
+u_gemm/u_mac/i_6/i_246/B->Z
+                         NAND2                   106.0    100.6   7547.7    rf      9.9   579,  267 
+u_gemm/u_mac/i_6/i_245/B->Z
+                         AOI22*                   53.2    403.0   7950.6    fr     32.8   579,  267 
+u_gemm/u_mac/i_6/i_244/A->Z
+                         BUFI4                    92.7     61.0   8011.6    rf     20.1   579,  267 
+u_gemm/u_mac/i_6/i_243/D->Z
+                         AOI22*                   36.0    341.1   8352.8    fr     32.8   579,  267 
+u_gemm/u_mac/i_6/i_242/A->Z
+                         BUFI4                    92.7     67.2   8420.0    rf     26.8   579,  267 
+u_gemm/u_mac/i_6/i_239/A->Z
+                         NAND2                    39.3    105.1   8525.1    fr     33.2   579,  267 
+u_gemm/u_mac/i_6/i_238/B->Z
+                         NAND2                    85.6    111.5   8636.7    rf     16.6   579,  267 
+u_gemm/u_mac/i_6/i_237/B->Z
+                         NAND2                    64.0    100.9   8737.6    fr     16.6   579,  267 
+u_gemm/u_mac/i_6/i_236/B->Z
+                         NAND2                    63.7    177.8   8915.4    rf     50.5   579,  267 
+u_gemm/u_mac/i_6/i_447/C->Z
+                         NAND3*                  119.9    261.2   9176.5    fr     27.7   579,  267 
+u_gemm/u_mac/i_6/i_446/B->Z
+                         NAND2                    92.7    163.1   9339.6    rf     40.5   579,  267 
+u_gemm/u_mac/i_6/i_594/A->Z
+                         BUFI4                   103.3    102.1   9441.7    fr     26.3   579,  267 
+u_gemm/u_mac/i_6/i_561/C->Z
+                         NOR3                     50.0     79.5   9521.2    rf     10.4   579,  267 
+u_gemm/u_mac/i_6/i_559/C->Z
+                         NOR3*                    69.5    506.0  10027.2    fr    132.2   579,  267 
+u_gemm/u_mac/i_6/i_151/C->Z
+                         NOR3                     92.7     88.5  10115.7    rf     10.4   579,  267 
+u_gemm/u_mac/i_6/i_122/C->Z
+                         NOR3*                    69.5    306.2  10421.9    fr     19.5   579,  267 
+u_gemm/u_mac/i_6/i_120/A->Z
+                         XNOR2                    83.5    268.3  10690.2    rf     10.0   579,  267 
+u_gemm/u_mac/i_0_221/A->Z
+                         AO22                     70.2    301.2  10991.3    ff     10.7   579,  267 
+u_gemm/u_mac/acc3_reg[31]/DATA
+                         DFF                      64.3      0.0  10991.3     f            579,  267 
+----------------------------------------------------------------------------------------------------
