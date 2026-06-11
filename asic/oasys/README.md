@@ -42,8 +42,8 @@ Verilator 검증은 이미 RTL 기능 검증에 해당하고, Oasys에서는 같
 `rtl_v2`는 dual-memory access 구조를 기준으로 하므로, 이 단계에서는
 dual-memory 구조 안에서 MAC datapath 3종을 비교한다.
 
-| Mode         | 조합                | 의미                   |
-| ------------ | ------------------- | ---------------------- |
+| Mode           | 조합                | 의미                   |
+| -------------- | ------------------- | ---------------------- |
 | `MAC_MODE=0` | dual-memory + AT    | K 방향 adder-tree 구조 |
 | `MAC_MODE=1` | dual-memory + 1-MAC | 기준 구조              |
 | `MAC_MODE=4` | dual-memory + 4-MAC | N 방향 병렬 MAC 구조   |
@@ -53,8 +53,8 @@ dual-memory 구조 안에서 MAC datapath 3종을 비교한다.
 memory access 구조에 따른 변화를 추가로 보고 싶으면 기존 `rtl/gemm_accelerator`
 타겟을 합성한다. 이 타겟은 single-memory access 계열 비교 후보이다.
 
-| Mode         | 조합                  | 의미                         |
-| ------------ | --------------------- | ---------------------------- |
+| Mode           | 조합                  | 의미                         |
+| -------------- | --------------------- | ---------------------------- |
 | `MAC_MODE=1` | single-memory + 1-MAC | single-memory 기준 구조      |
 | `MAC_MODE=4` | single-memory + 4-MAC | single-memory에서 MAC 병렬화 |
 
@@ -64,8 +64,8 @@ memory access 구조에 따른 변화를 추가로 보고 싶으면 기존 `rtl/
 
 ### 2.3 3단계: `rtl_v2` full-system
 
-마지막 선택 타겟은 `rtl_v2/gemm_system_top.v`이다. CPU, glue logic, GEMM을
-포함한 전체 통합 구조의 참고용 PPA를 확인할 수 있다.
+1. 마지막 선택 타겟은 `rtl_v2/gemm_system_top.v`이다. CPU, glue logic, GEMM을
+   포함한 전체 통합 구조의 참고용 PPA를 확인할 수 있다.
 
 주의할 점은 `gemm_system_top.v` 내부의 behavioral BRAM이다. 실제 ASIC memory
 macro 없이 합성하면 register array로 합성되어 area/power가 크게 왜곡될 수 있다.
@@ -190,10 +190,10 @@ asic/oasys/
 
 각 파일의 역할은 다음과 같다.
 
-| 파일                                 | 역할                                        |
-| ------------------------------------ | ------------------------------------------- |
-| `clk.sdc`                            | 10 MHz clock constraint                     |
-| `step*_mode*_config.tcl`             | step/mode별 독립 Oasys 실행 config          |
+| 파일                                   | 역할                                          |
+| -------------------------------------- | --------------------------------------------- |
+| `clk.sdc`                            | 10 MHz clock constraint                       |
+| `step*_mode*_config.tcl`             | step/mode별 독립 Oasys 실행 config            |
 | `step1_gemm_accelerator_top_mode*.v` | 1단계 `rtl_v2` accelerator mode top 제공    |
 | `step2_gemm_accelerator_top_mode*.v` | 2단계 `rtl` accelerator mode top 제공       |
 | `step3_system_top_mode*.v`           | 3단계 `rtl_v2` system mode top 제공         |
