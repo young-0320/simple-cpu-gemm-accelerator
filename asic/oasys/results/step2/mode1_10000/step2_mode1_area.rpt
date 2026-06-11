@@ -1,0 +1,10 @@
+Report Instance Areas: 
+-----+---------+--------------------+-----+---------
+     |Instance |Module              |Cells|Cell Area
+-----+---------+--------------------+-----+---------
+1    |top      |                    | 4341|   318797
+2    |  u_gemm |gemm_accelerator_top| 4341|   318797
+3    |    u_buf|gemm_local_buffer   | 2410|   211749
+4    |    u_mac|gemm_mac_datapath   | 1036|    48149
+5    |    u_lsu|gemm_lsu            |  703|    43836
+-----+---------+--------------------+-----+---------
