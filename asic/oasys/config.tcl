@@ -19,11 +19,10 @@ namespace eval config {
     close $fp
 
     set input(system_verilog)                 {true}
-    set input(verilog_dirs)                   [list "$REPO_ROOT/rtl_v2/gemm_accelerator"] # include 파일을 찾을 디렉토리
-    set input(verilog_defs)                   {}
+    set input(verilog_dirs)                   [list "$REPO_ROOT/rtl_v2/gemm_accelerator"] 
     set input(top_module)                     $TOP_MODULE
 
-    set input(lib_files)                      {{default {/mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P5V_25C.lib}}}
+    set input(lib_files)                      {{default {/mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P50V_25C.lib}}}
     set input(target_library)                 {default}
     set input(lef_files)                      {/mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_StdCells.lef}
     set input(tech_file)                      {/mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_tech.lef}
