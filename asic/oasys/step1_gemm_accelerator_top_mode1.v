@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module step1_gemm_accelerator_top_mac1 (
+module step1_gemm_accelerator_top_mode1 (
     input  wire        clk,
     input  wire        reset,
     input  wire        mmio_sel,

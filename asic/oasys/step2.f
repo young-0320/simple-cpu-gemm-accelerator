@@ -5,5 +5,5 @@ rtl/gemm_accelerator/gemm_lsu.v
 rtl/gemm_accelerator/gemm_mac_datapath.v
 rtl/gemm_accelerator/gemm_mac_datapath4.v
 rtl/gemm_accelerator/gemm_accelerator_top.v
-asic/oasys/step2_gemm_accelerator_top_mac1.v
-asic/oasys/step2_gemm_accelerator_top_mac4.v
+asic/oasys/step2_gemm_accelerator_top_mode1.v
+asic/oasys/step2_gemm_accelerator_top_mode4.v

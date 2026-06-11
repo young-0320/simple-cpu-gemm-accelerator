@@ -3,11 +3,11 @@ namespace eval config {
     set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator}
 
     # =========================================================
-    # step1
+    # step1 mode1
     set STEP       {step1}
-    set TOP_MODULE {step1_gemm_accelerator_top_mac0}
+    set TOP_MODULE {step1_gemm_accelerator_top_mode1}
     # =========================================================
-    
+
     set FILELIST "$REPO_ROOT/asic/oasys/$STEP.f"
     set fp [open $FILELIST r]
     set input(verilog_files) {}
@@ -19,7 +19,8 @@ namespace eval config {
     close $fp
 
     set input(system_verilog)                 {true}
-    set input(verilog_dirs)                   [list "$REPO_ROOT/rtl_v2/gemm_accelerator"] 
+    set input(verilog_dirs)                   [list "$REPO_ROOT/rtl_v2/gemm_accelerator"]
+    set input(verilog_defs)                   {}
     set input(top_module)                     $TOP_MODULE
 
     set input(lib_files)                      {{default {/mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P50V_25C.lib}}}

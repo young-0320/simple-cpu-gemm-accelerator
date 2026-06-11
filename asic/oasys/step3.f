@@ -15,6 +15,6 @@ rtl_v2/simple_cpu/cpu_fsm.v
 rtl_v2/simple_cpu/top_cpu.v
 rtl_v2/gemm_cpu_glue.v
 rtl_v2/gemm_system_top.v
-asic/oasys/step3_system_top_mac0.v
-asic/oasys/step3_system_top_mac1.v
-asic/oasys/step3_system_top_mac4.v
+asic/oasys/step3_system_top_mode0.v
+asic/oasys/step3_system_top_mode1.v
+asic/oasys/step3_system_top_mode4.v

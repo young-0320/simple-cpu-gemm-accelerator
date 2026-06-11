@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module step3_system_top_mac4 (
+module step3_system_top_mode4 (
     input  wire        clk,
     input  wire        reset,
     input  wire [8:0]  in_port,
