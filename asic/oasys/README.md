@@ -7,11 +7,28 @@ Oasys는 Verilog RTL을 standard-cell gate-level netlist로 바꾸는 합성 도
 작업 순서
 
 1. 합성을 위한 베릴로그 파일과 top 모듈을 선택한다.
-2. 합성을 하기 위한 `step*_mode*_config.tcl`을 작성한다.
-3. Oasys 실행 후 config를  open한다.
-4. synthesis를 실행한다.
-5. timing, area, power report를 확인한다.
+2. `*.f` 파일로 source list를 관리한다.
+3. 합성을 하기 위한 `step*_mode*_config.tcl`을 작성한다.
+4. Oasys 실행 후 config를  open한다.
+5. synthesis를 실행한다.
 6. synthesized Verilog netlist를 export한다.
+7. timing, area, power report를 export한다.
+
+## 실행명령어
+
+**export synthesized Verilog netlist 명령어**
+
+```
+write_verilog "step*_mode*_synth.v"
+```
+
+**export timing, area, power report 명령어**
+
+```
+report_timing > "step*_mode*_timing.rpt"
+report_area > "step*_mode*_area.rpt"
+report_power > "step*_mode*_power.rpt"
+```
 
 ## 2. 단계별 합성 타겟
 
@@ -25,8 +42,8 @@ Verilator 검증은 이미 RTL 기능 검증에 해당하고, Oasys에서는 같
 `rtl_v2`는 dual-memory access 구조를 기준으로 하므로, 이 단계에서는
 dual-memory 구조 안에서 MAC datapath 3종을 비교한다.
 
-| Mode           | 조합                | 의미                   |
-| -------------- | ------------------- | ---------------------- |
+| Mode         | 조합                | 의미                   |
+| ------------ | ------------------- | ---------------------- |
 | `MAC_MODE=0` | dual-memory + AT    | K 방향 adder-tree 구조 |
 | `MAC_MODE=1` | dual-memory + 1-MAC | 기준 구조              |
 | `MAC_MODE=4` | dual-memory + 4-MAC | N 방향 병렬 MAC 구조   |
@@ -36,8 +53,8 @@ dual-memory 구조 안에서 MAC datapath 3종을 비교한다.
 memory access 구조에 따른 변화를 추가로 보고 싶으면 기존 `rtl/gemm_accelerator`
 타겟을 합성한다. 이 타겟은 single-memory access 계열 비교 후보이다.
 
-| Mode           | 조합                  | 의미                         |
-| -------------- | --------------------- | ---------------------------- |
+| Mode         | 조합                  | 의미                         |
+| ------------ | --------------------- | ---------------------------- |
 | `MAC_MODE=1` | single-memory + 1-MAC | single-memory 기준 구조      |
 | `MAC_MODE=4` | single-memory + 4-MAC | single-memory에서 MAC 병렬화 |
 
@@ -106,13 +123,12 @@ step3_mode1_config.tcl  -> step3.f + step3_system_top_mode1
 step3_mode4_config.tcl  -> step3.f + step3_system_top_mode4
 ```
 
-
 ## 4. Constraint
 
 강의5 PDF의 예시는 10 MHz clock이다. 첫 합성 constraint는 다음처럼 둔다.
 
 ```tcl
-create_clock -name clk -period 100.000 [get_ports clk]
+create_clock -name clk -period 100000.0 {get_ports clk}
 ```
 
 속도 비교를 하려면 10 MHz에서 한 번 합성한 뒤 clock period를 줄여가며 timing이
@@ -174,10 +190,10 @@ asic/oasys/
 
 각 파일의 역할은 다음과 같다.
 
-| 파일                                   | 역할                                          |
-| -------------------------------------- | --------------------------------------------- |
-| `clk.sdc`                            | 10 MHz clock constraint                       |
-| `step*_mode*_config.tcl`             | step/mode별 독립 Oasys 실행 config            |
+| 파일                                 | 역할                                        |
+| ------------------------------------ | ------------------------------------------- |
+| `clk.sdc`                            | 10 MHz clock constraint                     |
+| `step*_mode*_config.tcl`             | step/mode별 독립 Oasys 실행 config          |
 | `step1_gemm_accelerator_top_mode*.v` | 1단계 `rtl_v2` accelerator mode top 제공    |
 | `step2_gemm_accelerator_top_mode*.v` | 2단계 `rtl` accelerator mode top 제공       |
 | `step3_system_top_mode*.v`           | 3단계 `rtl_v2` system mode top 제공         |
@@ -187,19 +203,3 @@ asic/oasys/
 
 `.f` 파일은 강의 PDF에서 요구한 형식은 아니지만, 학교 서버에서 repo를 clone한 뒤
 Oasys GUI에 추가할 RTL 목록을 일관되게 관리하기 위한 기준 파일로 사용한다.
-
-## 7. 실행 전에 채워야 할 환경 정보
-
-Oasys/Nitro는 tool과 library 경로가 환경마다 다르다. 실행 전에 다음 항목을
-팀 환경에 맞게 확인한다.
-
-```text
-OASYS executable:
-Nitro executable:
-Timing library (.lib):
-Physical library:
-Technology file:
-```
-
-이 경로들이 정해지면 README에 실제 경로 또는 별도 note를 추가하고,
-동일한 library/constraint 조건으로 `MAC_MODE=0/1/4`를 반복 합성한다.
