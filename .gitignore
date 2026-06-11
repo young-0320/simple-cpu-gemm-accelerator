@@ -107,7 +107,6 @@ asic/**/outputs/*
 !asic/**/reports/.gitkeep
 !asic/**/outputs/.gitkeep
 
-*.rpt
 *.sdf
 *.spef
 *.def
