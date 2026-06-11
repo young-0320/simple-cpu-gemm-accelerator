@@ -1,6 +1,5 @@
 rtl_v2/gemm_accelerator/gemm_mmio_reg.v
 rtl_v2/gemm_accelerator/gemm_controller_fsm.v
-rtl_v2/gemm_accelerator/gemm_define.vh
 rtl_v2/gemm_accelerator/gemm_local_buffer.v
 rtl_v2/gemm_accelerator/gemm_lsu.v
 rtl_v2/gemm_accelerator/gemm_mac_datapath.v

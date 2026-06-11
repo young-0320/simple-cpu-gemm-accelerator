@@ -1,4 +1,3 @@
-rtl_v2/gemm_accelerator/gemm_define.vh
 rtl_v2/gemm_accelerator/gemm_mmio_reg.v
 rtl_v2/gemm_accelerator/gemm_controller_fsm.v
 rtl_v2/gemm_accelerator/gemm_local_buffer.v
@@ -10,7 +9,6 @@ rtl_v2/gemm_accelerator/gemm_accelerator_top.v
 rtl_v2/simple_cpu/pc.v
 rtl_v2/simple_cpu/inst_reg.v
 rtl_v2/simple_cpu/decoder.v
-rtl_v2/simple_cpu/define.vh
 rtl_v2/simple_cpu/alu.v
 rtl_v2/simple_cpu/accumulator.v
 rtl_v2/simple_cpu/cpu_fsm.v
