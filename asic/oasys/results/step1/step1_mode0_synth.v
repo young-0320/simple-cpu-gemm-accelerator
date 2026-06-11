@@ -1,6 +1,6 @@
 /*
  * Created by 
-   ../bin/Linux-x86_64-O/oasysGui 22.2-p002 on Thu Jun 11 15:48:53 2026
+   ../bin/Linux-x86_64-O/oasysGui 22.2-p002 on Thu Jun 11 17:21:18 2026
  * (C) Mentor Graphics Corporation
  */
 /* CheckSum: 2345864571 */
@@ -11523,7 +11523,7 @@ module gemm_accelerator_top(clk, reset, mmio_sel, mmio_we, mmio_off, mmio_wdata,
    NOR2 i_0_0_4 (.Z(busy), .A(state_debug[2]), .B(n_0_0_52));
 endmodule
 
-module step1_gemm_accelerator_top_mac0(clk, reset, mmio_sel, mmio_we, mmio_off, 
+module step1_gemm_accelerator_top_mode0(clk, reset, mmio_sel, mmio_we, mmio_off, 
       mmio_wdata, mmio_rdata, mem_addr_a, mem_rdata_a, mem_wdata, mem_we, 
       mem_addr_b, mem_rdata_b, busy, state_debug);
    input clk;
