@@ -1,6 +1,6 @@
 # Oasys Synthesis Frequency Sweep — step2 (MAC_MODE=1, 1-MAC)
 
-대상: `step2_gemm_accelerator_top_mac1` (GEMM accelerator, 1-MAC, 기준 구조)
+대상: `step2_gemm_accelerator_top_mode1` (GEMM accelerator, 1-MAC, 기준 구조)
 합성 도구: Oasys-RTL
 측정 기준: top instance `u_gemm` (gemm_accelerator_top)
 작성일: 2026-06-11
