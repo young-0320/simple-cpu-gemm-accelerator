@@ -13,22 +13,7 @@ Nitro는 Oasys가 만든 gate-level Verilog netlist를 실제 칩 영역 위에 
 5. post-route Verilog, SDF, timing 결과를 확인한다.
 6. Nitro WNS가 부족하면 period, chip area, floorplan, RTL 구조를 다시 조정한다.
 
-## 2. Oasys와 Nitro의 역할 차이
-
-```text
-Oasys:
-RTL -> gate-level netlist
-logic synthesis 기준 timing/area/power 확인
-
-Nitro:
-gate-level netlist -> placed/routed netlist
-physical routing 이후 timing 확인
-```
-
-따라서 Oasys에서 이미 WNS가 음수인 period는 보통 Nitro로 넘기지 않는다.
-Nitro 후보는 Oasys에서 pass했고, P&R margin이 어느 정도 남는 지점을 고른다.
-
-## 3. 입력 파일
+## 2. Tcl 입력
 
 Nitro Tcl이 읽는 주요 입력은 다음과 같다.
 
@@ -45,7 +30,7 @@ Nitro Tcl이 읽는 주요 입력은 다음과 같다.
 공정 파일 경로는 교수님 예제 Tcl을 기준으로 유지한다. 우리 프로젝트에서 주로 바꾸는
 부분은 Oasys netlist 경로, SDC 경로, partition 이름, 결과 출력 경로이다.
 
-## 4. Tcl 파일 구조
+## 3. Tcl 파일 구조
 
 Nitro Tcl은 Oasys보다 파일 수가 많아질 수 있으므로 step별 폴더 아래에 둔다.
 파일명에는 mode와 clock period를 넣는다.
@@ -74,7 +59,7 @@ asic/nitro/
 `myscript_nitro.tcl`은 교수님 예제로 원본으로 보관하고, 실제 실행용 Tcl은
 `step1/`, `step2/`, `step3/` 아래에 개별 파일로 만든다.
 
-## 5. 교수님 Tcl에서 수정해야 하는 부분
+## 4. 예제 Tcl에서 수정해야 하는 부분
 
 교수님 예제 Tcl의 기본 flow는 유지하되, 다음 항목은 우리 프로젝트에 맞게 수정한다.
 
@@ -103,32 +88,7 @@ write_sdf ../results/step1/mode0_20000ps/step1_mode0_20000ps.sdf -skip_backslash
 write_verilog -file "../results/step1/mode0_20000ps/step1_mode0_20000ps_nitro.v"
 ```
 
-## 6. 후보 선택 기준
-
-Nitro는 모든 Oasys sweep point를 돌리지 않는다. Oasys summary에서 대표 후보만 고른다.
-
-기본 기준
-
-1. Oasys WNS가 양수인 period만 Nitro 후보로 사용한다.
-2. Oasys margin이 너무 작은 지점은 경계 확인용으로만 사용한다.
-3. 최종 후보는 보통 Oasys margin 20~30% 이상인 지점에서 시작한다.
-4. Nitro에서 WNS가 음수이면 period를 늘리거나 chip area/floorplan/RTL을 조정한다.
-
-현재 우선 후보 예시:
-
-```text
-step1 mode0: 20000ps 또는 30000ps
-step1 mode1: 15000ps 또는 30000ps
-step1 mode4: 15000ps 또는 30000ps
-step2 mode1: 15000ps 또는 20000ps
-step2 mode4: summary 기준 권장 point
-step3: 기본 100000ps, 여건이 되면 30000ps 또는 40000ps
-```
-
-첫 Nitro 실행은 `step1 mode0 20000ps`처럼 파일이 작고 margin이 충분한 후보 하나로
-flow를 검증한 뒤, 같은 형식을 다른 mode로 복제한다.
-
-## 7. 결과 보관 기준
+## 5. 결과 보관 기준
 
 Nitro 결과는 `asic/nitro/results/<step>/<mode>_<period>ps/` 아래에 둔다.
 
@@ -154,7 +114,7 @@ asic/nitro/results/step1/mode0_20000ps/
 | utilization           | core 안에 cell이 얼마나 차 있는지 |
 | congestion/route 상태 | 배선이 정상적으로 완료되었는지    |
 
-## 8. Chip area 조정
+## 6. Chip area 조정
 
 교수님 예제는 다음과 같은 chip area에서 시작한다.
 
