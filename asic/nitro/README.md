@@ -39,14 +39,14 @@ Nitro Tcl은 Oasys보다 파일 수가 많아질 수 있으므로 step별 폴더
 asic/nitro/
 ├── README.md
 ├── myscript_nitro.tcl
-├── step1/
+├── step1_tcl/
 │   ├── mode0_20000ps_nitro.tcl
 │   ├── mode1_15000ps_nitro.tcl
 │   └── mode4_15000ps_nitro.tcl
-├── step2/
+├── step2_tcl/
 │   ├── mode1_15000ps_nitro.tcl
 │   └── mode4_15000ps_nitro.tcl
-├── step3/
+├── step3_tcl/
 │   ├── mode0_100000ps_nitro.tcl
 │   ├── mode1_100000ps_nitro.tcl
 │   └── mode4_100000ps_nitro.tcl
@@ -57,7 +57,7 @@ asic/nitro/
 ```
 
 `myscript_nitro.tcl`은 교수님 예제로 원본으로 보관하고, 실제 실행용 Tcl은
-`step1/`, `step2/`, `step3/` 아래에 개별 파일로 만든다.
+`step1_tcl/`, `step2_tcl/`, `step3_tcl/` 아래에 개별 파일로 만든다.
 
 ## 4. 예제 Tcl에서 수정해야 하는 부분
 
@@ -90,12 +90,12 @@ write_verilog -file "../results/step1/mode0_20000ps/step1_mode0_20000ps_nitro.v"
 
 ## 5. 결과 보관 기준
 
-Nitro 결과는 `asic/nitro/results/<step>/<mode>_<period>ps/` 아래에 둔다.
+Nitro 결과는 `asic/nitro/results/<step>_tcl/<mode>_<period>ps/` 아래에 둔다.
 
 예시:
 
 ```text
-asic/nitro/results/step1/mode0_20000ps/
+asic/nitro/results/step1_tcl/mode0_20000ps/
 ├── step1_mode0_20000ps.sdf
 ├── step1_mode0_20000ps_nitro.v
 ├── step1_mode0_20000ps_timing.rpt
