@@ -3,7 +3,7 @@ read_lef /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generi
 read_library /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P50V_25C.lib
 read_library /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/PTF/Generic250nm_typ.ptf
 
-set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator}
+set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator}
 
 # =========================================================
 # step2 mode4 13000ps
@@ -19,10 +19,10 @@ file mkdir $OUT_DIR
 
 # =========================================================
 # chip area
-create_chip -xl_area 0a -yb_area 0a -xr_area 3000000a -yt_area 3000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
+create_chip -xl_area 0a -yb_area 0a -xr_area 7200000a -yt_area 7200000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed true -gap 0a
 # =========================================================
 
-create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
+create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 80
 
 # power / track
 
@@ -64,3 +64,7 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
+
+
+report_timing -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
+report_design -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
