@@ -18,8 +18,8 @@ set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
 # =========================================================
-# chip area
-create_chip -xl_area 0a -yb_area 0a -xr_area 3000000a -yt_area 3000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
+# chip area 406367
+create_chip -xl_area 0a -yb_area 0a -xr_area 10000000a -yt_area 10000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
 # =========================================================
 
 create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70

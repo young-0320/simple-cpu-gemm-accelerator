@@ -18,7 +18,7 @@ set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
 # =========================================================
-# chip area
+# chip area 327971
 create_chip -xl_area 0a -yb_area 0a -xr_area 3000000a -yt_area 3000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
 # =========================================================
 

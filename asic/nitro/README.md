@@ -90,12 +90,12 @@ write_verilog -file "../results/step1/mode0_20000ps/step1_mode0_20000ps_nitro.v"
 
 ## 5. 결과 보관 기준
 
-Nitro 결과는 `asic/nitro/results/<step>_tcl/<mode>_<period>ps/` 아래에 둔다.
+Nitro 결과는 `asic/nitro/results/<step>/<mode>_<period>ps/` 아래에 둔다.
 
 예시:
 
 ```text
-asic/nitro/results/step1_tcl/mode0_20000ps/
+asic/nitro/results/step1/mode0_20000ps/
 ├── step1_mode0_20000ps.sdf
 ├── step1_mode0_20000ps_nitro.v
 ├── step1_mode0_20000ps_timing.rpt
