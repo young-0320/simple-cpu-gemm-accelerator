@@ -1,6 +1,6 @@
 # Oasys Results Policy
 
-이 디렉토리는 Oasys 합성 결과를 보관한다. 
+이 디렉토리는 Oasys 합성 결과를 보관한다.
 
 ## 보관 기준
 
@@ -53,7 +53,7 @@ results/
 폴더명은 `<mode>_<period>ps` 형식을 사용한다. 예를 들어 `mode4_15000ps`는
 `MAC_MODE=4`, clock period 15000 ps 조건의 결과이다.
 
-파일명은 현재 결과와의 추적성을 위해 `step*_mode*_*` 형식을 유지한다. 
+파일명은 현재 결과와의 추적성을 위해 `step*_mode*_*` 형식을 유지한다.
 
 ## 대표 Point 선택 기준
 
@@ -72,9 +72,32 @@ mode별로 raw report 폴더를 줄일 때는 다음 순서로 남긴다.
 `mode*_15000ps/`와 `mode*_7000ps/`를 남긴다. 7000 ps raw report가 없으면
 `mode*_8500ps/`처럼 margin이 작은 pass 지점을 대신 남긴다.
 
+## Step3 full-system 합성 정책
+
+`step3`는 CPU, glue logic, GEMM accelerator를 포함한 full-system 합성 결과이다.
+이 단계는 accelerator-only 구조 비교가 아니라 전체 통합 가능성과 integration overhead를
+확인하기 위한 참고 결과로 사용한다.
+
+`step3` full-system은 합성 시간이 매우 길고, 합성 시간에 비해 주파수 sweep으로 얻는
+추가 이점이 작다. 특히 `mode0` 기준으로 세 개의 clock period를 합성하는 데 거의
+3시간 가까이 소요되었으므로, `step3`에서는 모든 mode에 대해 촘촘한 sweep을 수행하지
+않는다.
+
+기본 보관 기준은 다음과 같다.
+
+1. 각 mode는 교수님 기본 constraint인 10 MHz, 즉 `100000ps` 기준 결과를 1회 보관한다.
+2. 여건이 되면 high-frequency 참고 결과를 mode별 최대 2개까지만 추가로 보관한다.
+3. high-frequency 후보는 `40000ps`를 보수적인 참고점, `30000ps`를 대표 고주파 참고점으로 둔다.
+4. `20000ps` 이하의 point는 특별히 fail 경계를 보여줄 목적이 아니라면 기본 보관 대상에서 제외한다.
+
+현재 `mode0` 관찰 결과에서는 `10000ps` 합성의 WNS가 약 `17.2ps` 수준으로 margin이 매우
+작았고, `30000ps` 합성에서는 slack이 `9511ps`로 확인되었다. 따라서 `step3`의 기본 결과는
+10 MHz 기준으로 두고, 고주파 참고 결과가 필요할 때는 우선 `30000ps` 또는 더 보수적인
+`40000ps`를 사용한다.
+
 ## 정리 원칙
 
-- 모든 sweep 숫자는 삭제하지 말고 `mode*_sweep_summary.md`에 남긴다.
+- 모든 sweep의 결과 수치는 삭제하지 말고 `mode*_sweep_summary.md`에 남긴다.
 - 중간 sweep point의 raw report는 summary에 반영된 뒤 삭제해도 된다.
 - 보고서에 직접 인용한 값은 summary와 raw report 중 하나에서 추적 가능해야 한다.
 - 폴더명과 파일명은 mode가 서로 충돌하지 않게 맞춘다.

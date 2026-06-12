@@ -1,19 +1,5 @@
 # Oasys Synthesis Guide
 
-## 1. Oasys에서 하는 일
-
-Oasys는 Verilog RTL을 standard-cell gate-level netlist로 바꾸는 합성 도구이다.
-
-작업 순서
-
-1. 합성을 위한 베릴로그 파일과 top 모듈을 선택한다.
-2. `*.f` 파일로 source list를 관리한다.
-3. 합성을 하기 위한 `step*_mode*_config.tcl`을 작성한다.
-4. Oasys 실행 후 config를  open한다.
-5. synthesis를 실행한다.
-6. synthesized Verilog netlist를 export한다.
-7. timing, area, power report를 export한다.
-
 ## 실행명령어
 
 **export synthesized Verilog netlist 명령어**
@@ -135,6 +121,11 @@ create_clock -name clk -period 100000.0 {get_ports clk}
 깨지는 지점을 찾는다. 예를 들어 100 ns, 50 ns, 20 ns, 10 ns 순서로 줄여 볼 수 있다.
 최종 보고서에는 각 mode의 slack과 가장 빠른 passing clock을 기록한다.
 
+Frequency sweep은 주로 `step1`/`step2` accelerator-only 비교에 사용한다.
+`step3` full-system은 합성 시간이 길고 behavioral BRAM의 영향이 크므로, 기본적으로
+10 MHz 기준 결과를 남기고 여건이 될 때만 30000 ps 또는 40000 ps 수준의 고주파 참고
+결과를 추가한다. 결과 보관 기준은 `results/README.md`를 따른다.
+
 ## 5. 결과에서 봐야 하는 항목
 
 각 mode마다 최소한 다음 항목을 기록한다.
@@ -158,8 +149,8 @@ create_clock -name clk -period 100000.0 {get_ports clk}
 AT     : K 방향 병렬화로 특정 shape에서 유리하지만 adder-tree 비용 발생
 ```
 
-합성 후 netlist와 report 산출물은 `asic/oasys/results/<config-name>/` 아래에 둔다.
-예를 들어 `step1_mode0_config.tcl`로 실행한 결과는 `results/step1_mode0/`에 모은다.
+합성 후 netlist와 report 산출물은 `asic/oasys/results/` 아래에 둔다.
+권장 폴더 구조와 raw report 보관 기준은 `asic/oasys/results/README.md`에 정리한다.
 
 ## 6. 우리가 준비해야 하는 파일
 
