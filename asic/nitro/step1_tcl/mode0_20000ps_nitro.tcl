@@ -11,18 +11,21 @@ set STEP       {step1}
 set MODE       {mode0}
 set PERIOD     {20000ps}
 set TOP_MODULE {step1_gemm_accelerator_top_mode0}
+
+# floorplan tuning knobs
+set CHIP_XR         {12000000a}
+set CHIP_YT         {12000000a}
+set CORE_CELL_UTIL  {40}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
 set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
-# =========================================================
 # chip area 406367
-create_chip -xl_area 0a -yb_area 0a -xr_area 10000000a -yt_area 10000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
-# =========================================================
+create_chip -xl_area 0a -yb_area 0a -xr_area $CHIP_XR -yt_area $CHIP_YT -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
 
-create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
+create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util $CORE_CELL_UTIL
 
 # power / track 
 
