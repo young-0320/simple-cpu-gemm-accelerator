@@ -55,10 +55,6 @@ create_tracks -layers Metal1 -step 13500a
 
 report_tracks -type preferred 
 
-# top-level pin placement
-create_pin_group -partition $TOP_MODULE -name ctrl_pins -pins {clk reset}
-set_pin_group -pin_group ctrl_pins -edge_index $CTRL_PIN_EDGE -layers $PIN_LAYER -from $CTRL_PIN_FROM -to $CTRL_PIN_TO -order_type any
-
 #run after pause
 create_rows -partition $TOP_MODULE -core_site CORE -orient north -start_from core -gap 50a -xl_margin 0a -yb_margin 0a -xr_margin 0a -yt_margin 0a
 #run after pause
