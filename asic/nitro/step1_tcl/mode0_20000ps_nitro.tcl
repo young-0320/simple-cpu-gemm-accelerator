@@ -16,6 +16,12 @@ set TOP_MODULE {step1_gemm_accelerator_top_mode0}
 set CHIP_XR         {12000000a}
 set CHIP_YT         {12000000a}
 set CORE_CELL_UTIL  {40}
+
+# top-level pin placement tuning knobs
+set PIN_LAYER       {Metal2}
+set CTRL_PIN_EDGE   {1}
+set CTRL_PIN_FROM   {1000000a}
+set CTRL_PIN_TO     {2500000a}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
@@ -48,6 +54,10 @@ create_tracks -layers Metal2 -step 11500a
 create_tracks -layers Metal1 -step 13500a 
 
 report_tracks -type preferred 
+
+# top-level pin placement
+create_pin_group -partition $TOP_MODULE -name ctrl_pins -pins {clk reset}
+set_pin_group -pin_group ctrl_pins -edge_index $CTRL_PIN_EDGE -layers $PIN_LAYER -from $CTRL_PIN_FROM -to $CTRL_PIN_TO -order_type any
 
 #run after pause
 create_rows -partition $TOP_MODULE -core_site CORE -orient north -start_from core -gap 50a -xl_margin 0a -yb_margin 0a -xr_margin 0a -yt_margin 0a
