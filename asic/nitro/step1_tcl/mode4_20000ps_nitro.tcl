@@ -6,11 +6,11 @@ read_library /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Ge
 set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator}
 
 # =========================================================
-# step1 mode0 20000ps
+# step1 mode4 20000ps
 set STEP       {step1}
-set MODE       {mode0}
+set MODE       {mode4}
 set PERIOD     {20000ps}
-set TOP_MODULE {step1_gemm_accelerator_top_mode0}
+set TOP_MODULE {step1_gemm_accelerator_top_mode4}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
@@ -24,7 +24,7 @@ create_chip -xl_area 0a -yb_area 0a -xr_area 3000000a -yt_area 3000000a -core_si
 
 create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
 
-# power / track 
+# power / track
 
 stack_macros
 
@@ -36,15 +36,15 @@ create_supply_net -net_name vdd -domain primary -power_net true
 
 set_domain_supply_net -domain primary -primary_power_net vdd -primary_ground_net vss
 
-create_tracks -layers Metal4 -step 11500a 
+create_tracks -layers Metal4 -step 11500a
 
-create_tracks -layers Metal3 -step 13500a 
+create_tracks -layers Metal3 -step 13500a
 
-create_tracks -layers Metal2 -step 11500a 
+create_tracks -layers Metal2 -step 11500a
 
-create_tracks -layers Metal1 -step 13500a 
+create_tracks -layers Metal1 -step 13500a
 
-report_tracks -type preferred 
+report_tracks -type preferred
 
 #run after pause
 create_rows -partition $TOP_MODULE -core_site CORE -orient north -start_from core -gap 50a -xl_margin 0a -yb_margin 0a -xr_margin 0a -yt_margin 0a
@@ -64,9 +64,3 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
-
-
-
-
-
-
