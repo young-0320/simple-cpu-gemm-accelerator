@@ -1,0 +1,932 @@
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:1093
+libc: 2.31-stable
+
+Timestamp: 1781316461.150823711
+---
+PID=1888897 0.161514588 0.132963 0.028553 program start
+Complete list of environment variables at program start
+_ /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys
+COLORTERM truecolor
+CUDADIR /usr/local/cuda-11.2
+DBUS_SESSION_BUS_ADDRESS unix:abstract=/tmp/dbus-OXXD8zrvJz,guid=cfc8096927c9b388d10900e36a222a8f
+DISPLAY :63.0
+GNOME_TERMINAL_SCREEN /org/gnome/Terminal/screen/ff6c500f_373c_48c5_8a10_fdfd817aafc4
+GNOME_TERMINAL_SERVICE :1.66
+GTK_MODULES appmenu-gtk-module:appmenu-gtk-module:gail:atk-bridge
+HOME /mnt/NewHDD/home/ddl2026/ddl2026_2021104248
+LANG en_US.UTF-8
+LC_ADDRESS ko_KR.UTF-8
+LC_IDENTIFICATION ko_KR.UTF-8
+LC_MEASUREMENT ko_KR.UTF-8
+LC_MONETARY ko_KR.UTF-8
+LC_NAME ko_KR.UTF-8
+LC_NUMERIC ko_KR.UTF-8
+LC_PAPER ko_KR.UTF-8
+LC_TELEPHONE ko_KR.UTF-8
+LC_TIME ko_KR.UTF-8
+LD_LIBRARY_PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/Linux-x86_64-O::/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.2/lib64:/usr/local/cuda-11.2/lib64
+LESSCLOSE {/usr/bin/lesspipe %s %s}
+LESSOPEN {| /usr/bin/lesspipe %s}
+LIBGL_ALWAYS_INDIRECT 1
+LOGNAME ddl2026_2021104248
+LS_COLORS {rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:}
+MANPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/doc/man:
+MGC_AMS_HOME /Tools/amsv2023/amsv
+MGLS_LICENSE_FILE 1717@163.180.118.198
+MOTD_SHOWN pam
+OASYSLD_LICENSE_FILE /Tools/Oasys2022/Oasys-RTL-2022.2.R1/license.lic
+PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/formalpro:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/onespin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/slec:/Tools/amsv2023/amsv/bin:/Tools/amsv2023/amsv/modeltech/bin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin:/Tools/nitroPack-2020.2.R1/nitro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/cuda-11.7/bin:/usr/local/cuda-11.7/bin:/usr/local/cuda-11.2/bin:/usr/local/cuda-11.2/bin
+PULSE_CLIENTCONFIG /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/.x2go/C-ddl2026_2021104248-63-1780624002_stDXFCE_dp32/.pulse-client.conf
+PWD /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys
+QT_ACCESSIBILITY 1
+QT_GRAPHICSSYSTEM native
+RT_CMD {/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys -gui}
+RT_HOME /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+RT_LIBPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib
+RT_MANPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/doc/man
+RT_PID 1888887
+RT_SIGSTKSZ 16
+RT_TCL_PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl
+RT_TMP /tmp/oasys.1888887
+RT_WRAPPER_SCRIPT /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys
+SESSION_MANAGER local/aiws:@/tmp/.ICE-unix/2620793,unix/aiws:/tmp/.ICE-unix/2620793
+SHELL /bin/bash
+SHLVL 1
+SSH_AGENT_PID 2621515
+SSH_AUTH_SOCK /tmp/ssh-hCwScma5NmSP/agent.2621514
+SSH_CLIENT {172.21.26.209 62165 22}
+SSH_CONNECTION {172.21.26.209 62165 163.180.144.105 22}
+STARTUP {/usr/bin/im-launch /usr/bin/env LD_LIBRARY_PATH=:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.2/lib64:/usr/local/cuda-11.2/lib64 xfce4-session}
+TCL_LIBRARY /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl/library
+TERM xterm-256color
+UBUNTU_MENUPROXY 1
+USER ddl2026_2021104248
+VTE_VERSION 6003
+X2GO_AGENT_PID 2619449
+X2GO_SESSION ddl2026_2021104248-63-1780624002_stDXFCE_dp32
+XAUTHORITY /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/.Xauthority
+XDG_DATA_DIRS /usr/local/share:/usr/share:/var/lib/snapd/desktop
+XDG_RUNTIME_DIR /run/user/1491
+XDG_SESSION_CLASS user
+XDG_SESSION_ID 856
+XDG_SESSION_TYPE tty
+XSESSION_EXEC xfce4-session
+---
+
+Timestamp: 1781316461.154473678
+---
+Soft resource limits:
+
+Executing: /bin/bash -f -c {ulimit -a -S}
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 963647
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 81920
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 963647
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+---
+
+Timestamp: 1781316461.157574308
+---
+Hard resource limits:
+
+Executing: /bin/bash -f -c {ulimit -a -H}
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 963647
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1048576
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) unlimited
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 963647
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+---
+
+Timestamp: 1781316461.202801902
+---
+CPU Information
+
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6226R CPU @ 2.90GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2900.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 32
+core id		: 0
+cpu cores	: 16
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 5800.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+processor	: 1
+core id		: 1
+apicid		: 2
+initial apicid	: 2
+
+processor	: 2
+cpu MHz		: 2171.872
+core id		: 2
+apicid		: 4
+initial apicid	: 4
+
+processor	: 3
+core id		: 3
+apicid		: 6
+initial apicid	: 6
+
+processor	: 4
+core id		: 4
+apicid		: 8
+initial apicid	: 8
+
+processor	: 5
+core id		: 5
+apicid		: 10
+initial apicid	: 10
+
+processor	: 6
+cpu MHz		: 2258.030
+core id		: 6
+apicid		: 12
+initial apicid	: 12
+
+processor	: 7
+core id		: 7
+apicid		: 14
+initial apicid	: 14
+
+processor	: 8
+core id		: 8
+apicid		: 16
+initial apicid	: 16
+
+processor	: 9
+core id		: 9
+apicid		: 18
+initial apicid	: 18
+
+processor	: 10
+core id		: 10
+apicid		: 20
+initial apicid	: 20
+
+processor	: 11
+cpu MHz		: 3600.000
+core id		: 11
+apicid		: 22
+initial apicid	: 22
+
+processor	: 12
+core id		: 12
+apicid		: 24
+initial apicid	: 24
+
+processor	: 13
+core id		: 13
+apicid		: 26
+initial apicid	: 26
+
+processor	: 14
+core id		: 14
+apicid		: 28
+initial apicid	: 28
+
+processor	: 15
+core id		: 15
+apicid		: 30
+initial apicid	: 30
+
+processor	: 16
+apicid		: 1
+initial apicid	: 1
+
+processor	: 17
+core id		: 1
+apicid		: 3
+initial apicid	: 3
+
+processor	: 18
+core id		: 2
+apicid		: 5
+initial apicid	: 5
+
+processor	: 19
+core id		: 3
+apicid		: 7
+initial apicid	: 7
+
+processor	: 20
+core id		: 4
+apicid		: 9
+initial apicid	: 9
+
+processor	: 21
+cpu MHz		: 1264.922
+core id		: 5
+apicid		: 11
+initial apicid	: 11
+
+processor	: 22
+core id		: 6
+apicid		: 13
+initial apicid	: 13
+
+processor	: 23
+core id		: 7
+apicid		: 15
+initial apicid	: 15
+
+processor	: 24
+core id		: 8
+apicid		: 17
+initial apicid	: 17
+
+processor	: 25
+core id		: 9
+apicid		: 19
+initial apicid	: 19
+
+processor	: 26
+core id		: 10
+apicid		: 21
+initial apicid	: 21
+
+processor	: 27
+core id		: 11
+apicid		: 23
+initial apicid	: 23
+
+processor	: 28
+core id		: 12
+apicid		: 25
+initial apicid	: 25
+
+processor	: 29
+core id		: 13
+apicid		: 27
+initial apicid	: 27
+
+processor	: 30
+core id		: 14
+apicid		: 29
+initial apicid	: 29
+
+processor	: 31
+core id		: 15
+apicid		: 31
+initial apicid	: 31
+
+This host has 32 processors, with most parameters identical to the first one, except as noted above.
+
+---
+
+Timestamp: 1781316461.436802080
+---
+Miscellaneous system info for process PID=1888897
+Recorded at Sat Jun 13 11:07:41 KST 2026
+
+Executing: uptime
+ 11:07:41 up 15 days, 22:28,  1 user,  load average: 5.72, 4.32, 4.27
+
+Executing: uname -a
+Linux aiws 5.15.0-60-generic #66~20.04.1-Ubuntu SMP Wed Jan 25 09:41:30 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+Executing: free
+              total        used        free      shared  buff/cache   available
+Mem:      246776808   166206980    50329968     1071560    30239860    77335928
+Swap:       2097148      686336     1410812
+
+Executing: ps u 1888897
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+ddl2026+ 1888897 19.0  0.0 168312 54872 pts/16   S    11:07   0:00 /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui -- -gui
+Failed to find any usable /etc/*-release file
+
+Executing: ldd /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui
+	linux-vdso.so.1 (0x00007ffd123ac000)
+	libQt5PrintSupport.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5PrintSupport.so.5 (0x00007f3b007ed000)
+	libQt5Widgets.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5 (0x00007f3affd95000)
+	libQt5Gui.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Gui.so.5 (0x00007f3aff3f9000)
+	libQt5Core.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5 (0x00007f3afe862000)
+	libmemsh-102.so => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libmemsh-102.so (0x00007f3afe841000)
+	libncurses.so.5 => /lib/x86_64-linux-gnu/libncurses.so.5 (0x00007f3afe7f1000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f3afe7ce000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f3afe7c8000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f3afe7be000)
+	libX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x00007f3afe681000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f3afe663000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f3afe514000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3afe322000)
+	libgthread-2.0.so.0 => /lib/x86_64-linux-gnu/libgthread-2.0.so.0 (0x00007f3afe31d000)
+	libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007f3afe1f3000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f3b00a90000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f3afe1c3000)
+	libxcb.so.1 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libxcb.so.1 (0x00007f3afdf8e000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f3afdf1b000)
+	libXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x00007f3afdf15000)
+	libXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f3afdf0d000)
+	libbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x00007f3afdef1000)
+
+Examining disk space in the following directories:
+  Current directory: /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys
+  Oasys' temp directory: /tmp/oasys.1888887/ (normalized path: /tmp/oasys.1888887)
+  RT_TMP directory: /tmp/oasys.1888887
+
+Executing: df /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys /tmp/oasys.1888887 /tmp/oasys.1888887
+Filesystem     1K-blocks      Used Available Use% Mounted on
+/dev/sdc       960303848 720795068 190654268  80% /mnt/NewHDD
+/dev/sda5      316538984 245872452  54513956  82% /
+/dev/sda5      316538984 245872452  54513956  82% /
+
+
+---
+
+Timestamp: 1781316477.024507355
+---
+NDbC::beforeConcurrency uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781316477.028364990
+---
+PID=1888897 Allocated sock7f5d7dfbe390 for mpg, port=2000
+---
+
+1781316477.028846962 Parent PID=1888897 7.851042953 7.507304 0.343739 forking worker # 1
+Timestamp: 1781316477.029287477
+---
+NDbC::beforeForking uniquifier=<offset=1,modulo=5>
+
+---
+
+Timestamp: 1781316477.029287477
+---
+NDbC::beforeForking uniquifier=<offset=1,modulo=5>
+
+---
+
+Timestamp: 1781316477.088263683
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781316477.088371118
+---
+Parent 1888897 started child 1890185 
+
+---
+
+1781316477.088875453 Parent PID=1888897 7.911064208 7.563457 0.347607 forking worker # 2
+Timestamp: 1781316477.089075718
+---
+NDbC::beforeForking uniquifier=<offset=2,modulo=5>
+
+---
+
+Timestamp: 1781316477.089075718
+---
+NDbC::beforeForking uniquifier=<offset=2,modulo=5>
+
+---
+
+Timestamp: 1781316477.105873094
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781316477.105914698
+---
+Parent 1888897 started child 1890191 
+
+---
+
+1781316477.106380884 Parent PID=1888897 7.928556735 7.572891 0.355666 forking worker # 3
+Timestamp: 1781316477.106564370
+---
+NDbC::beforeForking uniquifier=<offset=3,modulo=5>
+
+---
+
+Timestamp: 1781316477.106564370
+---
+NDbC::beforeForking uniquifier=<offset=3,modulo=5>
+
+---
+
+Timestamp: 1781316477.123716967
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781316477.123761604
+---
+Parent 1888897 started child 1890198 
+
+---
+
+1781316477.124209275 Parent PID=1888897 7.946385984 7.582826 0.363560 forking worker # 4
+Timestamp: 1781316477.124409945
+---
+NDbC::beforeForking uniquifier=<offset=4,modulo=5>
+
+---
+
+Timestamp: 1781316477.124409945
+---
+NDbC::beforeForking uniquifier=<offset=4,modulo=5>
+
+---
+
+Timestamp: 1781316477.140539755
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781316477.140585294
+---
+Parent 1888897 started child 1890204 
+
+---
+
+1781316477.158949552 BEGIN areaOpt PID=1888897 7.981118507 7.609399 0.371719
+1781316505.402365468 END areaOpt PID=1888897 14.618671151 14.012369 0.606301
+1781316505.623412238 BEGIN constProp PID=1888897 14.661316949 14.051070 0.610247
+1781316505.647101430 END constProp PID=1888897 14.683664676 14.069504 0.614160
+1781316509.919542163 BEGIN runTimingOptimizationLoopLevel2 PID=1888897 18.930393567 18.232275 0.698118
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35284
+info: (0) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -10378.5ps(1/1) (4 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35369
+optimized 'gemm_accelerator_top__GCM0' area: 64951632000000 -> 64239966000000, inst: 3286->3304, slack: -10378.5 -> -10378.5 (0.4 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87087798000000 -> 87087798000000, inst: 2518->2518, slack: -10378.5 -> -10378.5 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9046728000000 -> 9046728000000, inst: 571->571, slack: -10378.5 -> -10378.5 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35452
+info: (1) optimizing 'u_system/i_0' (path group default) @ -6904.5ps(1/1) (2 secs)
+optimized 'gemm_system_top__GC0' area: 31141908000000 -> 34502760000000, inst: 1761->2095, slack: -6904.5 -> 2749.9 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35552
+info: (2) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -3760.5ps(1/1) (0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 64239966000000 -> 64299582000000, inst: 3304->3320, slack: -3760.5 -> -3760.5 (0.3 secs)
+optimized 'gemm_local_buffer__GBM0' area: 87087798000000 -> 87501384000000, inst: 2518->2555, slack: -3760.5 -> -3669.1 (0.6 secs)
+optimized 'gemm_local_buffer__GBM1' area: 9046728000000 -> 9136152000000, inst: 571->584, slack: -3760.5 -> -3263.8 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35652
+info: (3) optimizing 'u_system/u_gemm/i_0/b_col1[3]' (path group default) @ -3163.5ps(1/1) (2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35735
+optimized 'gemm_accelerator_top__GCM0' area: 64299582000000 -> 64765332000000, inst: 3320->3399, slack: -3163.5 -> -3163.5 (0.6 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9136152000000 -> 9136152000000, inst: 584->584, slack: -3163.5 -> -3163.5 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35835
+info: (4) optimizing 'u_system/u_gemm/i_0/a_col1[3]' (path group default) @ -3038.8ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 64765332000000 -> 65249712000000, inst: 3399->3445, slack: -3038.8 -> -2992.5 (0.9 secs)
+optimized 'gemm_local_buffer__GBM0' area: 87501384000000 -> 87512562000000, inst: 2555->2556, slack: -3038.8 -> -3037.2 (0.4 secs)
+optimized 'gemm_local_buffer__GBM1' area: 9136152000000 -> 9214398000000, inst: 584->592, slack: -3038.8 -> -2989.0 (0.4 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:35935
+info: (5) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -2847.0ps(1/1) (3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 65249712000000 -> 65547792000000, inst: 3445->3484, slack: -2847.0 -> -2847.0 (0.6 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87512562000000 -> 87512562000000, inst: 2556->2556, slack: -2847.0 -> -2847.0 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2847.0 -> -2847.0 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36035
+info: (6) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -2733.8ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 65547792000000 -> 65819790000000, inst: 3484->3516, slack: -2733.8 -> -2733.8 (0.8 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87512562000000 -> 87512562000000, inst: 2556->2556, slack: -2733.8 -> -2733.8 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2733.8 -> -2733.8 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36135
+info: (7) optimizing 'u_system/u_gemm/i_0/b_col1[3]' (path group default) @ -2477.5ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 65819790000000 -> 66020994000000, inst: 3516->3540, slack: -2477.5 -> -2477.5 (0.7 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2477.5 -> -2477.5 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36235
+info: (8) optimizing 'u_system/u_gemm/i_0/a_col1[3]' (path group default) @ -2466.1ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66020994000000 -> 66307896000000, inst: 3540->3562, slack: -2466.1 -> -2466.1 (0.8 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87512562000000 -> 87512562000000, inst: 2556->2556, slack: -2466.1 -> -2466.1 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2466.1 -> -2466.1 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36335
+info: (9) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -2436.7ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66307896000000 -> 66319074000000, inst: 3562->3563, slack: -2436.7 -> -2436.7 (0.5 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87512562000000 -> 87512562000000, inst: 2556->2556, slack: -2436.7 -> -2436.7 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2436.7 -> -2436.7 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36436
+info: (10) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -2358.0ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66319074000000 -> 66505374000000, inst: 3563->3597, slack: -2358.0 -> -2358.0 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 87512562000000 -> 87512562000000, inst: 2556->2556, slack: -2358.0 -> -2358.0 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 9214398000000 -> 9214398000000, inst: 592->592, slack: -2358.0 -> -2358.0 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:36537
+info: (11) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -2351.2ps(1/1) (2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:37697
+optimized 'gemm_local_buffer__GBM1' area: 9214398000000 -> 14587290000000, inst: 592->897, slack: -2351.2 -> -2319.4 (2.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 87512562000000 -> 90221364000000, inst: 2556->3062, slack: -2351.2 -> -2324.6 (2.7 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66505374000000 -> 66605976000000, inst: 3597->3610, slack: -2351.2 -> -2351.2 (0.7 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:37798
+info: (12) optimizing 'u_system/u_gemm/i_0/a_col2[1]' (path group default) @ -2158.4ps(1/1) (6 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 14587290000000 -> 14587290000000, inst: 897->897, slack: -2158.4 -> -2158.4 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 90221364000000 -> 90869688000000, inst: 3062->3149, slack: -2158.4 -> -2101.2 (1.7 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66605976000000 -> 66829536000000, inst: 3610->3653, slack: -2158.4 -> -2158.4 (0.5 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:37899
+info: (13) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -2136.8ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 14587290000000 -> 14687892000000, inst: 897->907, slack: -2136.8 -> -2055.7 (0.4 secs)
+optimized 'gemm_local_buffer__GBM0' area: 90869688000000 -> 91033632000000, inst: 3149->3171, slack: -2136.8 -> -2076.1 (3.8 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 66829536000000 -> 67373532000000, inst: 3653->3710, slack: -2136.8 -> -2136.8 (1.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38000
+info: (14) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -2032.0ps(1/1) (6 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 14687892000000 -> 14687892000000, inst: 907->907, slack: -2032.0 -> -2032.0 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 91033632000000 -> 91033632000000, inst: 3171->3171, slack: -2032.0 -> -2032.0 (0.2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67373532000000 -> 67485312000000, inst: 3710->3727, slack: -2032.0 -> -2032.0 (1.2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38101
+info: (15) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -1980.9ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 14687892000000 -> 14687892000000, inst: 907->907, slack: -1980.9 -> -1980.9 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 91033632000000 -> 91465848000000, inst: 3171->3235, slack: -1980.9 -> -1926.8 (1.8 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67485312000000 -> 67671612000000, inst: 3727->3751, slack: -1980.9 -> -1980.9 (1.2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38202
+info: (16) optimizing 'u_system/u_gemm/i_0/a_col1[3]' (path group default) @ -1927.1ps(1/1) (4 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 14687892000000 -> 14687892000000, inst: 907->907, slack: -1927.1 -> -1927.1 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 91465848000000 -> 94591962000000, inst: 3235->3085, slack: -1927.1 -> -1357.7 (7.5 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67671612000000 -> 67734954000000, inst: 3751->3757, slack: -1927.1 -> -1927.1 (0.9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38303
+info: (17) optimizing 'u_system/u_gemm/i_0/b_col0[4]' (path group default) @ -1416.6ps(1/1) (9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38387
+optimized 'gemm_local_buffer__GBM1' area: 14687892000000 -> 14825754000000, inst: 907->917, slack: -1416.6 -> -1325.6 (1.3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67734954000000 -> 67828104000000, inst: 3757->3765, slack: -1416.6 -> -1416.6 (1.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38488
+info: (18) optimizing 'u_system/u_gemm/i_0/a_col3[3]' (path group default) @ -1325.8ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94591962000000 -> 94040514000000, inst: 3085->2965, slack: -1325.8 -> -1159.6 (4.8 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38589
+info: (19) optimizing 'u_system/u_gemm/i_0/b_col1[2]' (path group default) @ -1290.9ps(1/1) (5 secs)
+optimized 'gemm_local_buffer__GBM1' area: 14825754000000 -> 15552324000000, inst: 917->1047, slack: -1291.1 -> -1162.3 (2.6 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67828104000000 -> 67936158000000, inst: 3765->3785, slack: -1290.9 -> -1290.9 (1.2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38690
+info: (20) optimizing 'u_system/u_gemm/i_0/a_col3[4]' (path group default) @ -1162.5ps(1/1) (5 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38774
+unchanged 'gemm_local_buffer__GBM1' area: 15552324000000 -> 15552324000000, inst: 1047->1047, slack: -1162.5 -> -1162.5 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 94040514000000 -> 94040514000000, inst: 2965->2965, slack: -1162.5 -> -1162.5 (0.0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 67936158000000 -> 68461524000000, inst: 3785->3864, slack: -1162.5 -> -1161.2 (1.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38875
+info: (21) optimizing 'u_system/u_gemm/i_0/a_col0[4]' (path group default) @ -1132.3ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 15552324000000 -> 15552324000000, inst: 1047->1047, slack: -1132.3 -> -1132.3 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94040514000000 -> 94118760000000, inst: 2965->2977, slack: -1132.3 -> -1011.6 (1.2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68461524000000 -> 68424264000000, inst: 3864->3859, slack: -1132.3 -> -1132.3 (1.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:38976
+info: (22) optimizing 'u_system/u_gemm/i_0/b_col1[3]' (path group default) @ -1083.7ps(1/1) (3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39077
+info: (23) optimizing 'u_system/u_gemm/i_0/b_col1[3]' (path group default) @ -1083.7ps(1/1) (0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68424264000000 -> 68554674000000, inst: 3859->3874, slack: -1083.7 -> -1083.7 (0.3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 15552324000000 -> 16032978000000, inst: 1047->1140, slack: -1083.9 -> -1005.0 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39178
+info: (24) optimizing 'u_system/u_gemm/i_0/a_col3[3]' (path group default) @ -1005.2ps(1/1) (2 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94118760000000 -> 94141116000000, inst: 2977->2980, slack: -1005.2 -> -984.6 (0.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39279
+info: (25) optimizing 'u_system/u_gemm/i_0/b_col0[3]' (path group default) @ -1004.4ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68554674000000 -> 68647824000000, inst: 3874->3885, slack: -1004.4 -> -1004.4 (0.6 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16032978000000 -> 16032978000000, inst: 1140->1140, slack: -1004.4 -> -1002.8 (0.8 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39379
+info: (26) optimizing 'u_system/u_gemm/i_0/b_col0[1]' (path group default) @ -971.0ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68647824000000 -> 68737248000000, inst: 3885->3896, slack: -971.0 -> -971.0 (0.6 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16032978000000 -> 16044156000000, inst: 1140->1141, slack: -971.0 -> -971.0 (0.5 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39479
+info: (27) optimizing 'u_system/u_gemm/i_0/b_col0[3]' (path group default) @ -927.3ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68737248000000 -> 68904918000000, inst: 3896->3916, slack: -927.3 -> -927.3 (0.9 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16044156000000 -> 16498728000000, inst: 1141->1052, slack: -927.3 -> -926.3 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39579
+info: (28) optimizing 'u_system/u_gemm/i_0/a_col3[3]' (path group default) @ -926.6ps(1/1) (2 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94141116000000 -> 94103856000000, inst: 2980->2975, slack: -926.6 -> -904.8 (0.9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39679
+info: (29) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -926.5ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 68904918000000 -> 69031602000000, inst: 3916->3929, slack: -926.5 -> -923.3 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -926.5 -> -926.5 (0.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39779
+info: (30) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -907.5ps(1/1) (3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69031602000000 -> 69184368000000, inst: 3929->3947, slack: -907.5 -> -907.5 (0.8 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -907.5 -> -907.5 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39879
+info: (31) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -870.1ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69184368000000 -> 69121026000000, inst: 3947->3941, slack: -870.1 -> -870.1 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -870.1 -> -870.1 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:39979
+info: (32) optimizing 'u_system/u_gemm/i_0/b_col3[5]' (path group default) @ -851.8ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69121026000000 -> 69348312000000, inst: 3941->3957, slack: -851.8 -> -851.8 (0.8 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -851.8 -> -851.8 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40079
+info: (33) optimizing 'u_system/u_gemm/i_0/b_col3[4]' (path group default) @ -846.1ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69348312000000 -> 69553242000000, inst: 3957->3982, slack: -846.1 -> -846.1 (1.2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -846.1 -> -846.1 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40179
+info: (34) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -820.1ps(1/1) (1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -820.1 -> -820.1 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 94103856000000 -> 94103856000000, inst: 2975->2975, slack: -820.1 -> -820.1 (0.0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69553242000000 -> 69504804000000, inst: 3982->3981, slack: -820.1 -> -820.1 (0.8 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40279
+info: (35) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -771.8ps(1/1) (3 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16498728000000, inst: 1052->1052, slack: -771.8 -> -771.8 (0.0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69504804000000 -> 69519708000000, inst: 3981->3982, slack: -771.8 -> -771.8 (1.2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40379
+info: (36) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -770.9ps(1/1) (1 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16498728000000 -> 16714836000000, inst: 1052->1073, slack: -770.9 -> -715.0 (1.5 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94103856000000 -> 94774536000000, inst: 2975->3086, slack: -770.9 -> -703.5 (4.4 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69519708000000 -> 69631488000000, inst: 3982->3999, slack: -770.9 -> -770.9 (1.2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40479
+info: (37) optimizing 'u_system/u_gemm/i_0/a_col2[0]' (path group default) @ -707.7ps(1/1) (8 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16714836000000 -> 16714836000000, inst: 1073->1073, slack: -707.7 -> -707.7 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94774536000000 -> 94942206000000, inst: 3086->3130, slack: -707.7 -> -634.2 (4.3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69631488000000 -> 69948198000000, inst: 3999->4032, slack: -707.7 -> -707.7 (1.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40579
+info: (38) optimizing 'u_system/u_gemm/i_0/b_col1[3]' (path group default) @ -682.9ps(1/1) (7 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16714836000000 -> 16815438000000, inst: 1073->1085, slack: -682.9 -> -628.4 (3.2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69948198000000 -> 69963102000000, inst: 4032->4034, slack: -682.9 -> -682.9 (0.7 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40679
+info: (39) optimizing 'u_system/u_gemm/i_0/a_col0[4]' (path group default) @ -626.9ps(1/1) (4 secs)
+optimized 'gemm_local_buffer__GBM0' area: 94942206000000 -> 95039082000000, inst: 3130->3151, slack: -626.9 -> -589.6 (1.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40779
+info: (40) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -589.7ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16815438000000 -> 16815438000000, inst: 1085->1085, slack: -589.7 -> -589.7 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95039082000000 -> 95042808000000, inst: 3151->3153, slack: -589.7 -> -588.9 (0.9 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69963102000000 -> 70138224000000, inst: 4034->4054, slack: -589.7 -> -589.7 (1.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40879
+info: (41) optimizing 'u_system/u_gemm/i_0/a_col3[4]' (path group default) @ -589.0ps(1/1) (4 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16815438000000 -> 16815438000000, inst: 1085->1085, slack: -589.0 -> -589.0 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95042808000000 -> 95042808000000, inst: 3153->3153, slack: -589.0 -> -589.0 (0.1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 70138224000000 -> 70693398000000, inst: 4054->4116, slack: -589.0 -> -589.0 (1.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:40979
+info: (42) optimizing 'u_system/u_gemm/i_0/a_col0[6]' (path group default) @ -581.4ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16815438000000 -> 16815438000000, inst: 1085->1085, slack: -581.4 -> -581.4 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95042808000000 -> 95042808000000, inst: 3153->3153, slack: -581.4 -> -581.4 (0.8 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 70693398000000 -> 70801452000000, inst: 4116->4131, slack: -581.4 -> -581.4 (1.9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41079
+info: (43) optimizing 'u_system/u_gemm/i_0/b_col1[4]' (path group default) @ -553.6ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16815438000000 -> 16822890000000, inst: 1085->1086, slack: -553.6 -> -542.5 (1.0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 70801452000000 -> 71010108000000, inst: 4131->4154, slack: -553.6 -> -553.6 (1.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41179
+info: (44) optimizing 'u_system/u_gemm/i_0/b_col3[5]' (path group default) @ -525.8ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16822890000000 -> 16949574000000, inst: 1086->1105, slack: -525.8 -> -504.2 (1.3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71010108000000 -> 71106984000000, inst: 4154->4166, slack: -525.8 -> -525.8 (1.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41279
+info: (45) optimizing 'u_system/u_gemm/i_0/a_col2[4]' (path group default) @ -491.4ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95042808000000 -> 95102424000000, inst: 3153->3162, slack: -491.4 -> -474.6 (2.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41379
+info: (46) optimizing 'u_system/u_gemm/i_0/b_col3[2]' (path group default) @ -478.7ps(1/1) (3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41479
+info: (47) optimizing 'u_system/u_gemm/i_0/b_col3[2]' (path group default) @ -478.7ps(1/1) (0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71106984000000 -> 71181504000000, inst: 4166->4171, slack: -478.7 -> -478.7 (0.3 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -478.7 -> -478.7 (0.4 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41579
+info: (48) optimizing 'u_system/u_gemm/i_0/a_col2[4]' (path group default) @ -474.7ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71181504000000 -> 71229942000000, inst: 4171->4178, slack: -474.7 -> -474.7 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95102424000000, inst: 3162->3162, slack: -474.7 -> -474.7 (0.2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -474.7 -> -474.7 (0.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41679
+info: (49) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -471.3ps(1/1) (3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71229942000000 -> 71285832000000, inst: 4178->4185, slack: -471.3 -> -471.3 (1.5 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95102424000000, inst: 3162->3162, slack: -471.3 -> -471.3 (0.6 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -471.3 -> -471.3 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41779
+info: (50) optimizing 'u_system/u_gemm/i_0/b_col3[2]' (path group default) @ -457.7ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71285832000000 -> 71285832000000, inst: 4185->4183, slack: -457.7 -> -457.7 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -457.7 -> -457.7 (0.4 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41879
+info: (51) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -441.2ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71285832000000 -> 71315640000000, inst: 4183->4185, slack: -441.2 -> -441.2 (0.9 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -441.2 -> -441.2 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:41979
+info: (52) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -435.5ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71315640000000 -> 71479584000000, inst: 4185->4199, slack: -435.5 -> -435.5 (0.9 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -435.5 -> -435.5 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42079
+info: (53) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -415.9ps(1/1) (1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71479584000000 -> 71498214000000, inst: 4199->4204, slack: -415.9 -> -415.9 (0.6 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95102424000000, inst: 3162->3162, slack: -415.9 -> -415.9 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -415.9 -> -415.9 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42179
+info: (54) optimizing 'u_system/u_gemm/i_0/a_col0[7]' (path group default) @ -391.8ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71498214000000 -> 71699418000000, inst: 4204->4220, slack: -391.8 -> -391.8 (1.3 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95102424000000, inst: 3162->3162, slack: -391.8 -> -391.8 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -391.8 -> -391.8 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42279
+info: (55) optimizing 'u_system/u_gemm/i_0/a_col2[6]' (path group default) @ -388.6ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71699418000000 -> 71785116000000, inst: 4220->4231, slack: -388.6 -> -388.6 (1.2 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95102424000000, inst: 3162->3162, slack: -388.6 -> -388.6 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -388.6 -> -388.6 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42379
+info: (56) optimizing 'u_system/u_gemm/i_0/a_col1[4]' (path group default) @ -386.6ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -386.6 -> -386.6 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95102424000000 -> 95098698000000, inst: 3162->3161, slack: -386.6 -> -338.6 (1.1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71785116000000 -> 71781390000000, inst: 4231->4232, slack: -386.6 -> -386.6 (0.9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42479
+info: (57) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -361.1ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16949574000000 -> 16949574000000, inst: 1105->1105, slack: -361.1 -> -361.1 (0.1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71781390000000 -> 72016128000000, inst: 4232->4253, slack: -361.1 -> -361.1 (1.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42579
+info: (58) optimizing 'u_system/u_gemm/i_0/b_col3[4]' (path group default) @ -331.7ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16949574000000 -> 17020368000000, inst: 1105->1117, slack: -331.7 -> -324.8 (0.5 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 72016128000000 -> 71975142000000, inst: 4253->4248, slack: -331.7 -> -331.7 (1.8 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42679
+info: (59) optimizing 'u_system/u_gemm/i_0/b_col3[3]' (path group default) @ -328.9ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 17020368000000 -> 16886232000000, inst: 1117->1104, slack: -328.9 -> -324.8 (0.3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71975142000000 -> 71986320000000, inst: 4248->4253, slack: -328.9 -> -328.9 (1.5 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42779
+info: (60) optimizing 'u_system/u_gemm/i_0/a_col0[3]' (path group default) @ -324.7ps(1/1) (2 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95098698000000 -> 95113602000000, inst: 3161->3163, slack: -324.7 -> -315.2 (1.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42879
+info: (61) optimizing 'u_system/u_gemm/i_0/a_col0[6]' (path group default) @ -315.2ps(1/1) (2 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16886232000000 -> 16886232000000, inst: 1104->1104, slack: -315.2 -> -315.2 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95113602000000 -> 95113602000000, inst: 3163->3163, slack: -315.2 -> -315.2 (0.1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71986320000000 -> 71814924000000, inst: 4253->4226, slack: -315.2 -> -315.2 (2.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:42979
+info: (62) optimizing 'u_system/u_gemm/i_0/b_col3[4]' (path group default) @ -308.4ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16886232000000 -> 16901136000000, inst: 1104->1103, slack: -308.4 -> -297.9 (0.9 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71814924000000 -> 71781390000000, inst: 4226->4220, slack: -308.4 -> -308.4 (1.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43079
+info: (63) optimizing 'u_system/u_gemm/i_0/a_col1[4]' (path group default) @ -297.9ps(1/1) (3 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95113602000000 -> 95307354000000, inst: 3163->3202, slack: -297.9 -> -245.6 (4.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43179
+info: (64) optimizing 'u_system/u_gemm/i_0/b_col1[1]' (path group default) @ -254.9ps(1/1) (5 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16901136000000 -> 16975656000000, inst: 1103->1113, slack: -254.9 -> -245.6 (2.8 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71781390000000 -> 71881992000000, inst: 4220->4232, slack: -254.9 -> -254.9 (1.6 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43279
+info: (65) optimizing 'u_system/u_gemm/i_0/a_col2[4]' (path group default) @ -245.7ps(1/1) (5 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16975656000000 -> 16975656000000, inst: 1113->1113, slack: -245.7 -> -245.7 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95307354000000 -> 95307354000000, inst: 3202->3202, slack: -245.7 -> -245.7 (0.1 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71881992000000 -> 71494488000000, inst: 4232->4180, slack: -245.7 -> -245.7 (2.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43379
+info: (66) optimizing 'u_system/u_gemm/i_0/a_col1[4]' (path group default) @ -233.9ps(1/1) (3 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16975656000000 -> 16975656000000, inst: 1113->1113, slack: -233.9 -> -233.9 (0.0 secs)
+optimized 'gemm_local_buffer__GBM0' area: 95307354000000 -> 95299902000000, inst: 3202->3201, slack: -233.9 -> -229.4 (2.0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71494488000000 -> 71513118000000, inst: 4180->4181, slack: -233.9 -> -233.9 (2.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43479
+info: (67) optimizing 'u_system/u_gemm/i_0/a_col0[1]' (path group default) @ -229.4ps(1/1) (5 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16975656000000 -> 16975656000000, inst: 1113->1113, slack: -229.4 -> -229.4 (0.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95299902000000 -> 95299902000000, inst: 3201->3201, slack: -229.4 -> -229.4 (0.2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71513118000000 -> 71628624000000, inst: 4181->4196, slack: -229.4 -> -229.4 (1.7 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43579
+info: (68) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -228.0ps(1/1) (2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43679
+info: (69) optimizing 'u_system/u_gemm/i_0/a_col2[3]' (path group default) @ -228.0ps(1/1) (0 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71628624000000 -> 71636076000000, inst: 4196->4194, slack: -228.0 -> -228.0 (0.4 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95299902000000 -> 95299902000000, inst: 3201->3201, slack: -228.0 -> -228.0 (0.3 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16975656000000 -> 16975656000000, inst: 1113->1113, slack: -228.0 -> -228.0 (0.1 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43779
+info: (70) optimizing 'u_system/u_gemm/i_0/b_col3[1]' (path group default) @ -227.2ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71636076000000 -> 71714322000000, inst: 4194->4203, slack: -227.2 -> -227.2 (1.5 secs)
+optimized 'gemm_local_buffer__GBM1' area: 16975656000000 -> 16979382000000, inst: 1113->1124, slack: -227.2 -> -216.2 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43879
+info: (71) optimizing 'u_system/u_gemm/i_0/a_col2[6]' (path group default) @ -209.9ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71714322000000 -> 71729226000000, inst: 4203->4206, slack: -209.9 -> -209.9 (1.2 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95299902000000 -> 95299902000000, inst: 3201->3201, slack: -209.9 -> -209.9 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16979382000000 -> 16979382000000, inst: 1124->1124, slack: -209.9 -> -209.9 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:43979
+info: (72) optimizing 'u_system/u_gemm/i_0/a_col2[6]' (path group default) @ -204.7ps(1/1) (3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71729226000000 -> 71211312000000, inst: 4206->4238, slack: -204.7 -> -204.7 (2.3 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95299902000000 -> 95299902000000, inst: 3201->3201, slack: -204.7 -> -204.7 (0.1 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16979382000000 -> 16979382000000, inst: 1124->1124, slack: -204.7 -> -204.7 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:44078
+info: (73) optimizing 'u_system/u_gemm/i_0/a_col0[4]' (path group default) @ -86.4ps(1/1) (3 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 71211312000000 -> 71229942000000, inst: 4238->4242, slack: -86.4 -> -86.4 (1.0 secs)
+unchanged 'gemm_local_buffer__GBM0' area: 95299902000000 -> 95299902000000, inst: 3201->3201, slack: -86.4 -> -86.4 (0.6 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 16979382000000 -> 16979382000000, inst: 1124->1124, slack: -86.4 -> -86.4 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:44176
+info: (74) optimizing 'u_system/u_gemm/i_0/a_col0[4]' (path group default) @ 60.6ps(1/1) (2 secs)
+1781316700.916513011 END runTimingOptimizationLoopLevel2 PID=1888897 209.449406982 205.880639 3.568768
+1781316700.984613523 BEGIN runTimingOptimizationLoopLevel2 PID=1888897 209.517401696 205.948633 3.568768
+1781316700.988625574 END runTimingOptimizationLoopLevel2 PID=1888897 209.519225693 205.950457 3.568768
+1781316717.687276340 BEGIN Optimize3Top::place PID=1888897 226.214057293 222.253236 3.960821
+1781316797.879049998 END Optimize3Top::place PID=1888897 353.064296392 347.317427 5.746869
+1781316798.009205624 BEGIN runTimingOptimizationLoopLevel2 PID=1888897 353.194449822 347.447572 5.746877
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:49076
+info: (75) optimizing 'u_system/u_gemm/i_0/b_col3[2]' (path group default) @ -40.8ps(1/1) (144 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 69944472000000 -> 70004088000000, inst: 4099->4105, slack: -40.8 -> -40.8 (0.4 secs)
+optimized 'gemm_local_buffer__GBM1' area: 15615666000000 -> 15712542000000, inst: 1093->1106, slack: -40.8 -> -1.2 (0.7 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:49175
+info: (76) optimizing 'u_system/u_gemm/i_0/b_col3[1]' (path group default) @ -13.4ps(1/1) (2 secs)
+optimized 'gemm_accelerator_top__GCM0' area: 70004088000000 -> 69974280000000, inst: 4105->4099, slack: -13.4 -> -13.4 (1.5 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 15712542000000 -> 15712542000000, inst: 1106->1106, slack: -13.4 -> -13.4 (0.3 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:49273
+info: (77) optimizing 'u_system/u_gemm/i_0/b_col3[6]' (path group default) @ -7.3ps(1/1) (2 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:49354
+optimized 'gemm_accelerator_top__GCM0' area: 69974280000000 -> 69776802000000, inst: 4099->4105, slack: -7.3 -> -7.3 (1.5 secs)
+unchanged 'gemm_local_buffer__GBM1' area: 15712542000000 -> 15712542000000, inst: 1106->1106, slack: -7.3 -> -7.3 (0.0 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:49451
+info: (78) optimizing 'u_system/u_gemm/i_0/a_col3[3]' (path group default) @ 5.3ps(1/1) (2 secs)
+1781316804.447707835 END runTimingOptimizationLoopLevel2 PID=1888897 359.630666537 353.791825 5.838842
+1781316804.515600400 BEGIN runTimingOptimizationLoopLevel2 PID=1888897 359.698298890 353.859456 5.838842
+1781316804.518225705 END runTimingOptimizationLoopLevel2 PID=1888897 359.700092173 353.861250 5.838842
+1781316804.518411524 BEGIN incrPlace PID=1888897 359.700279302 353.861436 5.838842
+1781316804.518815740 END incrPlace PID=1888897 359.700683509 353.861840 5.838842
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01:50113
+info: (79) optimizing 'u_system/u_gemm/i_0/a_col3[3]' (path group default) @ 5.3ps(1/1) (2 secs)

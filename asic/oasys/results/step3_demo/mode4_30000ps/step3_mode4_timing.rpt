@@ -1,0 +1,169 @@
+> report_timing
+----------------------------------------------------------------------------------------------------
+Startpoint: u_system/u_cpu/u_inst_reg_instr_out_reg[28]/Q
+    (Clocked by clk R)
+Endpoint: u_system/u_cpu/u_accumulator_acc_out_reg[30]/DATA
+    (Clocked by clk R)
+Path Group: default
+Data required time: 29755.5
+    (Clock shift: 30000.0, minus Uncertainty: 0.0, plus Latency 0.0, minus Setup time: 244.5)
+Data arrival time: 16660.0
+Slack: 13095.5
+Logic depth: 73
+----------------------------------------------------------------------------------------------------
+                                                                 Arrival          Total             
+Path                     Module/Cell              Slew    Delay     Time  Edge     Load     Location
+                                                  (ps)     (ps)     (ps)           (ff)      (um,um)
+----------------------------------------------------------------------------------------------------
+clk                      {create_clock}                     0.0      0.0     r      0.0  2226, 1164 
+u_system/u_cpu/u_inst_reg_instr_out_reg[28]/CLK->Q
+                         DFF*                      0.0    697.1    697.1    rr    121.3  2033, 1790 
+u_system/u_cpu/i_0_338/A->Z
+                         BUFI4                    92.7    122.3    819.4    rf     94.7  2033, 1790 
+u_system/u_cpu/i_0_259/B->Z
+                         NAND2                    72.8    132.7    952.0    fr     33.7  2033, 1790 
+u_system/u_cpu/i_0_64/A->Z
+                         NAND2                    86.2    149.1   1101.1    rf     32.9  2033, 1790 
+u_system/u_cpu/i_0_63/B->Z
+                         NOR2*                    90.7    405.1   1506.2    fr    186.8  2033, 1790 
+u_system/u_cpu/i_0_62/B->Z
+                         NOR2*                    92.7    449.7   1955.9    rf    494.9  2033, 1790 
+u_system/u_cpu/i_0_26/SEL->Z
+                         MUX2*                    92.7    707.6   2663.5    fr    838.9  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_179/B->Z
+                         AOI22*                   92.7    260.0   2923.5    rf     28.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_177/C->Z
+                         NOR3*                    92.7    356.1   3279.6    fr     27.5  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_174/C->Z
+                         NOR3*                    92.7    196.5   3476.1    rf     34.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_173/B->Z
+                         NOR2                     92.7    171.4   3647.5    fr     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_172/B->Z
+                         NOR2                    115.9    139.6   3787.1    rf     46.7  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_170/B->Z
+                         NOR2                     89.8    140.2   3927.3    fr     16.8  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_169/B->Z
+                         NOR2                     89.5     81.1   4008.4    rf     16.8  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_168/B->Z
+                         NOR2                     57.6    179.1   4187.5    fr     35.8  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_166/A->Z
+                         NAND2                   138.7    129.3   4316.8    rf     16.6  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_165/B->Z
+                         NAND2                    64.0    128.2   4445.0    fr     33.4  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_162/B->Z
+                         NAND2                    85.8    146.7   4591.7    rf     33.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_161/A->Z
+                         NAND2                    91.2     97.8   4689.5    fr     16.6  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_160/B->Z
+                         NAND2                    63.7    163.2   4852.7    rf     43.4  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_158/B->Z
+                         NOR2                    108.1    193.2   5045.9    fr     31.7  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_157/A->Z
+                         BUFI4                   128.3     61.4   5107.3    rf     16.3  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_155/A->Z
+                         NAND2                    34.2    110.7   5218.0    fr     38.3  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_154/A->Z
+                         BUFI4                    92.2     67.3   5285.3    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_152/B->Z
+                         NOR2                     39.4    163.7   5449.0    fr     33.7  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_151/B->Z
+                         NOR2                    133.3    107.7   5556.7    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_148/C->Z
+                         NOR3*                    68.5    364.6   5921.3    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_147/B->Z
+                         NOR2                     92.7     98.9   6020.3    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_144/C->Z
+                         NOR3*                    68.5    364.6   6384.9    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_143/B->Z
+                         NOR2                     92.7     98.9   6483.8    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_140/C->Z
+                         NOR3*                    68.5    364.6   6848.5    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_139/B->Z
+                         NOR2                     92.7     98.9   6947.4    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_136/C->Z
+                         NOR3*                    68.5    364.6   7312.0    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_135/B->Z
+                         NOR2                     92.7     98.9   7411.0    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_132/C->Z
+                         NOR3*                    68.5    364.6   7775.6    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_131/B->Z
+                         NOR2                     92.7     98.9   7874.5    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_128/C->Z
+                         NOR3*                    68.5    364.6   8239.1    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_127/B->Z
+                         NOR2                     92.7     98.9   8338.1    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_124/C->Z
+                         NOR3*                    68.5    364.6   8702.7    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_123/B->Z
+                         NOR2                     92.7     98.9   8801.6    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_120/C->Z
+                         NOR3*                    68.5    364.6   9166.2    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_119/B->Z
+                         NOR2                     92.7     98.9   9265.2    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_116/C->Z
+                         NOR3*                    68.5    364.6   9629.8    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_115/B->Z
+                         NOR2                     92.7     98.9   9728.7    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_112/C->Z
+                         NOR3*                    68.5    364.6  10093.3    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_111/B->Z
+                         NOR2                     92.7     98.9  10192.3    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_108/C->Z
+                         NOR3*                    68.5    364.6  10556.9    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_107/B->Z
+                         NOR2                     92.7     98.9  10655.8    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_104/C->Z
+                         NOR3*                    68.5    364.6  11020.5    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_103/B->Z
+                         NOR2                     92.7     98.9  11119.4    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_100/C->Z
+                         NOR3*                    68.5    364.6  11484.0    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_99/B->Z
+                         NOR2                     92.7     98.9  11583.0    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_96/C->Z
+                         NOR3*                    68.5    364.6  11947.6    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_95/B->Z
+                         NOR2                     92.7     98.9  12046.5    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_92/C->Z
+                         NOR3*                    68.5    364.6  12411.1    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_91/B->Z
+                         NOR2                     92.7     98.9  12510.1    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_88/C->Z
+                         NOR3*                    68.5    364.6  12874.7    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_87/B->Z
+                         NOR2                     92.7     98.9  12973.6    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_84/C->Z
+                         NOR3*                    68.5    364.6  13338.2    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_83/B->Z
+                         NOR2                     92.7     98.9  13437.2    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_80/C->Z
+                         NOR3*                    68.5    364.6  13801.8    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_79/B->Z
+                         NOR2                     92.7     98.9  13900.7    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_76/C->Z
+                         NOR3*                    68.5    364.6  14265.4    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_75/B->Z
+                         NOR2                     92.7     98.9  14364.3    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_72/C->Z
+                         NOR3*                    68.5    364.6  14728.9    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_71/B->Z
+                         NOR2                     92.7     98.9  14827.9    rf     27.0  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_68/C->Z
+                         NOR3*                    68.5    364.6  15192.5    fr     34.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_67/B->Z
+                         NOR2                     92.7     81.7  15274.2    rf     16.8  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_66/B->Z
+                         NOR2                     57.6    177.4  15451.6    fr     35.2  2033, 1790 
+u_system/u_cpu/u_alu/i_12/i_59/A->Z
+                         XNOR2                   137.2    274.5  15726.1    rf     10.0  2033, 1790 
+u_system/u_cpu/u_alu/i_0_250/A->Z
+                         AOI22*                   70.2    313.2  16039.2    fr     17.8  2033, 1790 
+u_system/u_cpu/u_alu/i_0_245/B->Z
+                         NAND4                    83.5    196.8  16236.0    rf     10.6  2033, 1790 
+u_system/u_cpu/i_0_254/A->Z
+                         AOI22*                  129.1    326.6  16562.6    fr     17.4  2033, 1790 
+u_system/u_cpu/i_0_253/A->Z
+                         NAND2                    83.5     97.4  16660.0    rf     10.0  2033, 1790 
+u_system/u_cpu/u_accumulator_acc_out_reg[30]/DATA
+                         DFF                      53.3      0.0  16660.0     f           2033, 1790 
+----------------------------------------------------------------------------------------------------

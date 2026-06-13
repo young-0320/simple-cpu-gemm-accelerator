@@ -1,0 +1,197 @@
+> report_timing
+----------------------------------------------------------------------------------------------------
+Startpoint: u_system/u_gemm/u_mmio_r_k_reg[2]/Q
+    (Clocked by clk R)
+Endpoint: u_system/u_gemm/u_mac/acc_reg[31]/DATA
+    (Clocked by clk R)
+Path Group: default
+Data required time: 99752.9
+    (Clock shift: 100000.0, minus Uncertainty: 0.0, plus Latency 0.0, minus Setup time: 247.1)
+Data arrival time: 20235.4
+Slack: 79517.5
+Logic depth: 87
+----------------------------------------------------------------------------------------------------
+                                                                 Arrival          Total             
+Path                     Module/Cell              Slew    Delay     Time  Edge     Load     Location
+                                                  (ps)     (ps)     (ps)           (ff)      (um,um)
+----------------------------------------------------------------------------------------------------
+clk                      {create_clock}                     0.0      0.0     r      0.0  2225,  857 
+u_system/u_gemm/u_mmio_r_k_reg[2]/CLK->Q
+                         DFF*                      0.0    797.8    797.8    rr    319.0  2001, 1300 
+u_system/u_gemm/u_buf/i_1_0_492/C->Z
+                         NAND3*                   92.7    279.6   1077.4    rf     33.7  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_491/B->Z
+                         NAND2                    92.7    114.1   1191.5    fr     17.2  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_490/B->Z
+                         XNOR2                    64.6    356.4   1548.0    rf     34.2  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_486/B->Z
+                         XNOR2                    98.7    343.0   1890.9    ff     27.5  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_485/C->Z
+                         NOR3*                    91.2    306.3   2197.2    fr     17.3  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_484/B->Z
+                         NOR2                     83.5     83.7   2280.9    rf     19.1  2126, 1632 
+u_system/u_gemm/u_buf/i_1_0_432/A->Z
+                         XOR2*                    60.0    572.8   2853.7    fr    217.2  2126, 1632 
+u_system/u_gemm/u_buf/i_0_1_562/A->Z
+                         BUFI4                    92.7     57.4   2911.1    rf     16.3  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_555/A->Z
+                         NAND2                    34.2    142.5   3053.6    fr     59.2  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_554/C->Z
+                         NOR3*                   119.9    444.0   3497.6    rf    342.4  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_187/B->Z
+                         AOI22*                   92.7    352.2   3849.8    fr     18.1  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_183/A->Z
+                         NAND4                    83.5    202.2   4052.0    rf     16.9  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_177/A->Z
+                         NOR2                    147.3    179.3   4231.2    fr     21.5  1968, 1980 
+u_system/u_gemm/u_buf/i_0_1_176/A->Z
+                         BUFI4                   101.8    201.5   4432.7    rf    200.9  1968, 1980 
+u_system/u_gemm/u_mac/i_18/i_220/A->Z
+                         BUFI4                   127.6    203.5   4636.2    fr    116.5  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_198/B->Z
+                         NOR2                    120.6     91.6   4727.8    rf     19.1  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_196/A->Z
+                         XOR2*                    60.0    335.3   5063.1    ff     28.0  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_75/D->Z
+                         AOI22*                   92.7    373.0   5436.1    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_74/A->Z
+                         BUFI4                    92.7     61.3   5497.4    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_73/D->Z
+                         AOI22*                   36.1    342.2   5839.6    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_72/A->Z
+                         BUFI4                    92.7     61.0   5900.5    rf     20.0  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_70/B->Z
+                         AOI22*                   36.0    384.6   6285.1    fr     28.8  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_69/D->Z
+                         AOI22*                   92.7    236.4   6521.5    rf     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_68/A->Z
+                         BUFI4                    92.7     91.3   6612.8    fr     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_46/A->Z
+                         AOI22*                   45.4    286.7   6899.5    rf     41.7  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_43/A->Z
+                         XNOR2                    92.7    398.2   7297.6    ff     27.9  2001, 1300 
+u_system/u_gemm/u_mac/i_18/i_42/B->Z
+                         XNOR2                    91.6    327.7   7625.4    ff     21.7  2001, 1300 
+u_system/u_gemm/u_mac/i_0_393/A->Z
+                         INV                      84.6     83.9   7709.2    fr     15.7  2001, 1300 
+u_system/u_gemm/u_mac/i_0_198/A->Z
+                         NOR2                     45.1    117.0   7826.2    rf     36.5  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_386/A->Z
+                         NOR2                     78.8    192.9   8019.2    fr     32.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_385/A->Z
+                         INV                     129.1     67.7   8086.8    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_384/D->Z
+                         AOI22*                   34.2    369.1   8455.9    fr     43.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_383/A->Z
+                         BUFI4                    92.7     61.3   8517.2    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_328/A->Z
+                         AOI22*                   36.1    353.2   8870.4    fr     28.5  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_327/B->Z
+                         XOR2*                    92.7    322.0   9192.4    rr     29.8  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_257/A->Z
+                         XNOR2                    92.7    310.1   9502.5    rf     27.6  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_256/B->Z
+                         XOR2*                    91.3    344.0   9846.4    ff     29.8  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_225/A->Z
+                         XNOR2                    92.7    397.4  10243.9    ff     27.6  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_99/B->Z
+                         XNOR2                    91.3    347.4  10591.3    fr     32.2  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_98/A->Z
+                         BUFI4                    65.8     57.6  10648.9    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_97/D->Z
+                         AOI22*                   36.1    342.3  10991.2    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_96/A->Z
+                         BUFI4                    92.7     61.3  11052.5    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_93/C->Z
+                         AOI22*                   36.2    312.4  11364.9    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_92/A->Z
+                         BUFI4                    92.7     61.3  11426.2    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_89/C->Z
+                         AOI22*                   36.2    312.4  11738.6    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_88/A->Z
+                         BUFI4                    92.7     61.3  11799.9    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_85/C->Z
+                         AOI22*                   36.2    312.4  12112.4    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_84/A->Z
+                         BUFI4                    92.7     61.3  12173.7    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_81/C->Z
+                         AOI22*                   36.2    312.4  12486.1    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_80/A->Z
+                         BUFI4                    92.7     61.3  12547.4    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_77/C->Z
+                         AOI22*                   36.2    312.4  12859.8    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_76/A->Z
+                         BUFI4                    92.7     61.3  12921.1    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_73/C->Z
+                         AOI22*                   36.2    312.3  13233.4    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_72/A->Z
+                         BUFI4                    92.7     61.3  13294.7    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_71/D->Z
+                         AOI22*                   36.1    342.2  13636.8    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_70/A->Z
+                         BUFI4                    92.7     61.3  13698.1    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_69/D->Z
+                         AOI22*                   36.1    361.6  14059.7    fr     39.9  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_68/A->Z
+                         INV                      92.7     62.1  14121.8    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_67/D->Z
+                         AOI22*                   34.2    341.1  14462.9    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_66/A->Z
+                         BUFI4                    92.7     61.3  14524.2    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_65/D->Z
+                         AOI22*                   36.1    342.2  14866.4    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_64/A->Z
+                         BUFI4                    92.7     61.3  14927.6    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_63/D->Z
+                         AOI22*                   36.1    342.2  15269.8    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_62/A->Z
+                         BUFI4                    92.7     61.3  15331.0    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_61/D->Z
+                         AOI22*                   36.1    366.3  15697.3    fr     41.7  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_60/A->Z
+                         INV                      92.7     62.2  15759.5    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_58/C->Z
+                         AOI22*                   34.3    335.4  16094.9    fr     41.7  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_57/A->Z
+                         INV                      92.7     62.2  16157.1    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_55/C->Z
+                         AOI22*                   34.3    335.4  16492.5    fr     41.7  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_54/A->Z
+                         INV                      92.7     62.2  16554.7    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_53/C->Z
+                         AOI22*                   34.3    330.8  16885.4    fr     39.9  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_52/A->Z
+                         INV                      92.7     62.1  16947.5    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_51/D->Z
+                         AOI22*                   34.2    341.3  17288.8    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_50/A->Z
+                         BUFI4                    92.7     61.3  17350.1    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_47/C->Z
+                         AOI22*                   36.2    312.4  17662.5    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_46/A->Z
+                         BUFI4                    92.7     61.3  17723.8    rf     20.4  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_45/C->Z
+                         AOI22*                   36.2    312.3  18036.1    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_44/A->Z
+                         BUFI4                    92.7     61.3  18097.4    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_43/D->Z
+                         AOI22*                   36.1    342.2  18439.5    fr     33.1  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_42/A->Z
+                         BUFI4                    92.7     61.3  18500.8    rf     20.3  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_41/D->Z
+                         AOI22*                   36.1    366.3  18867.0    fr     41.7  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_40/A->Z
+                         INV                      92.7     61.4  18928.5    rf      9.7  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_35/A->Z
+                         AOI22*                   33.9    387.6  19316.1    fr     39.9  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_34/A->Z
+                         INV                      92.7     62.1  19378.2    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_33/D->Z
+                         AOI22*                   34.2    287.7  19665.9    fr     19.8  2001, 1300 
+u_system/u_gemm/u_mac/i_23/i_31/A->Z
+                         XNOR2                    83.5    268.3  19934.2    rf     10.0  2001, 1300 
+u_system/u_gemm/u_mac/i_0_31/A->Z
+                         AO22                     70.2    301.2  20235.4    ff     10.7  2001, 1300 
+u_system/u_gemm/u_mac/acc_reg[31]/DATA
+                         DFF                      64.3      0.0  20235.4     f           2001, 1300 
+----------------------------------------------------------------------------------------------------
