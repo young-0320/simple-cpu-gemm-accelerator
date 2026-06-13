@@ -64,3 +64,6 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
+
+report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
+report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"

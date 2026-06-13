@@ -13,8 +13,8 @@ set PERIOD     {15000ps}
 set TOP_MODULE {step1_gemm_accelerator_top_mode4}
 
 # floorplan tuning knobs
-set CHIP_XR         {7500000a}
-set CHIP_YT         {7500000a}
+set CHIP_XR         {7000000a}
+set CHIP_YT         {7000000a}
 set CORE_CELL_UTIL  {80}
 # =========================================================
 
@@ -70,10 +70,6 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
-<<<<<<< HEAD
-# ======
-=======
->>>>>>> add nitro step1
 
 report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
 report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
