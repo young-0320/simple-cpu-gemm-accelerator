@@ -11,29 +11,20 @@ set STEP       {step1}
 set MODE       {mode0}
 set PERIOD     {20000ps}
 set TOP_MODULE {step1_gemm_accelerator_top_mode0}
-
-# floorplan tuning knobs
-set CHIP_XR         {12000000a}
-set CHIP_YT         {12000000a}
-set CORE_CELL_UTIL  {40}
-
-# top-level pin placement tuning knobs
-set PIN_LAYER       {Metal2}
-set CTRL_PIN_EDGE   {1}
-set CTRL_PIN_FROM   {1000000a}
-set CTRL_PIN_TO     {2500000a}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
 set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
-# chip area 406367
-create_chip -xl_area 0a -yb_area 0a -xr_area $CHIP_XR -yt_area $CHIP_YT -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
+# =========================================================
+# chip area
+create_chip -xl_area 0a -yb_area 0a -xr_area 7300000a -yt_area 7300000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed true -gap 0a
+# =========================================================
 
-create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util $CORE_CELL_UTIL
+create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 80
 
-# power / track 
+# power / track
 
 stack_macros
 
@@ -45,15 +36,15 @@ create_supply_net -net_name vdd -domain primary -power_net true
 
 set_domain_supply_net -domain primary -primary_power_net vdd -primary_ground_net vss
 
-create_tracks -layers Metal4 -step 11500a 
+create_tracks -layers Metal4 -step 11500a
 
-create_tracks -layers Metal3 -step 13500a 
+create_tracks -layers Metal3 -step 13500a
 
-create_tracks -layers Metal2 -step 11500a 
+create_tracks -layers Metal2 -step 11500a
 
-create_tracks -layers Metal1 -step 13500a 
+create_tracks -layers Metal1 -step 13500a
 
-report_tracks -type preferred 
+report_tracks -type preferred
 
 #run after pause
 create_rows -partition $TOP_MODULE -core_site CORE -orient north -start_from core -gap 50a -xl_margin 0a -yb_margin 0a -xr_margin 0a -yt_margin 0a
@@ -75,7 +66,10 @@ write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
 
 
+# ======
 
+report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
+report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
 
 
 
