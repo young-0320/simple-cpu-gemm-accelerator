@@ -68,5 +68,5 @@ write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
 
 # ======
 
-report_timing -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
-report_design -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
+report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
+report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
