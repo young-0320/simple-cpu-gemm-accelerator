@@ -1,0 +1,15 @@
+#--------------------------------------------------------------------
+#         date     : Thu Jun 11 18:03:43 KST 2026
+#         ppid/pid : 2932429/2932439
+#         hostname : aiws
+#         arch/os  : x86_64/Linux-5.15.0-60-generic 
+#         install  : /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+#         currdir  : /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys
+#         logfile  : /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.02
+#         tmpdir   : /tmp/oasys.2932429/
+#--------------------------------------------------------------------
+# Starting Gui Interactive Session
+# Finished Gui Interactive Session
+# Starting Interactive Session
+open
+oasys -gui

@@ -1,0 +1,48 @@
+*******************************************************************
+*                  Oasys-RTL™ - release 2022.2.R1                 *
+*                                                                 *
+* This material contains trade secrets or otherwise confidential  *
+* information owned by Siemens Industry Software Inc. or its      *
+* affiliates (collectively, "SISW"), or its licensors. Access to  *
+* and use of this information is strictly limited as set forth    *
+* in the Customer’s applicable agreements with SISW.              *
+*                                                                 *
+*                 Unpublished work. © 2023 Siemens                *
+*                                                                 *
+* Program : ../bin/Linux-x86_64-O/oasysGui                        *
+* Version : 22.2-p002                                             *
+* Date    : Mon Jan 16 21:36:23 PST 2023                          *
+* Build   : releases/22.2-54756.0-CentOS_6.5-O                    *
+*******************************************************************
+ config sdc-v1.7-cpd cli cmd explore mxdb o2n fp rta mpg-m-w dft
+loading: oa2tessent-d ctl verify edit bt upf-c aos conc ipc-l vcd o2pp prot int oa2ap
+checked out license: psyncore
+
+         date     : Thu Jun 11 17:50:01 KST 2026
+         ppid/pid : 2861540/2861550
+         hostname : aiws
+         arch/os  : x86_64/Linux-5.15.0-60-generic 
+         install  : /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+         currdir  : /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys
+         logfile  : /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.01
+         tmpdir   : /tmp/oasys.2861540/
+> source /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl/library/history.tcl
+> source /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/config.tcl
+wrong # args: should be "set varName ?newValue?"
+    while executing
+"set input(verilog_dirs)                   [list "$REPO_ROOT/rtl_v2/gemm_accelerator"] # include 파일을 찾을 디렉토리"
+    (in namespace eval "::config" script line 22)
+    invoked from within
+"namespace eval config {
+    global input
+    set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator}
+
+ ..."
+    (file "/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/config.tcl" line 1)
+    invoked from within
+"tcl_source /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/config.tcl"
+> read_verilog -sv -I {} -D {} {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mmio_reg.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_controller_fsm.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_local_buffer.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_lsu.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mac_datapath.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mac_datapath4.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mac_datapath_at.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_accelerator_top.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/asic/oasys/step1_gemm_accelerator_top_mode0.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/asic/oasys/step1_gemm_accelerator_top_mode1.v /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/asic/oasys/step1_gemm_accelerator_top_mode4.v}
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mmio_reg.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_mmio_reg.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_controller_fsm.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_controller_fsm.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_local_buffer.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_local_buffer.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/rtl_v2/gemm_accelerator/gemm_lsu

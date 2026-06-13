@@ -1,0 +1,689 @@
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05:1093
+libc: 2.31-stable
+
+Timestamp: 1781171509.031776224
+---
+PID=3179559 0.163357505 0.112795 0.050563 program start
+Complete list of environment variables at program start
+_ /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys
+COLORTERM truecolor
+CUDADIR /usr/local/cuda-11.2
+DBUS_SESSION_BUS_ADDRESS unix:abstract=/tmp/dbus-ZukfmJR4wK,guid=01aafcac504754222a8cd3736a18ecf3
+DISPLAY :69.0
+GNOME_TERMINAL_SCREEN /org/gnome/Terminal/screen/94ecbbf9_d292_4d0b_8c6f_d3c4b44af9bb
+GNOME_TERMINAL_SERVICE :1.137
+GTK_MODULES appmenu-gtk-module:appmenu-gtk-module:gail:atk-bridge
+HOME /mnt/NewHDD/home/ddl2026/ddl2026_2022104291
+LANG en_US.UTF-8
+LC_ADDRESS ko_KR.UTF-8
+LC_IDENTIFICATION ko_KR.UTF-8
+LC_MEASUREMENT ko_KR.UTF-8
+LC_MONETARY ko_KR.UTF-8
+LC_NAME ko_KR.UTF-8
+LC_NUMERIC ko_KR.UTF-8
+LC_PAPER ko_KR.UTF-8
+LC_TELEPHONE ko_KR.UTF-8
+LC_TIME ko_KR.UTF-8
+LD_LIBRARY_PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/Linux-x86_64-O::/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.2/lib64:/usr/local/cuda-11.2/lib64
+LESSCLOSE {/usr/bin/lesspipe %s %s}
+LESSOPEN {| /usr/bin/lesspipe %s}
+LIBGL_ALWAYS_INDIRECT 1
+LOGNAME ddl2026_2022104291
+LS_COLORS {rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:}
+MANPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/doc/man:
+MGC_AMS_HOME /Tools/amsv2023/amsv
+MGLS_LICENSE_FILE 1717@163.180.118.198
+MOTD_SHOWN pam
+OASYSLD_LICENSE_FILE /Tools/Oasys2022/Oasys-RTL-2022.2.R1/license.lic
+OLDPWD /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic
+PANEL_GDK_CORE_DEVICE_EVENTS 0
+PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/formalpro:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/onespin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib/share/slec:/Tools/amsv2023/amsv/bin:/Tools/amsv2023/amsv/modeltech/bin:/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin:/Tools/nitroPack-2020.2.R1/nitro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/cuda-11.7/bin:/usr/local/cuda-11.7/bin:/usr/local/cuda-11.2/bin:/usr/local/cuda-11.2/bin
+PULSE_CLIENTCONFIG /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/.x2go/C-ddl2026_2022104291-69-1780018413_stDXFCE_dp32/.pulse-client.conf
+PWD /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys
+QT_ACCESSIBILITY 1
+QT_GRAPHICSSYSTEM native
+RT_CMD {/Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys -gui}
+RT_HOME /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+RT_LIBPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/lib
+RT_MANPATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/doc/man
+RT_PID 3179548
+RT_SIGSTKSZ 16
+RT_TCL_PATH /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl
+RT_TMP /tmp/oasys.3179548
+RT_WRAPPER_SCRIPT /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/oasys
+SESSION_MANAGER local/aiws:@/tmp/.ICE-unix/2685174,unix/aiws:/tmp/.ICE-unix/2685174
+SHELL /bin/bash
+SHLVL 2
+SSH_AGENT_PID 2685364
+SSH_AUTH_SOCK /tmp/ssh-724TinhDvMIS/agent.2685362
+SSH_CLIENT {172.21.56.172 49840 22}
+SSH_CONNECTION {172.21.56.172 49840 163.180.144.105 22}
+STARTUP {/usr/bin/im-launch /usr/bin/env LD_LIBRARY_PATH=:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.7/lib64:/usr/local/cuda-11.2/lib64:/usr/local/cuda-11.2/lib64 xfce4-session}
+TCL_LIBRARY /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl/library
+TERM xterm-256color
+UBUNTU_MENUPROXY 1
+USER ddl2026_2022104291
+VTE_VERSION 6003
+X2GO_AGENT_PID 2684784
+X2GO_SESSION ddl2026_2022104291-69-1780018413_stDXFCE_dp32
+XAUTHORITY /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/.Xauthority
+XDG_DATA_DIRS /usr/local/share:/usr/share:/var/lib/snapd/desktop
+XDG_RUNTIME_DIR /run/user/1494
+XDG_SESSION_CLASS user
+XDG_SESSION_ID 185
+XDG_SESSION_TYPE tty
+XSESSION_EXEC xfce4-session
+---
+
+Timestamp: 1781171509.034889682
+---
+Soft resource limits:
+
+Executing: /bin/bash -f -c {ulimit -a -S}
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 963647
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 81920
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 963647
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+---
+
+Timestamp: 1781171509.037432399
+---
+Hard resource limits:
+
+Executing: /bin/bash -f -c {ulimit -a -H}
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 963647
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1048576
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) unlimited
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 963647
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+---
+
+Timestamp: 1781171509.059397960
+---
+CPU Information
+
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6226R CPU @ 2.90GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2900.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 32
+core id		: 0
+cpu cores	: 16
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 5800.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+processor	: 1
+core id		: 1
+apicid		: 2
+initial apicid	: 2
+
+processor	: 2
+core id		: 2
+apicid		: 4
+initial apicid	: 4
+
+processor	: 3
+cpu MHz		: 3600.000
+core id		: 3
+apicid		: 6
+initial apicid	: 6
+
+processor	: 4
+cpu MHz		: 2963.331
+core id		: 4
+apicid		: 8
+initial apicid	: 8
+
+processor	: 5
+core id		: 5
+apicid		: 10
+initial apicid	: 10
+
+processor	: 6
+core id		: 6
+apicid		: 12
+initial apicid	: 12
+
+processor	: 7
+cpu MHz		: 3600.002
+core id		: 7
+apicid		: 14
+initial apicid	: 14
+
+processor	: 8
+cpu MHz		: 3599.999
+core id		: 8
+apicid		: 16
+initial apicid	: 16
+
+processor	: 9
+core id		: 9
+apicid		: 18
+initial apicid	: 18
+
+processor	: 10
+core id		: 10
+apicid		: 20
+initial apicid	: 20
+
+processor	: 11
+core id		: 11
+apicid		: 22
+initial apicid	: 22
+
+processor	: 12
+core id		: 12
+apicid		: 24
+initial apicid	: 24
+
+processor	: 13
+core id		: 13
+apicid		: 26
+initial apicid	: 26
+
+processor	: 14
+core id		: 14
+apicid		: 28
+initial apicid	: 28
+
+processor	: 15
+cpu MHz		: 3599.999
+core id		: 15
+apicid		: 30
+initial apicid	: 30
+
+processor	: 16
+apicid		: 1
+initial apicid	: 1
+
+processor	: 17
+core id		: 1
+apicid		: 3
+initial apicid	: 3
+
+processor	: 18
+core id		: 2
+apicid		: 5
+initial apicid	: 5
+
+processor	: 19
+core id		: 3
+apicid		: 7
+initial apicid	: 7
+
+processor	: 20
+core id		: 4
+apicid		: 9
+initial apicid	: 9
+
+processor	: 21
+cpu MHz		: 3067.691
+core id		: 5
+apicid		: 11
+initial apicid	: 11
+
+processor	: 22
+core id		: 6
+apicid		: 13
+initial apicid	: 13
+
+processor	: 23
+core id		: 7
+apicid		: 15
+initial apicid	: 15
+
+processor	: 24
+core id		: 8
+apicid		: 17
+initial apicid	: 17
+
+processor	: 25
+core id		: 9
+apicid		: 19
+initial apicid	: 19
+
+processor	: 26
+core id		: 10
+apicid		: 21
+initial apicid	: 21
+
+processor	: 27
+cpu MHz		: 2017.200
+core id		: 11
+apicid		: 23
+initial apicid	: 23
+
+processor	: 28
+core id		: 12
+apicid		: 25
+initial apicid	: 25
+
+processor	: 29
+core id		: 13
+apicid		: 27
+initial apicid	: 27
+
+processor	: 30
+core id		: 14
+apicid		: 29
+initial apicid	: 29
+
+processor	: 31
+core id		: 15
+apicid		: 31
+initial apicid	: 31
+
+This host has 32 processors, with most parameters identical to the first one, except as noted above.
+
+---
+
+Timestamp: 1781171509.290108223
+---
+Miscellaneous system info for process PID=3179559
+Recorded at Thu Jun 11 18:51:49 KST 2026
+
+Executing: uptime
+ 18:51:49 up 14 days,  6:12,  1 user,  load average: 7.76, 6.40, 6.04
+
+Executing: uname -a
+Linux aiws 5.15.0-60-generic #66~20.04.1-Ubuntu SMP Wed Jan 25 09:41:30 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+Executing: free
+              total        used        free      shared  buff/cache   available
+Mem:      246776808   102666348    74646424      976376    69464036   140971740
+Swap:       2097148      531712     1565436
+
+Executing: ps u 3179559
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+ddl2026+ 3179559 18.0  0.0 168312 54668 pts/30   S+   18:51   0:00 /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui -- -gui
+Failed to find any usable /etc/*-release file
+
+Executing: ldd /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui
+	linux-vdso.so.1 (0x00007ffe6c5f5000)
+	libQt5PrintSupport.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5PrintSupport.so.5 (0x00007f32d5560000)
+	libQt5Widgets.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5 (0x00007f32d4b08000)
+	libQt5Gui.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Gui.so.5 (0x00007f32d416c000)
+	libQt5Core.so.5 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5 (0x00007f32d35d5000)
+	libmemsh-102.so => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libmemsh-102.so (0x00007f32d35b4000)
+	libncurses.so.5 => /lib/x86_64-linux-gnu/libncurses.so.5 (0x00007f32d3564000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f32d3541000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f32d353b000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f32d3531000)
+	libX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x00007f32d33f4000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f32d33d6000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f32d3287000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f32d3095000)
+	libgthread-2.0.so.0 => /lib/x86_64-linux-gnu/libgthread-2.0.so.0 (0x00007f32d3090000)
+	libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007f32d2f66000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f32d5803000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f32d2f36000)
+	libxcb.so.1 => /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libxcb.so.1 (0x00007f32d2d01000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f32d2c8e000)
+	libXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x00007f32d2c88000)
+	libXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f32d2c80000)
+	libbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x00007f32d2c64000)
+
+Examining disk space in the following directories:
+  Current directory: /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys
+  Oasys' temp directory: /tmp/oasys.3179548/ (normalized path: /tmp/oasys.3179548)
+  RT_TMP directory: /tmp/oasys.3179548
+
+Executing: df /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys /tmp/oasys.3179548 /tmp/oasys.3179548
+Filesystem     1K-blocks      Used Available Use% Mounted on
+/dev/sdc       960303848 707801516 203647820  78% /mnt/NewHDD
+/dev/sda5      316538984 261514584  38871824  88% /
+/dev/sda5      316538984 261514584  38871824  88% /
+
+
+---
+
+Timestamp: 1781171737.956423314
+---
+NDbC::beforeConcurrency uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781171737.959966879
+---
+PID=3179559 Allocated sock7f5a7f918490 for mpg, port=2000
+---
+
+1781171737.960408125 Parent PID=3179559 3.572469918 3.219678 0.352792 forking worker # 1
+Timestamp: 1781171737.960874993
+---
+NDbC::beforeForking uniquifier=<offset=1,modulo=5>
+
+---
+
+Timestamp: 1781171737.960874993
+---
+NDbC::beforeForking uniquifier=<offset=1,modulo=5>
+
+---
+
+Timestamp: 1781171737.980511679
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781171737.980606464
+---
+Parent 3179559 started child 3197309 
+
+---
+
+1781171737.981142498 Parent PID=3179559 3.593220933 3.233899 0.359322 forking worker # 2
+Timestamp: 1781171737.981332954
+---
+NDbC::beforeForking uniquifier=<offset=2,modulo=5>
+
+---
+
+Timestamp: 1781171737.981332954
+---
+NDbC::beforeForking uniquifier=<offset=2,modulo=5>
+
+---
+
+Timestamp: 1781171737.995931975
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781171737.995972176
+---
+Parent 3179559 started child 3197315 
+
+---
+
+1781171737.996410106 Parent PID=3179559 3.608490040 3.249168 0.359322 forking worker # 3
+Timestamp: 1781171737.996590294
+---
+NDbC::beforeForking uniquifier=<offset=3,modulo=5>
+
+---
+
+Timestamp: 1781171737.996590294
+---
+NDbC::beforeForking uniquifier=<offset=3,modulo=5>
+
+---
+
+Timestamp: 1781171738.010588888
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781171738.010641400
+---
+Parent 3179559 started child 3197318 
+
+---
+
+1781171738.011085797 Parent PID=3179559 3.623167143 3.255540 0.367626 forking worker # 4
+Timestamp: 1781171738.011283625
+---
+NDbC::beforeForking uniquifier=<offset=4,modulo=5>
+
+---
+
+Timestamp: 1781171738.011283625
+---
+NDbC::beforeForking uniquifier=<offset=4,modulo=5>
+
+---
+
+Timestamp: 1781171738.025609605
+---
+NDbC::afterForking uniquifier=<offset=0,modulo=5>
+
+---
+
+Timestamp: 1781171738.025654024
+---
+Parent 3179559 started child 3197325 
+
+---
+
+1781171738.028376685 BEGIN areaOpt PID=3179559 3.640458021 3.260592 0.379865
+1781171744.399042291 END areaOpt PID=3179559 4.236755815 3.830825 0.405930
+1781171744.617320162 BEGIN constProp PID=3179559 4.288254593 3.878393 0.409861
+1781171744.624562150 END constProp PID=3179559 4.294162957 3.880170 0.413993
+1781171745.115683315 BEGIN runTimingOptimizationLoopLevel2 PID=3179559 4.783749538 4.365932 0.417817
+1781171745.121202376 END runTimingOptimizationLoopLevel2 PID=3179559 4.785293939 4.367477 0.417817
+1781171745.122709015 BEGIN runTimingOptimizationLoopLevel2 PID=3179559 4.786801429 4.368984 0.417817
+1781171745.126353550 END runTimingOptimizationLoopLevel2 PID=3179559 4.788165137 4.370348 0.417817
+1781171748.530000999 BEGIN Optimize3Top::place PID=3179559 8.190017784 7.585142 0.604875
+1781171752.613649360 END Optimize3Top::place PID=3179559 13.348707966 12.487763 0.860944
+1781171752.617443547 BEGIN runTimingOptimizationLoopLevel2 PID=3179559 13.352502170 12.491486 0.861015
+1781171752.627451104 END runTimingOptimizationLoopLevel2 PID=3179559 13.354322695 12.493278 0.861045
+1781171752.629283915 BEGIN runTimingOptimizationLoopLevel2 PID=3179559 13.356156159 12.495088 0.861068
+1781171752.632188659 END runTimingOptimizationLoopLevel2 PID=3179559 13.357771409 12.496703 0.861068
+1781171752.632361044 BEGIN incrPlace PID=3179559 13.357944747 12.496876 0.861068
+1781171752.632684129 END incrPlace PID=3179559 13.358267943 12.497199 0.861068
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05:22855
+info: (0) optimizing 'u_gemm/i_0/b_rdata[0]' (path group default) @ 13743.3ps(1/1) (9 secs)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05:24041
+Signal 11: signo 11 errno 0 code 128 pid 0 addr (nil)
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05:24043
+ru_utime    = 14:074909
+ru_stime    = 1:057957
+ru_maxrss   = 531092
+ru_minflt   = 183289
+ru_majflt   = 6039
+ru_inblock  = 0
+ru_oublock  = 5464
+ru_nvcsw    = 47362
+ru_nivcsw   = 141
+Name:	oasysGui
+Umask:	0002
+State:	R (running)
+Tgid:	3179559
+Ngid:	0
+Pid:	3179559
+PPid:	3179548
+TracerPid:	0
+Uid:	1494	1494	1494	1494
+Gid:	1674	1674	1674	1674
+FDSize:	64
+Groups:	1554 1674 
+NStgid:	3179559
+NSpid:	3179559
+NSpgid:	3179548
+NSsid:	2338439
+VmPeak:	  804784 kB
+VmSize:	  780232 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	  531092 kB
+VmRSS:	  391336 kB
+RssAnon:	  301876 kB
+RssFile:	   84476 kB
+RssShmem:	    4984 kB
+VmData:	  557788 kB
+VmStk:	     232 kB
+VmExe:	   52112 kB
+VmLib:	   33168 kB
+VmPTE:	    1468 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+Threads:	3
+SigQ:	0/963647
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	fffffffe7ffbfeff
+SigIgn:	0000000000001000
+SigCgt:	00000001808106c6
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	ffffffff
+Cpus_allowed_list:	0-31
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	14718
+nonvoluntary_ctxt_switches:	105
+
+
+fatal: signal 11 (Segmentation fault)
+
+About to print stack trace (depth=50, limit=50)
+0: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN7USignal14printBacktraceEib+0x117) [0x373d207]
+1: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN7USignal11fatalSignalEim+0xa3) [0x373d673]
+2: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN7USignal11fatalSignalEiP7siginfoPv+0x4b) [0x373d7cb]
+3: /lib/x86_64-linux-gnu/libpthread.so.0(+0x14420) [0x7f5a8220a420]
+4: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK6NInstC4nameE12UNamingStyleb+0xa0) [0x3157a10]
+5: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK10UIInstItem4dataEi+0x9dc) [0x1cc9a8c]
+6: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK11UIReportObj4dataERK12UReportIndex+0x28) [0x1c4fd88]
+7: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK11GQInstModel4dataERK11QModelIndexi+0x6f) [0x10a57af]
+8: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZNK19QStyledItemDelegate15initStyleOptionEP20QStyleOptionViewItemRK11QModelIndex+0x24b) [0x7f5a83ba0aeb]
+9: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZNK19QStyledItemDelegate5paintEP8QPainterRK20QStyleOptionViewItemRK11QModelIndex+0x1b9) [0x7f5a83b9fb89]
+10: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZNK9QTreeView7drawRowEP8QPainterRK20QStyleOptionViewItemRK11QModelIndex+0x720) [0x7f5a83be0550]
+11: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZNK9QTreeView8drawTreeEP8QPainterRK7QRegion+0x516) [0x7f5a83be3f86]
+12: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN9QTreeView10paintEventEP11QPaintEvent+0x68) [0x7f5a83bea298]
+13: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0x17e) [0x7f5a8398355e]
+14: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN6QFrame5eventEP6QEvent+0x1e) [0x7f5a83a2596e]
+15: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(_ZN23QCoreApplicationPrivate29sendThroughObjectEventFiltersEP7QObjectP6QEvent+0x8b) [0x7f5a825c11cb]
+16: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x6e) [0x7f5a839486ee]
+17: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x11a) [0x7f5a825c144a]
+18: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN14QWidgetPrivate14sendPaintEventERK7QRegion+0x21) [0x7f5a8397c751]
+19: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x5ef) [0x7f5a8397cd5f]
+20: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x199fa5) [0x7f5a83956fa5]
+21: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x19a804) [0x7f5a83957804]
+22: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x1e0c3c) [0x7f5a8399dc3c]
+23: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7f) [0x7f5a839486ff]
+24: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x11a) [0x7f5a825c144a]
+25: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Gui.so.5(_ZN22QGuiApplicationPrivate18processExposeEventEPN29QWindowSystemInterfacePrivate11ExposeEventE+0x87) [0x7f5a82f4aae7]
+26: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Gui.so.5(_ZN22QWindowSystemInterface22sendWindowSystemEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xac) [0x7f5a82f2102c]
+27: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5XcbQpa.so.5(+0x57e4a) [0x7f5a7c92de4a]
+28: /lib/x86_64-linux-gnu/libglib-2.0.so.0(g_main_context_dispatch+0x27d) [0x7f5a81c6d17d]
+29: /lib/x86_64-linux-gnu/libglib-2.0.so.0(+0x52400) [0x7f5a81c6d400]
+30: /lib/x86_64-linux-gnu/libglib-2.0.so.0(g_main_context_iteration+0x33) [0x7f5a81c6d4a3]
+31: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(_ZN20QEventDispatcherGlib13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0xd0) [0x7f5a82615360]
+32: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK11GQHeartBeat4callEv+0xe7) [0x104d7d7]
+33: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZNK8UControl12callHandlersEb+0x22) [0x3731742]
+34: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN8UControl4lockEPKcii+0xf5) [0x37319b5]
+35: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui() [0x13f8b6b]
+36: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(TclNRRunCallbacks+0x48) [0x3764118]
+37: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(Tcl_RecordAndEvalObj+0x104) [0x3809c04]
+38: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN10GQRealTime14evalTclCommandERK7QString+0xdf) [0x1049eff]
+39: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN10GQRealTime13runTclCommandERK7QStringb+0x343) [0x104a763]
+40: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui(_ZN14GQDesignDialog6acceptEv+0x103) [0x1071d23]
+41: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(+0x36b935) [0x7f5a825f5935]
+42: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x305698) [0x7f5a83ac2698]
+43: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Core.so.5(+0x36b935) [0x7f5a825f5935]
+44: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN15QAbstractButton7clickedEb+0x32) [0x7f5a83a2a042]
+45: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x26d92c) [0x7f5a83a2a92c]
+46: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(+0x26ee6f) [0x7f5a83a2be6f]
+47: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN15QAbstractButton17mouseReleaseEventEP11QMouseEvent+0xe1) [0x7f5a83a2c011]
+48: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0x17e) [0x7f5a8398355e]
+49: /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/../../lib/Linux-x86_64-O/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x7f) [0x7f5a839486ff]
+Timestamp: 1781171898.078791871
+---
+
+Tcl Stack Trace (5):
+
+---
+
+Timestamp: 1781171898.078810177
+---
+1: _readVerilog {} {} {} false false false {} {} {} {/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v} {}
+
+---
+
+Timestamp: 1781171898.078841619
+---
+2: rt::readVerilog {{}} {{}} {} false false false {} {} {} {/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v} {}
+
+---
+
+Timestamp: 1781171898.078862666
+---
+3: read_verilog -I {} -D {} {/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v /mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v}
+
+---
+
+Timestamp: 1781171898.078875093
+---
+4: config::loadConfig config::input
+
+---
+
+
+@/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05:24312
+> date
+2026. 06. 11. (목) 18:58:18 KST
+> uptime
+ 18:58:18 up 14 days,  6:19,  1 user,  load average: 5.16, 5.63, 5.82
+> uname -a
+Linux aiws 5.15.0-60-generic #66~20.04.1-Ubuntu SMP Wed Jan 25 09:41:30 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+> free
+              total        used        free      shared  buff/cache   available
+Mem:      246776808    96832892    80521680      907312    69422236   146874264
+Swap:       2097148      531712     1565436
+> ps u 3179559
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+ddl2026+ 3179559  3.8  0.1 780232 393588 pts/30  Sl+  18:51   0:15 /Tools/Oasys2022/Oasys-RTL-2022.2.R1/bin/Linux-x86_64-O/oasysGui -- -gui
+> df . /tmp/oasys.3179548/
+Filesystem     1K-blocks      Used Available Use% Mounted on
+/dev/sdc       960303848 707802488 203646848  78% /mnt/NewHDD
+/dev/sda5      316538984 260778356  39608052  87% /
+
