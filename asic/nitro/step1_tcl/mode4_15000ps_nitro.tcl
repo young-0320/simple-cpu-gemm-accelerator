@@ -22,11 +22,13 @@ read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MO
 set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
+<<<<<<< HEAD
 # chip area 327971
 #run after pause
 create_chip -xl_area 0a -yb_area 0a -xr_area $CHIP_XR -yt_area $CHIP_YT -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
 #run after pause
 create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util $CORE_CELL_UTIL
+
 
 # power / track 
 
@@ -68,7 +70,10 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
+<<<<<<< HEAD
 # ======
+=======
+>>>>>>> add nitro step1
 
 report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
 report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"

@@ -6,29 +6,25 @@ read_library /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Ge
 set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator}
 
 # =========================================================
-# step1 mode0 15000ps
+# step1 mode4 15000ps
 set STEP       {step1}
-set MODE       {mode1}
+set MODE       {mode4}
 set PERIOD     {15000ps}
-set TOP_MODULE {step1_gemm_accelerator_top_mode1}
-
-# floorplan tuning knobs
-set CHIP_XR         {7500000a}
-set CHIP_YT         {7500000a}
-set CORE_CELL_UTIL  {80}
+set TOP_MODULE {step1_gemm_accelerator_top_mode4}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
 set OUT_DIR "$REPO_ROOT/asic/nitro/results/$STEP/${MODE}_${PERIOD}"
 file mkdir $OUT_DIR
 
-# chip area 327971
-<<<<<<< HEAD
-#run after pause
-create_chip -xl_area 0a -yb_area 0a -xr_area $CHIP_XR -yt_area $CHIP_YT -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
-#run after pause
-create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util $CORE_CELL_UTIL
-# power / track 
+# =========================================================
+# chip area 426971.66
+create_chip -xl_area 0a -yb_area 0a -xr_area 9000000a -yt_area 9000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
+# =========================================================
+
+create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
+
+# power / track
 
 stack_macros
 
@@ -68,11 +64,6 @@ run_route_timing
 write_sdf "$OUT_DIR/${STEP}_${MODE}_${PERIOD}.sdf" -skip_backslash true
 
 write_verilog -file "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_nitro.v"
-<<<<<<< HEAD
-=======
-
->>>>>>> add nitro step1
-# ======
 
 report_timing >  "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_timing.rpt"
 report_design > "$OUT_DIR/${STEP}_${MODE}_${PERIOD}_area.rpt"
