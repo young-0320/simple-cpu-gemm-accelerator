@@ -15,7 +15,7 @@ set TOP_MODULE {step1_gemm_accelerator_top_mode0}
 # floorplan tuning knobs
 set CHIP_XR         {7300000a}
 set CHIP_YT         {7300000a}
-set CORE_CELL_UTIL  {75}
+set CORE_CELL_UTIL  {80}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP}_${MODE}_synth.v"
