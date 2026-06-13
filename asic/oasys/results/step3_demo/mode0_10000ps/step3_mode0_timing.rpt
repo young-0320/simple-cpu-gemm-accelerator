@@ -1,0 +1,123 @@
+> report_timing
+----------------------------------------------------------------------------------------------------
+Startpoint: u_system/u_gemm/u_mmio_r_k_reg[0]/Q
+    (Clocked by clk R)
+Endpoint: u_system/u_gemm/u_mac/acc_reg[31]/DATA
+    (Clocked by clk R)
+Path Group: default
+Data required time: 9755.5
+    (Clock shift: 10000.0, minus Uncertainty: 0.0, plus Latency 0.0, minus Setup time: 244.5)
+Data arrival time: 9750.2
+Slack: 5.3
+Logic depth: 50
+----------------------------------------------------------------------------------------------------
+                                                                 Arrival          Total             
+Path                     Module/Cell              Slew    Delay     Time  Edge     Load     Location
+                                                  (ps)     (ps)     (ps)           (ff)      (um,um)
+----------------------------------------------------------------------------------------------------
+clk                      {create_clock}                     0.0      0.0     r      0.0  2244, 1392 
+u_system/u_gemm/u_mmio_r_k_reg[0]/CLK->Q
+                         DFF#*                     0.0    788.5    788.5    rr    291.7  2013, 1349 
+u_system/u_gemm/u_buf/i_1_0/i_4/A->Z
+                         NAND2                    92.7    126.8    915.2    rf     21.5  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_5/A->Z
+                         BUFI4                    72.1    155.6   1070.9    fr     96.5  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_39/A->Z
+                         BUFI4                   104.9     79.4   1150.3    rf     37.6  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_41/A->Z
+                         BUFI4                    44.4     67.1   1217.4    fr     16.3  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_34/A->Z
+                         NAND2                    42.3     98.7   1316.1    rf     16.6  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_24/A->Z
+                         NAND2                    64.1     76.3   1392.3    fr      9.7  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_6/B->Z
+                         NAND3*                   54.8    195.6   1588.0    rf     17.1  2126, 2138 
+u_system/u_gemm/u_buf/i_1_0/i_3/A->Z
+                         NAND2*                  126.4    616.9   2204.9    fr   1863.8  2126, 2138 
+u_system/u_gemm/u_buf/i_0_3_137/A->Z
+                         INV                      92.7     73.5   2278.4    rf     15.7  1916, 1895 
+u_system/u_gemm/u_buf/i_0_3_133/A->Z
+                         NOR2                     40.0    139.9   2418.3    fr     16.8  1916, 1895 
+u_system/u_gemm/u_buf/i_0_3_43/B->Z
+                         NOR2                     89.5     80.7   2498.9    rf     16.6  1916, 1895 
+u_system/u_gemm/u_buf/i_0_3_45/A->Z
+                         NAND2                    57.4     85.8   2584.8    fr     16.6  1916, 1895 
+u_system/u_gemm/u_buf/i_0_3_40/A->Z
+                         NAND2                    63.8    116.6   2701.3    rf     21.5  1916, 1895 
+u_system/u_gemm/u_buf/i_0_3_41/A->Z
+                         BUFI4                    72.1    372.9   3074.2    fr    338.6  1916, 1895 
+u_system/u_gemm/u_mac/i_6/i_262/C->Z
+                         NAND4                   300.1    357.7   3431.9    rf     44.3  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_261/A->Z
+                         NAND2                   227.9    172.5   3604.4    fr     34.4  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_260/A->Z
+                         NAND4                    87.1    295.8   3900.2    rf     44.3  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_213/B->Z
+                         NAND3*                  227.7    310.1   4210.3    fr     34.4  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_210/C->Z
+                         NAND4                    92.7    325.3   4535.6    rf     44.3  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_196/A->Z
+                         NAND2                   227.9    172.5   4708.1    fr     34.4  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_195/A->Z
+                         NAND4                    87.1    296.1   5004.2    rf     44.3  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_35/A->Z
+                         NAND2                   227.9    132.6   5136.8    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_34/A->Z
+                         NAND2                    63.8    116.6   5253.4    rf     21.5  2013, 1349 
+u_system/u_gemm/u_mac/i_6/i_33/A->Z
+                         BUFI4                    72.1     78.3   5331.7    fr     16.3  2013, 1349 
+u_system/u_gemm/u_mac/i_0_320/A->Z
+                         NAND2                    42.3    109.0   5440.8    rf     21.5  2013, 1349 
+u_system/u_gemm/u_mac/i_0_319/A->Z
+                         BUFI4                    72.1    109.9   5550.7    fr     47.4  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1071/A->Z
+                         BUFI4                    66.2     56.4   5607.1    rf     18.7  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1119/A->Z
+                         XNOR2                    35.4    406.4   6013.4    ff     38.2  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1118/A->Z
+                         INV                     103.1     77.8   6091.2    fr      9.5  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1075/A->Z
+                         NAND3*                   37.4    247.2   6338.4    rf     33.8  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1067/A->Z
+                         NAND2                    92.7     98.5   6437.0    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1066/A->Z
+                         NAND2                    63.8    137.4   6574.4    rf     31.3  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1028/B->Z
+                         NAND3*                   88.1    279.9   6854.3    fr     43.7  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_1002/B->Z
+                         NAND3*                   92.7    251.6   7106.0    rf     27.0  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_995/B->Z
+                         NAND3*                   92.7    281.9   7387.9    fr     43.7  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_922/B->Z
+                         NAND3*                   92.7    251.6   7639.5    rf     27.0  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_818/B->Z
+                         NAND2                    92.7    113.1   7752.6    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_816/A->Z
+                         NAND2                    63.8    212.4   7965.0    rf     67.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_779/A->Z
+                         NAND2                   148.1    115.3   8080.3    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_778/A->Z
+                         NAND2                    63.8    151.4   8231.7    rf     38.1  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_777/A->Z
+                         NAND2                    99.3    102.4   8334.1    fr     17.4  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_416/A->Z
+                         NAND4                    64.9    311.7   8645.8    rf     51.8  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_287/A->Z
+                         NAND2                   249.9    137.4   8783.2    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_271/A->Z
+                         NAND2*                   63.8    349.9   9133.1    rf    150.4  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_224/A->Z
+                         NAND2                    92.7    129.7   9262.8    fr     34.4  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_204/A->Z
+                         NAND2                    87.1    113.7   9376.5    rf     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_202/A->Z
+                         NAND2                    64.1     88.2   9464.7    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_23/i_201/A->Z
+                         NAND2                    63.8    105.9   9570.6    rf     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_0_441/A->Z
+                         NAND2                    64.1     88.2   9658.9    fr     16.6  2013, 1349 
+u_system/u_gemm/u_mac/i_0_440/A->Z
+                         NAND2                    63.8     91.3   9750.2    rf     10.0  2013, 1349 
+u_system/u_gemm/u_mac/acc_reg[31]/DATA
+                         DFF                      53.3      0.0   9750.2     f           2013, 1349 
+----------------------------------------------------------------------------------------------------
