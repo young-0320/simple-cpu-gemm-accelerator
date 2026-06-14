@@ -9,9 +9,9 @@ set REPO_ROOT {/mnt/NewHDD/home/ddl2026/ddl2026_2022104291/ddl_proj2/simple-cpu-
 # step2 mode1 15000ps
 set STEP1      {step3}
 set STEP       {step3_demo}
-set MODE       {mode0}
+set MODE       {mode1}
 set PERIOD     {30000ps}
-set TOP_MODULE {step3_system_top_mode0}
+set TOP_MODULE {step3_system_top_mode1}
 # =========================================================
 
 read_verilog "$REPO_ROOT/asic/oasys/results/$STEP/${MODE}_${PERIOD}/${STEP1}_${MODE}_synth.v"
@@ -20,10 +20,10 @@ file mkdir $OUT_DIR
 
 # =========================================================
 # chip area
-create_chip -xl_area 0a -yb_area 0a -xr_area 7800000a -yt_area 7800000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed true -gap 0a
+create_chip -xl_area 0a -yb_area 0a -xr_area 26000000a -yt_area 26000000a -core_site CORE -xl_margin 0a -yt_margin 0a -orient north -double_backed false -gap 0a
 # =========================================================
 
-create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 80
+create_floorplan_regions -partition $TOP_MODULE -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
 
 # power / track
 
@@ -39,11 +39,11 @@ set_domain_supply_net -domain primary -primary_power_net vdd -primary_ground_net
 
 create_tracks -layers Metal4 -step 11500a
 
-create_tracks -layers Metal3 -step 13500a
+create_tracks -layers Metal3 -step 11500a
 
 create_tracks -layers Metal2 -step 11500a
 
-create_tracks -layers Metal1 -step 13500a
+create_tracks -layers Metal1 -step 11500a
 
 report_tracks -type preferred
 
