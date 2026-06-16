@@ -31,8 +31,8 @@ namespace eval config {
     set input(sdc_files)                      [list "$REPO_ROOT/asic/oasys/clk.sdc"]
     set input(def_files)                      {}
     set input(power_files)                    {}
-    set input(vcd_file)                       {}
-    set input(vcd_scope)                      {}
+    set input(vcd_file)                       "$REPO_ROOT/sim/results/power/step2_mode1_directed006/tb_gemm_vectors_single.vcd"
+    set input(vcd_scope)                      {TOP.tb_gemm_vectors_single.dut}
     set input(sa_probability)                 {}
     set input(sa_togg_perc)                   {}
     set input(sa_togg_rate)                   {}
