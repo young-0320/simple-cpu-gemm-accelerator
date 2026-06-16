@@ -40,19 +40,45 @@ LED는 "정상 종료했다"만 보여주는 최소 확인용.
       합침 — 사용법은 아래 "BRAM 초기화 hex 만들기" 참고.
       → 남은 건 이 출력 파일을 Vivado 프로젝트에서 `GEMM_MEM_INIT` define으로
       실제 연결하는 것 (다음 항목).
-- [ ] Vivado 프로젝트 생성 (`fpga/scripts/`에 생성 스크립트, `fpga/vivado/`는
-      산출물이라 `.gitkeep`만 추적). 이 스크립트에서 `verilog_define
-      GEMM_MEM_INIT="<merged.hex 경로>"`를 설정해 `rtl_v2/gemm_system_top.v`의
-      `$readmemh(\`GEMM_MEM_INIT, mem)`에 연결해야 함.
-- [ ] Synthesis + Implementation 실행, timing closure 확인
-      (`report_timing_summary` — Fmax/WNS. sysclk 125MHz 고정이라 못 맞으면
-      Clocking Wizard로 분주 클럭 추가 검토).
-- [ ] `report_power` 추출. 가능하면 vectorless 추정 대신 기존 Verilator
-      VCD(`sim/results/power/step3_mode{1,4}_directed4x4x4/...vcd`)를 SAIF로
-      변환해서 switching activity 기반으로 — Oasys 쪽과 같은 방식이라 비교 가능.
-- [ ] `report_utilization`도 참고 자료로 남김 (BRAM 추론 확인 + 면적 참고).
-- [ ] `MAC_MODE=1`, `MAC_MODE=4` 둘 다 반복해서 속도/전력 비교 (2번 항목의
-      Oasys/Nitro PPA 비교와 같은 축).
+- [x] **Vivado 프로젝트/스윕 스크립트 작성** (`fpga/scripts/build_and_report.tcl`).
+      Vivado 2024.2 기준, **Zybo Z7 board file은 이 머신에 등록돼 있지 않음**
+      (board_store에 수동 다운로드된 파일은 있으나 기본 `board.repopaths`에는
+      없음) — 재현성을 위해 raw part `xc7z020clg400-1` + 기존 `Zybo-Z7.xdc`로
+      진행. 스크립트는 `MAC_MODE`와 clk period(ns)를 `-tclargs`로 받아
+      `fpga/vivado/gemm_fpga_mode<N>/`에 project-mode 빌드를 생성/재사용하고,
+      매 실행마다 `Zybo-Z7.xdc`를 복사해 `create_clock -period`만 바꾼 스윕용
+      XDC로 교체한 뒤 `synth_1`/`impl_1`(route_design까지)을 재실행한다.
+      `verilog_define GEMM_MEM_INIT="<repo>/fpga/vivado/gemm_call_full.hex"`로
+      `rtl_v2/gemm_system_top.v`의 `$readmemh(\`GEMM_MEM_INIT, mem)`에 연결됨
+      (hex는 `sw/tools/build_mem_image.py`로 미리 생성, 아래 절차 그대로).
+- [x] **Synthesis + Implementation 실행, timing closure 확인.** 두 MAC_MODE
+      모두 ASIC sweep과 같은 그리드(100/50/33.3/20/10MHz)로 시작해 pass/fail
+      경계를 좁혔다. 결과(자세한 표는 `fpga/reports/mode{1,4}/sweep_summary_mode{1,4}.md`):
+      - MAC_MODE=1: 12ns(83.3MHz)까지 pass, 11ns(90.9MHz)에서 WNS=-0.379ns로 fail.
+        margin 10~20%대에 들어오는 가장 빠른 지점은 **15ns(66.7MHz, margin 13.1%)**.
+      - MAC_MODE=4: 12ns(83.3MHz, margin 0.05%)까지 pass, 11ns(90.9MHz)에서
+        WNS=-0.567ns로 fail. margin 10~20%대 가장 빠른 지점도 **15ns(66.7MHz,
+        margin 15.0%)** — 두 mode를 독립적으로 측정했는데 결과적으로 같은
+        Fmax로 수렴함(가정이 아니라 측정 결과; ASIC step3_demo에서 본 "critical
+        path가 CPU accumulator에 있다"는 결론과 일치).
+      - **중요 caveat**: 이 Fmax는 "이 RTL이 route_design까지 timing을 닫을 수
+        있는 가장 빠른 주기"라는 합성 측정값이다. Zybo 보드의 실제 오실레이터
+        (`clk`, K17)는 **125MHz(8ns) 고정**이라, 66.7MHz를 보드에 그대로 줄
+        수는 없다(MMCM/Clocking Wizard 없이는). 이번 작업은 보드 프로그래밍이
+        범위 밖이라 MMCM은 추가하지 않았다.
+- [x] `report_power` 추출. **vectorless(activity-less) 추정만 사용** — 이
+      머신 Vivado에는 VCD→SAIF 변환 도구가 없어 switching-activity 기반
+      측정(Oasys/Nitro 방식)을 쓰지 못함. 따라서 ASIC power 절대값과 직접
+      비교하지 말고, 같은 sweep 방법론(주파수 대비 power 추이)만 비교 축으로
+      사용. 15ns(66.7MHz) 기준 total power: mode1 130mW, mode4 128mW.
+- [x] `report_utilization` 확인. **모든 sweep 지점에서 Block RAM Tile = 4
+      (RAMB36E1)** — `gemm_system_top.v`의 `reg [31:0] mem[0:4095]`가 FF로
+      펼쳐지지 않고 정상적으로 BRAM에 매핑됨을 확정. LUT/FF는 mode4가 mode1보다
+      약 34%/11% 더 많이 씀(4-MAC 병렬 datapath). 두 mode 모두 DSP48 사용 0개
+      (곱셈기가 LUT 로직으로 추론됨).
+- [x] `MAC_MODE=1`, `MAC_MODE=4` 둘 다 같은 그리드로 스윕해서 속도/전력/면적
+      비교 완료. 비교 상세는 `fpga/reports/mode4/sweep_summary_mode4.md`의
+      "mode1과 비교" 절 참고.
 
 ## BRAM 초기화 hex 만들기
 

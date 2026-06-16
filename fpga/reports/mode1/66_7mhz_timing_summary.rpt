@@ -1,0 +1,721 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
+| Date         : Wed Jun 17 03:37:07 2026
+| Host         : young-PC running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_timing_summary -delay_type max -max_paths 5 -file /home/young/dev/20_digital-systems-lab/projects/simple-cpu-gemm-accelerator/fpga/reports/mode1/66_7mhz_timing_summary.rpt
+| Design       : zybo_top
+| Device       : 7z020-clg400
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Routed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+Rule       Severity  Description                                 Violations  
+---------  --------  ------------------------------------------  ----------  
+SYNTH-6    Warning   Timing of a RAM block might be sub-optimal  4           
+TIMING-18  Warning   Missing input or output delay               5           
+
+Note: This report is based on the most recent report_methodology run and may not be up-to-date. Run report_methodology on the current design for the latest report.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (1)
+6. checking no_output_delay (4)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (1)
+------------------------------
+ There is 1 input port with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (4)
+-------------------------------
+ There are 4 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      1.972        0.000                      0                 2510        6.250        0.000                       0                   915  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock        Waveform(ns)       Period(ns)      Frequency(MHz)
+-----        ------------       ----------      --------------
+sys_clk_pin  {0.000 7.500}      15.000          66.667          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+sys_clk_pin         1.972        0.000                      0                 2510        6.250        0.000                       0                   915  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  sys_clk_pin
+  To Clock:  sys_clk_pin
+
+Setup :            0  Failing Endpoints,  Worst Slack        1.972ns,  Total Violation        0.000ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+PW    :            0  Failing Endpoints,  Worst Slack        6.250ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             1.972ns  (required time - arrival time)
+  Source:                 u_system/u_gemm/u_mmio/r_n_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Destination:            u_system/u_gemm/g_mac1.u_mac/acc_reg[31]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            15.000ns  (sys_clk_pin rise@15.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        12.987ns  (logic 5.377ns (41.404%)  route 7.610ns (58.596%))
+  Logic Levels:           17  (CARRY4=8 LUT2=2 LUT3=2 LUT4=2 LUT6=2 RAMD32=1)
+  Clock Path Skew:        -0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.630ns = ( 20.630 - 15.000 ) 
+    Source Clock Delay      (SCD):    6.153ns
+    Clock Pessimism Removal (CPR):    0.441ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  
+    K17                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.475     1.475 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.522     3.997    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     4.098 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         2.055     6.153    u_system/u_gemm/u_mmio/clk_IBUF_BUFG
+    SLICE_X109Y104       FDRE                                         r  u_system/u_gemm/u_mmio/r_n_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X109Y104       FDRE (Prop_fdre_C_Q)         0.456     6.609 r  u_system/u_gemm/u_mmio/r_n_reg[0]/Q
+                         net (fo=54, routed)          1.261     7.869    u_system/u_gemm/u_mmio/r_n_reg[2]_1[0]
+    SLICE_X111Y109       LUT6 (Prop_lut6_I0_O)        0.124     7.993 r  u_system/u_gemm/u_mmio/b_buf_reg_0_15_0_5_i_7/O
+                         net (fo=1, routed)           0.695     8.689    u_system/u_gemm/g_mac1.u_mac/b_idx0[0]
+    SLICE_X110Y109       LUT4 (Prop_lut4_I3_O)        0.150     8.839 r  u_system/u_gemm/g_mac1.u_mac/b_buf_reg_0_15_0_5_i_1/O
+                         net (fo=8, routed)           1.063     9.902    u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/ADDRB3
+    SLICE_X108Y104       RAMD32 (Prop_ramd32_RADR3_O)
+                                                      0.326    10.228 f  u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/RAMB_D1/O
+                         net (fo=16, routed)          1.227    11.455    u_system/u_gemm/u_buf/b_rdata[3]
+    SLICE_X110Y113       LUT2 (Prop_lut2_I1_O)        0.153    11.608 r  u_system/u_gemm/u_buf/prod__30_carry_i_8/O
+                         net (fo=1, routed)           0.597    12.205    u_system/u_gemm/u_buf/prod__30_carry_i_8_n_0
+    SLICE_X111Y114       LUT6 (Prop_lut6_I1_O)        0.327    12.532 r  u_system/u_gemm/u_buf/prod__30_carry_i_4/O
+                         net (fo=1, routed)           0.000    12.532    u_system/u_gemm/g_mac1.u_mac/acc0_carry_i_1_1[3]
+    SLICE_X111Y114       CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    12.933 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry/CO[3]
+                         net (fo=1, routed)           0.000    12.933    u_system/u_gemm/g_mac1.u_mac/prod__30_carry_n_0
+    SLICE_X111Y115       CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    13.155 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0/O[0]
+                         net (fo=2, routed)           0.803    13.958    u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0_n_7
+    SLICE_X110Y114       LUT3 (Prop_lut3_I1_O)        0.325    14.283 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4/O
+                         net (fo=2, routed)           0.467    14.750    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4_n_0
+    SLICE_X110Y115       LUT4 (Prop_lut4_I3_O)        0.332    15.082 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8/O
+                         net (fo=1, routed)           0.000    15.082    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8_n_0
+    SLICE_X110Y115       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    15.614 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    15.614    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_n_0
+    SLICE_X110Y116       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    15.927 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__1/O[3]
+                         net (fo=4, routed)           0.862    16.789    u_system/u_gemm/u_buf/O[0]
+    SLICE_X108Y123       LUT2 (Prop_lut2_I0_O)        0.306    17.095 r  u_system/u_gemm/u_buf/acc0_carry__3_i_5/O
+                         net (fo=1, routed)           0.000    17.095    u_system/u_gemm/g_mac1.u_mac/c_wdata_reg[19]_1[0]
+    SLICE_X108Y123       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    17.608 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    17.608    u_system/u_gemm/g_mac1.u_mac/acc0_carry__3_n_0
+    SLICE_X108Y124       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.725 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__4/CO[3]
+                         net (fo=1, routed)           0.009    17.734    u_system/u_gemm/g_mac1.u_mac/acc0_carry__4_n_0
+    SLICE_X108Y125       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.851 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    17.851    u_system/u_gemm/g_mac1.u_mac/acc0_carry__5_n_0
+    SLICE_X108Y126       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.331    18.182 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__6/O[3]
+                         net (fo=2, routed)           0.626    18.807    u_system/u_gemm/g_mac1.u_mac/acc0[31]
+    SLICE_X109Y126       LUT3 (Prop_lut3_I2_O)        0.332    19.139 r  u_system/u_gemm/g_mac1.u_mac/acc[31]_i_1/O
+                         net (fo=1, routed)           0.000    19.139    u_system/u_gemm/g_mac1.u_mac/acc[31]
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     15.000    15.000 r  
+    K17                                               0.000    15.000 r  clk (IN)
+                         net (fo=0)                   0.000    15.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.404    16.404 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.293    18.697    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    18.788 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         1.842    20.630    u_system/u_gemm/g_mac1.u_mac/clk_IBUF_BUFG
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[31]/C
+                         clock pessimism              0.441    21.072    
+                         clock uncertainty           -0.035    21.036    
+    SLICE_X109Y126       FDRE (Setup_fdre_C_D)        0.075    21.111    u_system/u_gemm/g_mac1.u_mac/acc_reg[31]
+  -------------------------------------------------------------------
+                         required time                         21.111    
+                         arrival time                         -19.139    
+  -------------------------------------------------------------------
+                         slack                                  1.972    
+
+Slack (MET) :             2.013ns  (required time - arrival time)
+  Source:                 u_system/u_gemm/u_mmio/r_n_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Destination:            u_system/u_gemm/g_mac1.u_mac/acc_reg[25]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            15.000ns  (sys_clk_pin rise@15.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        12.902ns  (logic 5.240ns (40.614%)  route 7.662ns (59.386%))
+  Logic Levels:           16  (CARRY4=7 LUT2=2 LUT3=2 LUT4=2 LUT6=2 RAMD32=1)
+  Clock Path Skew:        -0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.630ns = ( 20.630 - 15.000 ) 
+    Source Clock Delay      (SCD):    6.153ns
+    Clock Pessimism Removal (CPR):    0.441ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  
+    K17                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.475     1.475 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.522     3.997    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     4.098 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         2.055     6.153    u_system/u_gemm/u_mmio/clk_IBUF_BUFG
+    SLICE_X109Y104       FDRE                                         r  u_system/u_gemm/u_mmio/r_n_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X109Y104       FDRE (Prop_fdre_C_Q)         0.456     6.609 r  u_system/u_gemm/u_mmio/r_n_reg[0]/Q
+                         net (fo=54, routed)          1.261     7.869    u_system/u_gemm/u_mmio/r_n_reg[2]_1[0]
+    SLICE_X111Y109       LUT6 (Prop_lut6_I0_O)        0.124     7.993 r  u_system/u_gemm/u_mmio/b_buf_reg_0_15_0_5_i_7/O
+                         net (fo=1, routed)           0.695     8.689    u_system/u_gemm/g_mac1.u_mac/b_idx0[0]
+    SLICE_X110Y109       LUT4 (Prop_lut4_I3_O)        0.150     8.839 r  u_system/u_gemm/g_mac1.u_mac/b_buf_reg_0_15_0_5_i_1/O
+                         net (fo=8, routed)           1.063     9.902    u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/ADDRB3
+    SLICE_X108Y104       RAMD32 (Prop_ramd32_RADR3_O)
+                                                      0.326    10.228 f  u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/RAMB_D1/O
+                         net (fo=16, routed)          1.227    11.455    u_system/u_gemm/u_buf/b_rdata[3]
+    SLICE_X110Y113       LUT2 (Prop_lut2_I1_O)        0.153    11.608 r  u_system/u_gemm/u_buf/prod__30_carry_i_8/O
+                         net (fo=1, routed)           0.597    12.205    u_system/u_gemm/u_buf/prod__30_carry_i_8_n_0
+    SLICE_X111Y114       LUT6 (Prop_lut6_I1_O)        0.327    12.532 r  u_system/u_gemm/u_buf/prod__30_carry_i_4/O
+                         net (fo=1, routed)           0.000    12.532    u_system/u_gemm/g_mac1.u_mac/acc0_carry_i_1_1[3]
+    SLICE_X111Y114       CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    12.933 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry/CO[3]
+                         net (fo=1, routed)           0.000    12.933    u_system/u_gemm/g_mac1.u_mac/prod__30_carry_n_0
+    SLICE_X111Y115       CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    13.155 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0/O[0]
+                         net (fo=2, routed)           0.803    13.958    u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0_n_7
+    SLICE_X110Y114       LUT3 (Prop_lut3_I1_O)        0.325    14.283 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4/O
+                         net (fo=2, routed)           0.467    14.750    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4_n_0
+    SLICE_X110Y115       LUT4 (Prop_lut4_I3_O)        0.332    15.082 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8/O
+                         net (fo=1, routed)           0.000    15.082    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8_n_0
+    SLICE_X110Y115       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    15.614 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    15.614    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_n_0
+    SLICE_X110Y116       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    15.927 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__1/O[3]
+                         net (fo=4, routed)           0.862    16.789    u_system/u_gemm/u_buf/O[0]
+    SLICE_X108Y123       LUT2 (Prop_lut2_I0_O)        0.306    17.095 r  u_system/u_gemm/u_buf/acc0_carry__3_i_5/O
+                         net (fo=1, routed)           0.000    17.095    u_system/u_gemm/g_mac1.u_mac/c_wdata_reg[19]_1[0]
+    SLICE_X108Y123       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    17.608 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    17.608    u_system/u_gemm/g_mac1.u_mac/acc0_carry__3_n_0
+    SLICE_X108Y124       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.725 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__4/CO[3]
+                         net (fo=1, routed)           0.009    17.734    u_system/u_gemm/g_mac1.u_mac/acc0_carry__4_n_0
+    SLICE_X108Y125       CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.337    18.071 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__5/O[1]
+                         net (fo=2, routed)           0.678    18.749    u_system/u_gemm/g_mac1.u_mac/acc0[25]
+    SLICE_X109Y126       LUT3 (Prop_lut3_I2_O)        0.306    19.055 r  u_system/u_gemm/g_mac1.u_mac/acc[25]_i_1/O
+                         net (fo=1, routed)           0.000    19.055    u_system/u_gemm/g_mac1.u_mac/acc[25]
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     15.000    15.000 r  
+    K17                                               0.000    15.000 r  clk (IN)
+                         net (fo=0)                   0.000    15.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.404    16.404 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.293    18.697    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    18.788 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         1.842    20.630    u_system/u_gemm/g_mac1.u_mac/clk_IBUF_BUFG
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[25]/C
+                         clock pessimism              0.441    21.072    
+                         clock uncertainty           -0.035    21.036    
+    SLICE_X109Y126       FDRE (Setup_fdre_C_D)        0.031    21.067    u_system/u_gemm/g_mac1.u_mac/acc_reg[25]
+  -------------------------------------------------------------------
+                         required time                         21.067    
+                         arrival time                         -19.055    
+  -------------------------------------------------------------------
+                         slack                                  2.013    
+
+Slack (MET) :             2.076ns  (required time - arrival time)
+  Source:                 u_system/u_gemm/u_mmio/r_n_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Destination:            u_system/u_gemm/g_mac1.u_mac/acc_reg[29]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            15.000ns  (sys_clk_pin rise@15.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        12.840ns  (logic 5.357ns (41.722%)  route 7.483ns (58.278%))
+  Logic Levels:           17  (CARRY4=8 LUT2=2 LUT3=2 LUT4=2 LUT6=2 RAMD32=1)
+  Clock Path Skew:        -0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.630ns = ( 20.630 - 15.000 ) 
+    Source Clock Delay      (SCD):    6.153ns
+    Clock Pessimism Removal (CPR):    0.441ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  
+    K17                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.475     1.475 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.522     3.997    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     4.098 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         2.055     6.153    u_system/u_gemm/u_mmio/clk_IBUF_BUFG
+    SLICE_X109Y104       FDRE                                         r  u_system/u_gemm/u_mmio/r_n_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X109Y104       FDRE (Prop_fdre_C_Q)         0.456     6.609 r  u_system/u_gemm/u_mmio/r_n_reg[0]/Q
+                         net (fo=54, routed)          1.261     7.869    u_system/u_gemm/u_mmio/r_n_reg[2]_1[0]
+    SLICE_X111Y109       LUT6 (Prop_lut6_I0_O)        0.124     7.993 r  u_system/u_gemm/u_mmio/b_buf_reg_0_15_0_5_i_7/O
+                         net (fo=1, routed)           0.695     8.689    u_system/u_gemm/g_mac1.u_mac/b_idx0[0]
+    SLICE_X110Y109       LUT4 (Prop_lut4_I3_O)        0.150     8.839 r  u_system/u_gemm/g_mac1.u_mac/b_buf_reg_0_15_0_5_i_1/O
+                         net (fo=8, routed)           1.063     9.902    u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/ADDRB3
+    SLICE_X108Y104       RAMD32 (Prop_ramd32_RADR3_O)
+                                                      0.326    10.228 f  u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/RAMB_D1/O
+                         net (fo=16, routed)          1.227    11.455    u_system/u_gemm/u_buf/b_rdata[3]
+    SLICE_X110Y113       LUT2 (Prop_lut2_I1_O)        0.153    11.608 r  u_system/u_gemm/u_buf/prod__30_carry_i_8/O
+                         net (fo=1, routed)           0.597    12.205    u_system/u_gemm/u_buf/prod__30_carry_i_8_n_0
+    SLICE_X111Y114       LUT6 (Prop_lut6_I1_O)        0.327    12.532 r  u_system/u_gemm/u_buf/prod__30_carry_i_4/O
+                         net (fo=1, routed)           0.000    12.532    u_system/u_gemm/g_mac1.u_mac/acc0_carry_i_1_1[3]
+    SLICE_X111Y114       CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    12.933 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry/CO[3]
+                         net (fo=1, routed)           0.000    12.933    u_system/u_gemm/g_mac1.u_mac/prod__30_carry_n_0
+    SLICE_X111Y115       CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    13.155 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0/O[0]
+                         net (fo=2, routed)           0.803    13.958    u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0_n_7
+    SLICE_X110Y114       LUT3 (Prop_lut3_I1_O)        0.325    14.283 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4/O
+                         net (fo=2, routed)           0.467    14.750    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4_n_0
+    SLICE_X110Y115       LUT4 (Prop_lut4_I3_O)        0.332    15.082 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8/O
+                         net (fo=1, routed)           0.000    15.082    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8_n_0
+    SLICE_X110Y115       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    15.614 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    15.614    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_n_0
+    SLICE_X110Y116       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    15.927 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__1/O[3]
+                         net (fo=4, routed)           0.862    16.789    u_system/u_gemm/u_buf/O[0]
+    SLICE_X108Y123       LUT2 (Prop_lut2_I0_O)        0.306    17.095 r  u_system/u_gemm/u_buf/acc0_carry__3_i_5/O
+                         net (fo=1, routed)           0.000    17.095    u_system/u_gemm/g_mac1.u_mac/c_wdata_reg[19]_1[0]
+    SLICE_X108Y123       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    17.608 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    17.608    u_system/u_gemm/g_mac1.u_mac/acc0_carry__3_n_0
+    SLICE_X108Y124       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.725 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__4/CO[3]
+                         net (fo=1, routed)           0.009    17.734    u_system/u_gemm/g_mac1.u_mac/acc0_carry__4_n_0
+    SLICE_X108Y125       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.851 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    17.851    u_system/u_gemm/g_mac1.u_mac/acc0_carry__5_n_0
+    SLICE_X108Y126       CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.337    18.188 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__6/O[1]
+                         net (fo=2, routed)           0.499    18.686    u_system/u_gemm/g_mac1.u_mac/acc0[29]
+    SLICE_X109Y126       LUT3 (Prop_lut3_I2_O)        0.306    18.992 r  u_system/u_gemm/g_mac1.u_mac/acc[29]_i_1/O
+                         net (fo=1, routed)           0.000    18.992    u_system/u_gemm/g_mac1.u_mac/acc[29]
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     15.000    15.000 r  
+    K17                                               0.000    15.000 r  clk (IN)
+                         net (fo=0)                   0.000    15.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.404    16.404 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.293    18.697    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    18.788 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         1.842    20.630    u_system/u_gemm/g_mac1.u_mac/clk_IBUF_BUFG
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[29]/C
+                         clock pessimism              0.441    21.072    
+                         clock uncertainty           -0.035    21.036    
+    SLICE_X109Y126       FDRE (Setup_fdre_C_D)        0.032    21.068    u_system/u_gemm/g_mac1.u_mac/acc_reg[29]
+  -------------------------------------------------------------------
+                         required time                         21.068    
+                         arrival time                         -18.992    
+  -------------------------------------------------------------------
+                         slack                                  2.076    
+
+Slack (MET) :             2.100ns  (required time - arrival time)
+  Source:                 u_system/u_gemm/u_mmio/r_n_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Destination:            u_system/u_gemm/g_mac1.u_mac/acc_reg[30]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            15.000ns  (sys_clk_pin rise@15.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        12.859ns  (logic 5.300ns (41.218%)  route 7.559ns (58.782%))
+  Logic Levels:           17  (CARRY4=8 LUT2=2 LUT3=2 LUT4=2 LUT6=2 RAMD32=1)
+  Clock Path Skew:        -0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.630ns = ( 20.630 - 15.000 ) 
+    Source Clock Delay      (SCD):    6.153ns
+    Clock Pessimism Removal (CPR):    0.441ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  
+    K17                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.475     1.475 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.522     3.997    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     4.098 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         2.055     6.153    u_system/u_gemm/u_mmio/clk_IBUF_BUFG
+    SLICE_X109Y104       FDRE                                         r  u_system/u_gemm/u_mmio/r_n_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X109Y104       FDRE (Prop_fdre_C_Q)         0.456     6.609 r  u_system/u_gemm/u_mmio/r_n_reg[0]/Q
+                         net (fo=54, routed)          1.261     7.869    u_system/u_gemm/u_mmio/r_n_reg[2]_1[0]
+    SLICE_X111Y109       LUT6 (Prop_lut6_I0_O)        0.124     7.993 r  u_system/u_gemm/u_mmio/b_buf_reg_0_15_0_5_i_7/O
+                         net (fo=1, routed)           0.695     8.689    u_system/u_gemm/g_mac1.u_mac/b_idx0[0]
+    SLICE_X110Y109       LUT4 (Prop_lut4_I3_O)        0.150     8.839 r  u_system/u_gemm/g_mac1.u_mac/b_buf_reg_0_15_0_5_i_1/O
+                         net (fo=8, routed)           1.063     9.902    u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/ADDRB3
+    SLICE_X108Y104       RAMD32 (Prop_ramd32_RADR3_O)
+                                                      0.326    10.228 f  u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/RAMB_D1/O
+                         net (fo=16, routed)          1.227    11.455    u_system/u_gemm/u_buf/b_rdata[3]
+    SLICE_X110Y113       LUT2 (Prop_lut2_I1_O)        0.153    11.608 r  u_system/u_gemm/u_buf/prod__30_carry_i_8/O
+                         net (fo=1, routed)           0.597    12.205    u_system/u_gemm/u_buf/prod__30_carry_i_8_n_0
+    SLICE_X111Y114       LUT6 (Prop_lut6_I1_O)        0.327    12.532 r  u_system/u_gemm/u_buf/prod__30_carry_i_4/O
+                         net (fo=1, routed)           0.000    12.532    u_system/u_gemm/g_mac1.u_mac/acc0_carry_i_1_1[3]
+    SLICE_X111Y114       CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    12.933 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry/CO[3]
+                         net (fo=1, routed)           0.000    12.933    u_system/u_gemm/g_mac1.u_mac/prod__30_carry_n_0
+    SLICE_X111Y115       CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    13.155 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0/O[0]
+                         net (fo=2, routed)           0.803    13.958    u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0_n_7
+    SLICE_X110Y114       LUT3 (Prop_lut3_I1_O)        0.325    14.283 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4/O
+                         net (fo=2, routed)           0.467    14.750    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4_n_0
+    SLICE_X110Y115       LUT4 (Prop_lut4_I3_O)        0.332    15.082 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8/O
+                         net (fo=1, routed)           0.000    15.082    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8_n_0
+    SLICE_X110Y115       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    15.614 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    15.614    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_n_0
+    SLICE_X110Y116       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    15.927 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__1/O[3]
+                         net (fo=4, routed)           0.862    16.789    u_system/u_gemm/u_buf/O[0]
+    SLICE_X108Y123       LUT2 (Prop_lut2_I0_O)        0.306    17.095 r  u_system/u_gemm/u_buf/acc0_carry__3_i_5/O
+                         net (fo=1, routed)           0.000    17.095    u_system/u_gemm/g_mac1.u_mac/c_wdata_reg[19]_1[0]
+    SLICE_X108Y123       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    17.608 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    17.608    u_system/u_gemm/g_mac1.u_mac/acc0_carry__3_n_0
+    SLICE_X108Y124       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.725 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__4/CO[3]
+                         net (fo=1, routed)           0.009    17.734    u_system/u_gemm/g_mac1.u_mac/acc0_carry__4_n_0
+    SLICE_X108Y125       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.851 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    17.851    u_system/u_gemm/g_mac1.u_mac/acc0_carry__5_n_0
+    SLICE_X108Y126       CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.256    18.107 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__6/O[2]
+                         net (fo=2, routed)           0.575    18.681    u_system/u_gemm/g_mac1.u_mac/acc0[30]
+    SLICE_X109Y126       LUT3 (Prop_lut3_I2_O)        0.330    19.011 r  u_system/u_gemm/g_mac1.u_mac/acc[30]_i_1/O
+                         net (fo=1, routed)           0.000    19.011    u_system/u_gemm/g_mac1.u_mac/acc[30]
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     15.000    15.000 r  
+    K17                                               0.000    15.000 r  clk (IN)
+                         net (fo=0)                   0.000    15.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.404    16.404 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.293    18.697    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    18.788 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         1.842    20.630    u_system/u_gemm/g_mac1.u_mac/clk_IBUF_BUFG
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[30]/C
+                         clock pessimism              0.441    21.072    
+                         clock uncertainty           -0.035    21.036    
+    SLICE_X109Y126       FDRE (Setup_fdre_C_D)        0.075    21.111    u_system/u_gemm/g_mac1.u_mac/acc_reg[30]
+  -------------------------------------------------------------------
+                         required time                         21.111    
+                         arrival time                         -19.011    
+  -------------------------------------------------------------------
+                         slack                                  2.100    
+
+Slack (MET) :             2.137ns  (required time - arrival time)
+  Source:                 u_system/u_gemm/u_mmio/r_n_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Destination:            u_system/u_gemm/g_mac1.u_mac/acc_reg[27]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@7.500ns period=15.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            15.000ns  (sys_clk_pin rise@15.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        12.822ns  (logic 5.261ns (41.032%)  route 7.561ns (58.968%))
+  Logic Levels:           16  (CARRY4=7 LUT2=2 LUT3=2 LUT4=2 LUT6=2 RAMD32=1)
+  Clock Path Skew:        -0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.630ns = ( 20.630 - 15.000 ) 
+    Source Clock Delay      (SCD):    6.153ns
+    Clock Pessimism Removal (CPR):    0.441ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  
+    K17                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.475     1.475 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.522     3.997    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     4.098 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         2.055     6.153    u_system/u_gemm/u_mmio/clk_IBUF_BUFG
+    SLICE_X109Y104       FDRE                                         r  u_system/u_gemm/u_mmio/r_n_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X109Y104       FDRE (Prop_fdre_C_Q)         0.456     6.609 r  u_system/u_gemm/u_mmio/r_n_reg[0]/Q
+                         net (fo=54, routed)          1.261     7.869    u_system/u_gemm/u_mmio/r_n_reg[2]_1[0]
+    SLICE_X111Y109       LUT6 (Prop_lut6_I0_O)        0.124     7.993 r  u_system/u_gemm/u_mmio/b_buf_reg_0_15_0_5_i_7/O
+                         net (fo=1, routed)           0.695     8.689    u_system/u_gemm/g_mac1.u_mac/b_idx0[0]
+    SLICE_X110Y109       LUT4 (Prop_lut4_I3_O)        0.150     8.839 r  u_system/u_gemm/g_mac1.u_mac/b_buf_reg_0_15_0_5_i_1/O
+                         net (fo=8, routed)           1.063     9.902    u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/ADDRB3
+    SLICE_X108Y104       RAMD32 (Prop_ramd32_RADR3_O)
+                                                      0.326    10.228 f  u_system/u_gemm/u_buf/b_buf_reg_0_15_0_5/RAMB_D1/O
+                         net (fo=16, routed)          1.227    11.455    u_system/u_gemm/u_buf/b_rdata[3]
+    SLICE_X110Y113       LUT2 (Prop_lut2_I1_O)        0.153    11.608 r  u_system/u_gemm/u_buf/prod__30_carry_i_8/O
+                         net (fo=1, routed)           0.597    12.205    u_system/u_gemm/u_buf/prod__30_carry_i_8_n_0
+    SLICE_X111Y114       LUT6 (Prop_lut6_I1_O)        0.327    12.532 r  u_system/u_gemm/u_buf/prod__30_carry_i_4/O
+                         net (fo=1, routed)           0.000    12.532    u_system/u_gemm/g_mac1.u_mac/acc0_carry_i_1_1[3]
+    SLICE_X111Y114       CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    12.933 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry/CO[3]
+                         net (fo=1, routed)           0.000    12.933    u_system/u_gemm/g_mac1.u_mac/prod__30_carry_n_0
+    SLICE_X111Y115       CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    13.155 r  u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0/O[0]
+                         net (fo=2, routed)           0.803    13.958    u_system/u_gemm/g_mac1.u_mac/prod__30_carry__0_n_7
+    SLICE_X110Y114       LUT3 (Prop_lut3_I1_O)        0.325    14.283 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4/O
+                         net (fo=2, routed)           0.467    14.750    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_4_n_0
+    SLICE_X110Y115       LUT4 (Prop_lut4_I3_O)        0.332    15.082 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8/O
+                         net (fo=1, routed)           0.000    15.082    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_i_8_n_0
+    SLICE_X110Y115       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    15.614 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    15.614    u_system/u_gemm/g_mac1.u_mac/prod__85_carry__0_n_0
+    SLICE_X110Y116       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    15.927 r  u_system/u_gemm/g_mac1.u_mac/prod__85_carry__1/O[3]
+                         net (fo=4, routed)           0.862    16.789    u_system/u_gemm/u_buf/O[0]
+    SLICE_X108Y123       LUT2 (Prop_lut2_I0_O)        0.306    17.095 r  u_system/u_gemm/u_buf/acc0_carry__3_i_5/O
+                         net (fo=1, routed)           0.000    17.095    u_system/u_gemm/g_mac1.u_mac/c_wdata_reg[19]_1[0]
+    SLICE_X108Y123       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    17.608 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    17.608    u_system/u_gemm/g_mac1.u_mac/acc0_carry__3_n_0
+    SLICE_X108Y124       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    17.725 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__4/CO[3]
+                         net (fo=1, routed)           0.009    17.734    u_system/u_gemm/g_mac1.u_mac/acc0_carry__4_n_0
+    SLICE_X108Y125       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.331    18.065 r  u_system/u_gemm/g_mac1.u_mac/acc0_carry__5/O[3]
+                         net (fo=2, routed)           0.577    18.642    u_system/u_gemm/g_mac1.u_mac/acc0[27]
+    SLICE_X109Y126       LUT3 (Prop_lut3_I2_O)        0.333    18.975 r  u_system/u_gemm/g_mac1.u_mac/acc[27]_i_1/O
+                         net (fo=1, routed)           0.000    18.975    u_system/u_gemm/g_mac1.u_mac/acc[27]
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     15.000    15.000 r  
+    K17                                               0.000    15.000 r  clk (IN)
+                         net (fo=0)                   0.000    15.000    clk
+    K17                  IBUF (Prop_ibuf_I_O)         1.404    16.404 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.293    18.697    clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    18.788 r  clk_IBUF_BUFG_inst/O
+                         net (fo=914, routed)         1.842    20.630    u_system/u_gemm/g_mac1.u_mac/clk_IBUF_BUFG
+    SLICE_X109Y126       FDRE                                         r  u_system/u_gemm/g_mac1.u_mac/acc_reg[27]/C
+                         clock pessimism              0.441    21.072    
+                         clock uncertainty           -0.035    21.036    
+    SLICE_X109Y126       FDRE (Setup_fdre_C_D)        0.075    21.111    u_system/u_gemm/g_mac1.u_mac/acc_reg[27]
+  -------------------------------------------------------------------
+                         required time                         21.111    
+                         arrival time                         -18.975    
+  -------------------------------------------------------------------
+                         slack                                  2.137    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         sys_clk_pin
+Waveform(ns):       { 0.000 7.500 }
+Period(ns):         15.000
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location        Pin
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         15.000      12.056     RAMB36_X5Y19    u_system/mem_reg_0/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         15.000      12.056     RAMB36_X5Y20    u_system/mem_reg_1/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         15.000      12.056     RAMB36_X5Y21    u_system/mem_reg_2/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         15.000      12.056     RAMB36_X5Y22    u_system/mem_reg_3/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.576         15.000      12.424     RAMB36_X5Y19    u_system/mem_reg_0/CLKBWRCLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA_D1/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMB/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMA_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         7.500       6.250      SLICE_X108Y106  u_system/u_gemm/u_buf/a_buf_reg_0_15_0_5/RAMB/CLK
+
+
+
