@@ -42,7 +42,7 @@ python3 sim/scripts/run_gemm_system_verification.py --jobs 1
 | `rtl_v2`    | `rtl_v2/gemm_accelerator`  | `dual`                 | fixed dual-port GEMM top 검증                    |
 | `system_v2` | `rtl_v2/gemm_system_top.v` | `tb_gemm_system_v2.sv` | CPU-driven system-level 통합 검증                |
 
-최종 검증 report는 [docs/report/project2_gemm_verification_report.md](docs/report/project2_gemm_verification_report.md)에 정리되어 있다.
+최종 검증 report는 [docs/reports/project2_gemm_verification_report.md](docs/reports/project2_gemm_verification_report.md)에 정리되어 있다.
 
 ## Design Scope
 
@@ -72,7 +72,7 @@ Invalid dimension은 GEMM data phase를 시작하지 않고 `done=1`, `error=1`,
 | `sim/`         | SystemVerilog/C++ testbench, verification runners, generated vectors |
 | `sw/`          | Simple CPU assembly programs and assembler tool                      |
 | `docs/spec/`   | 설계 contract와 interface specification                              |
-| `docs/report/` | 검증 결과 report                                                     |
+| `docs/reports/` | 검증 결과 report                                                    |
 | `asic/`        | ASIC synthesis 관련 작업 공간                                        |
 | `fpga/`        | FPGA 관련 작업 공간                                                  |
 
@@ -87,7 +87,7 @@ Invalid dimension은 GEMM data phase를 시작하지 않고 `done=1`, `error=1`,
 | [docs/spec/data_memory.md](docs/spec/data_memory.md)                                                 | A/B/C memory layout                                |
 | [docs/spec/simple_cpu.md](docs/spec/simple_cpu.md)                                                   | Simple CPU integration responsibility              |
 | [sim/README.md](sim/README.md)                                                                       | Simulation and verification usage                  |
-| [docs/report/project2_gemm_verification_report.md](docs/report/project2_gemm_verification_report.md) | Project2 item 1 verification report                |
+| [docs/reports/project2_gemm_verification_report.md](docs/reports/project2_gemm_verification_report.md) | Project2 item 1 verification report              |
 
 ## Waveform
 

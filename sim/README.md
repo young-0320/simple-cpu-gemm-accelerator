@@ -92,12 +92,29 @@ python3 sim/scripts/run_gemm_system_verification.py --jobs 1
 
 이 검증은 directed valid 2개, random valid 10개, invalid dimension 6개를 실행한다. Valid case는 C memory를 golden 결과와 비교하고, invalid case는 `done|error|invalid_size` status, C memory 미변경, `load/compute/store_cycles=0`을 확인한다. A/B/C base address는 case별로 달라진다. 결과는 `sim/results/system_v2/<run_id>/report.md`에 기록된다.
 
-Waveform까지 생성하려면 vector TB 명령에 `--trace-fst`를 추가한다.
+Waveform 생성 옵션은 두 가지다.
+
+- `--trace-fst`: FST 포맷. 일반 검증에 사용하며 결과는 기존 `sim/results/<vector_set>/<run_id>/` 경로에 함께 저장된다.
+- `--trace-vcd`: VCD 포맷. power 분석용이며 결과가 `sim/results/power/` 아래 별도 경로로 분리된다. 기본 케이스는 vector TB의 경우 `directed_006`, system_v2 TB의 경우 `directed_4x4x4_signed`이며, `--case-name`으로 덮어쓸 수 있다.
+
+FST 예시:
 
 ```bash
 python3 sim/scripts/run_gemm_verification.py \
   --vector-dir sim/vectors/directed_case \
   --trace-fst
+```
+
+VCD 예시 (power 분석용):
+
+```bash
+python3 sim/scripts/run_gemm_verification.py \
+  --rtl-dir rtl/gemm_accelerator \
+  --vector-dir sim/vectors/directed_case \
+  --tb single \
+  --mac-mode 4 \
+  --trace-vcd \
+  --case-name directed_006
 ```
 
 ## Vector TB 주요 옵션
@@ -111,10 +128,12 @@ python3 sim/scripts/run_gemm_verification.py \
 | `--rtl-dir`        | `rtl/gemm_accelerator`      | Verilator에 넘길 GEMM RTL 디렉토리                   |
 | `--mac-mode`       | `4`                         | `MAC_MODE` parameter 값                              |
 | `--jobs`           | `0`                         | Verilator build parallel job 수                      |
-| `--trace-fst`      | off                         | FST waveform 생성                                    |
+| `--trace-fst`      | off                         | FST waveform 생성; 결과는 기존 결과 디렉토리에 함께 저장 |
+| `--trace-vcd`      | off                         | VCD waveform 생성; 결과가 `sim/results/power/` 아래 별도 경로로 분리 |
+| `--case-name`      | None                        | `--trace-vcd`와 함께 사용; 단일 케이스 이름을 지정해 VCD 생성 (기본값: `directed_006`) |
 | `--no-clean-build` | off                         | 기존 `sim/build/...`를 재사용                        |
 
-이 표는 `single`, `compat`, `dual` vector TB runner 기준이다. `system_v2`는 `run_gemm_system_verification.py`를 사용하며 `--tb`와 `--vector-dir`를 받지 않는다.
+이 표는 `single`, `compat`, `dual` vector TB runner 기준이다. `system_v2`는 `run_gemm_system_verification.py`를 사용하며 `--tb`와 `--vector-dir`를 받지 않는다. `--trace-vcd`와 `--case-name`은 두 runner 모두 지원한다.
 
 Runner는 기본적으로 clean build를 수행한다. 이렇게 해야 `build.log`에 Verilator warning이 매 실행마다 다시 기록되고, warning summary가 재현 가능하게 생성된다. 빠른 반복 실행이 필요하면 `--no-clean-build`를 사용할 수 있다.
 
@@ -131,6 +150,31 @@ sim/results/<vector_set>/<run_id>/
 ```text
 sim/results/directed_case/20260605_153000_single/
 ```
+
+`--trace-vcd`를 사용한 power 분석 실행은 결과 경로가 분리된다.
+
+```text
+sim/results/power/step2_mode{MAC_MODE}_{case_slug}/   # vector TB
+sim/results/power/step3_mode{MAC_MODE}_{case_slug}/   # system_v2 TB
+```
+
+예:
+
+```text
+sim/results/power/step2_mode4_directed006/
+sim/results/power/step3_mode4_directed4x4x4/
+```
+
+Oasys 파워 분석에 사용하는 VCD 파일 목록은 다음과 같다.
+
+| VCD 파일 | 대상 넷리스트 | 케이스 |
+| --- | --- | --- |
+| `sim/results/power/step2_mode1_directed006/tb_gemm_vectors_single.vcd` | `step2_gemm_accelerator_top_mode1` | directed_006 (4×4×4) |
+| `sim/results/power/step2_mode4_directed006/tb_gemm_vectors_single.vcd` | `step2_gemm_accelerator_top_mode4` | directed_006 (4×4×4) |
+| `sim/results/power/step3_mode1_directed4x4x4/tb_gemm_system_v2.vcd` | `step3_system_top_mode1` | directed_4x4x4_signed (4×4×4) |
+| `sim/results/power/step3_mode4_directed4x4x4/tb_gemm_system_v2.vcd` | `step3_system_top_mode4` | directed_4x4x4_signed (4×4×4) |
+
+step2는 GEMM accelerator 단독 넷리스트, step3는 CPU+GEMM 통합 시스템 넷리스트에 대응한다. 각 넷리스트는 top module이 다르므로 VCD를 공유하지 않는다.
 
 각 run 디렉토리에는 다음 파일이 생성된다.
 
@@ -191,6 +235,13 @@ FST waveform을 생성한 뒤 GTKWave로 확인한다.
 
 ```bash
 gtkwave sim/results/directed_case/<run_id>/tb_gemm_vectors_<tb>.fst
+```
+
+VCD waveform (power 분석용) 경로:
+
+```bash
+gtkwave sim/results/power/step2_mode4_directed006/tb_gemm_vectors_<tb>.vcd
+gtkwave sim/results/power/step3_mode4_directed4x4x4/tb_gemm_system_v2.vcd
 ```
 
 주로 볼 신호는 다음과 같다.
