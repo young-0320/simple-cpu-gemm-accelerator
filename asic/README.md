@@ -2,5 +2,44 @@
 
 ## 다음 할 일
 
+- [ ] Verilator로 4개 VCD 로컬 생성 (아래 명령, `sim/results/`는 `.gitignore`라 GitHub에 없음 → 매번 로컬/서버에서 직접 생성해야 함)
 - [ ] Oasys: step2_mode1/mode4, step3_mode1/mode4 config.tcl 4개에 vcd_file/vcd_scope 채움 (완료). 학교 서버에서 4개 config로 Oasys 재실행하고 report_power 결과 받아오기 (VCD 기반 dynamic power로 갱신)
 - [ ] Nitro: report_power 명령이 TCL에 없음. Nitro에서 power 리포트 뽑는 방법 확인 후 추가 (학교 사용 버전이 VCD 기반 power 리포트를 지원하는지 먼저 확인)
+
+## Verilator VCD 생성 (power 분석용)
+
+repository root에서 순서대로 실행. 자세한 옵션 설명은 `sim/README.md` 참고.
+
+```bash
+# 1. step2_mode1 -> sim/results/power/step2_mode1_directed006/tb_gemm_vectors_single.vcd
+python3 sim/scripts/run_gemm_verification.py \
+  --rtl-dir rtl/gemm_accelerator \
+  --vector-dir sim/vectors/directed_case \
+  --tb single \
+  --mac-mode 1 \
+  --trace-vcd \
+  --case-name directed_006
+
+# 2. step2_mode4 -> sim/results/power/step2_mode4_directed006/tb_gemm_vectors_single.vcd
+python3 sim/scripts/run_gemm_verification.py \
+  --rtl-dir rtl/gemm_accelerator \
+  --vector-dir sim/vectors/directed_case \
+  --tb single \
+  --mac-mode 4 \
+  --trace-vcd \
+  --case-name directed_006
+
+# 3. step3_mode1 -> sim/results/power/step3_mode1_directed4x4x4/tb_gemm_system_v2.vcd
+python3 sim/scripts/run_gemm_system_verification.py \
+  --mac-mode 1 \
+  --trace-vcd \
+  --case-name directed_4x4x4_signed
+
+# 4. step3_mode4 -> sim/results/power/step3_mode4_directed4x4x4/tb_gemm_system_v2.vcd
+python3 sim/scripts/run_gemm_system_verification.py \
+  --mac-mode 4 \
+  --trace-vcd \
+  --case-name directed_4x4x4_signed
+```
+
+4개 명령 실행 후 생성된 VCD 경로가 Oasys config.tcl(`asic/oasys/step{2,3}_mode{1,4}_config.tcl`)의 `vcd_file`과 일치하는지 확인한다.
