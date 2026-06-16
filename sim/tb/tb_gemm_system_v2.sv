@@ -47,6 +47,8 @@ module tb_gemm_system_v2 #(
     string result_dir;
     string run_id;
     string dumpfile_path;
+    string selected_case_name;
+    bit run_all_cases;
     bit result_files_enabled;
     int case_results_fd;
     int failure_details_fd;
@@ -678,6 +680,27 @@ module tb_gemm_system_v2 #(
         end
     endtask
 
+    function automatic bit case_selected(input string case_name);
+        begin
+            case_selected = run_all_cases || (case_name == selected_case_name);
+        end
+    endfunction
+
+    task automatic run_case_if_selected(
+        input int case_id,
+        input string case_name,
+        input int m_dim,
+        input int n_dim,
+        input int k_dim,
+        input bit expect_valid
+    );
+        begin
+            if (case_selected(case_name)) begin
+                run_case(case_id, case_name, m_dim, n_dim, k_dim, expect_valid);
+            end
+        end
+    endtask
+
     task automatic set_directed_2x2();
         begin
             a_values[0] = 8'sd1; a_values[1] = 8'sd2;
@@ -748,6 +771,13 @@ module tb_gemm_system_v2 #(
         if (!$value$plusargs("RUN_ID=%s", run_id)) begin
             run_id = "manual";
         end
+        if ($value$plusargs("CASE_NAME=%s", selected_case_name)) begin
+            run_all_cases = 1'b0;
+        end
+        else begin
+            selected_case_name = "all";
+            run_all_cases = 1'b1;
+        end
 
         open_result_files();
 
@@ -765,47 +795,48 @@ module tb_gemm_system_v2 #(
         log_line("== GEMM rtl_v2 CPU-driven system verification ==");
         log_line($sformatf("  run_id:   %s", run_id));
         log_line($sformatf("  MAC_MODE: %0d", MAC_MODE));
+        log_line($sformatf("  case:     %s", selected_case_name));
 
         case_id = 0;
 
         set_directed_2x2();
-        run_case(case_id, "directed_2x2x2", 2, 2, 2, 1'b1);
+        run_case_if_selected(case_id, "directed_2x2x2", 2, 2, 2, 1'b1);
         case_id++;
 
         set_directed_4x4();
-        run_case(case_id, "directed_4x4x4_signed", 4, 4, 4, 1'b1);
+        run_case_if_selected(case_id, "directed_4x4x4_signed", 4, 4, 4, 1'b1);
         case_id++;
 
         for (trial = 0; trial < 10; trial++) begin
             random_dims(trial, m_dim, n_dim, k_dim);
             set_random_case(m_dim, n_dim, k_dim);
             case_name = $sformatf("random_%02d_%0dx%0dx%0d", trial, m_dim, n_dim, k_dim);
-            run_case(case_id, case_name, m_dim, n_dim, k_dim, 1'b1);
+            run_case_if_selected(case_id, case_name, m_dim, n_dim, k_dim, 1'b1);
             case_id++;
         end
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_m_zero", 0, 2, 2, 1'b0);
+        run_case_if_selected(case_id, "invalid_m_zero", 0, 2, 2, 1'b0);
         case_id++;
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_n_zero", 2, 0, 2, 1'b0);
+        run_case_if_selected(case_id, "invalid_n_zero", 2, 0, 2, 1'b0);
         case_id++;
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_k_zero", 2, 2, 0, 1'b0);
+        run_case_if_selected(case_id, "invalid_k_zero", 2, 2, 0, 1'b0);
         case_id++;
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_m_overflow", 5, 2, 2, 1'b0);
+        run_case_if_selected(case_id, "invalid_m_overflow", 5, 2, 2, 1'b0);
         case_id++;
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_n_overflow", 2, 5, 2, 1'b0);
+        run_case_if_selected(case_id, "invalid_n_overflow", 2, 5, 2, 1'b0);
         case_id++;
 
         set_random_case(4, 4, 4);
-        run_case(case_id, "invalid_k_overflow", 2, 2, 5, 1'b0);
+        run_case_if_selected(case_id, "invalid_k_overflow", 2, 2, 5, 1'b0);
         case_id++;
 
         log_line($sformatf("[SUMMARY] total=%0d pass=%0d fail=%0d errors=%0d",

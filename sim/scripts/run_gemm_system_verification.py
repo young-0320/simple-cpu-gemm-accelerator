@@ -17,6 +17,7 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_VCD_CASE = "directed_4x4x4_signed"
 
 TB_TOP = "tb_gemm_system_v2"
 TB_FILE = Path("sim/tb/tb_gemm_system_v2.sv")
@@ -34,12 +35,12 @@ def cmd_path(path: Path) -> str:
         return path.as_posix()
 
 
-def allocate_result_dir(results_root: Path, requested_run_id: str) -> tuple[str, Path]:
-    base = results_root / "system_v2" / requested_run_id
+def allocate_result_dir(results_root: Path, result_group: str, requested_run_id: str) -> tuple[str, Path]:
+    base = results_root / result_group / requested_run_id
     candidate = base
     suffix = 1
     while candidate.exists():
-        candidate = results_root / "system_v2" / f"{requested_run_id}_{suffix:02d}"
+        candidate = results_root / result_group / f"{requested_run_id}_{suffix:02d}"
         suffix += 1
     candidate.mkdir(parents=True)
     return candidate.name, candidate
@@ -218,7 +219,9 @@ def build_command(args: argparse.Namespace) -> list[str]:
         "-j",
         str(args.jobs),
     ]
-    if args.trace_fst:
+    if args.trace_vcd:
+        command.append("--trace")
+    elif args.trace_fst:
         command.append("--trace-fst")
 
     command.extend(
@@ -249,14 +252,24 @@ def executable_path(build_dir: Path) -> Path:
     return exe_with_suffix if exe_with_suffix.exists() else exe
 
 
-def simulation_command(args: argparse.Namespace, run_id: str, result_dir: Path) -> list[str]:
+def simulation_command(args: argparse.Namespace, run_id: str, result_dir: Path, case_name: str | None) -> list[str]:
     build_dir = project_path(args.build_dir)
-    return [
+    dumpfile_name = "tb_gemm_system_v2.vcd" if args.trace_vcd else "tb_gemm_system_v2.fst"
+    command = [
         executable_path(build_dir).as_posix(),
         f"+RESULT_DIR={cmd_path(result_dir)}",
         f"+RUN_ID={run_id}",
-        f"+DUMPFILE={cmd_path(result_dir / 'tb_gemm_system_v2.fst')}",
+        f"+DUMPFILE={cmd_path(result_dir / dumpfile_name)}",
     ]
+    if case_name is not None:
+        command.append(f"+CASE_NAME={case_name}")
+    return command
+
+
+def power_case_slug(case_name: str) -> str:
+    if case_name == "directed_4x4x4_signed":
+        return "directed4x4x4"
+    return re.sub(r"[^A-Za-z0-9]+", "_", case_name).strip("_")
 
 
 def build_summary(rows: list[dict[str, str]], build_rc: int, run_rc: int | None) -> dict[str, Any]:
@@ -465,7 +478,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--build-dir", type=Path, default=BUILD_DIR)
     parser.add_argument("--mac-mode", type=int, default=4)
     parser.add_argument("--jobs", default="0")
-    parser.add_argument("--trace-fst", action="store_true")
+    trace_group = parser.add_mutually_exclusive_group()
+    trace_group.add_argument("--trace-fst", action="store_true")
+    trace_group.add_argument("--trace-vcd", action="store_true")
+    parser.add_argument("--case-name", default=None)
     parser.add_argument("--no-clean-build", dest="clean_build", action="store_false")
     parser.set_defaults(clean_build=True)
     return parser
@@ -483,8 +499,15 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     results_root = project_path(args.results_root)
-    requested_run_id = args.run_id or f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_system_v2"
-    run_id, result_dir = allocate_result_dir(results_root, requested_run_id)
+    result_group = "power" if args.trace_vcd else "system_v2"
+    case_name = args.case_name or (DEFAULT_VCD_CASE if args.trace_vcd else None)
+    if args.run_id is not None:
+        requested_run_id = args.run_id
+    elif args.trace_vcd:
+        requested_run_id = f"step3_mode{args.mac_mode}_{power_case_slug(case_name)}"
+    else:
+        requested_run_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_system_v2"
+    run_id, result_dir = allocate_result_dir(results_root, result_group, requested_run_id)
 
     build_log = result_dir / "build.log"
     run_log = result_dir / "run.log"
@@ -511,7 +534,7 @@ def main(argv: list[str] | None = None) -> int:
     run_cmd: list[str] | None = None
     run_rc: int | None = None
     if build_rc == 0:
-        run_cmd = simulation_command(args, run_id, result_dir)
+        run_cmd = simulation_command(args, run_id, result_dir, case_name)
         print("[SIM] " + " ".join(run_cmd))
         run_rc = run_command(run_cmd, run_log)
     else:
@@ -529,8 +552,12 @@ def main(argv: list[str] | None = None) -> int:
     reproduction = "python3 sim/scripts/run_gemm_system_verification.py"
     reproduction += f" --rtl-dir {cmd_path(project_path(args.rtl_dir))}"
     reproduction += f" --mac-mode {args.mac_mode}"
+    if case_name is not None:
+        reproduction += f" --case-name {case_name}"
     if args.trace_fst:
         reproduction += " --trace-fst"
+    if args.trace_vcd:
+        reproduction += " --trace-vcd"
 
     metadata = {
         "run_id": run_id,
@@ -540,7 +567,10 @@ def main(argv: list[str] | None = None) -> int:
         "tb_file": cmd_path(project_path(TB_FILE)),
         "rtl_dir": cmd_path(project_path(args.rtl_dir)),
         "mac_mode": args.mac_mode,
+        "result_group": result_group,
         "result_dir": cmd_path(result_dir),
+        "case_name": case_name,
+        "trace_format": "vcd" if args.trace_vcd else ("fst" if args.trace_fst else "none"),
         "verilator_version": command_output(["verilator", "--version"]),
         "git_commit": git_output(["git", "rev-parse", "--short", "HEAD"]),
         "git_status": git_output(["git", "status", "--short"]),

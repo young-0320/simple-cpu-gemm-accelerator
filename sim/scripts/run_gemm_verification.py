@@ -17,6 +17,7 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_VCD_CASE = "directed_006"
 
 TB_CONFIGS: dict[str, dict[str, Any]] = {
     "compat": {
@@ -142,7 +143,9 @@ def build_command(args: argparse.Namespace, config: dict[str, Any]) -> list[str]
         "-j",
         str(args.jobs),
     ]
-    if args.trace_fst:
+    if args.trace_vcd:
+        command.append("--trace")
+    elif args.trace_fst:
         command.append("--trace-fst")
 
     command.extend(
@@ -186,24 +189,58 @@ def simulation_command(
     args: argparse.Namespace,
     config: dict[str, Any],
     vector_dir: Path,
+    cases_path: Path,
     vector_set: str,
     run_id: str,
     result_dir: Path,
 ) -> list[str]:
     command = [executable_path(config).as_posix(), f"+VECTOR_DIR={cmd_path(vector_dir)}"]
-    cases_path = vector_dir / "cases.tsv"
     command.append(f"+CASES={cmd_path(cases_path)}")
 
     if config["supports_reports"]:
+        dumpfile_name = Path(config["dumpfile"]).with_suffix(".vcd").name if args.trace_vcd else config["dumpfile"]
         command.extend(
             [
                 f"+RESULT_DIR={cmd_path(result_dir)}",
                 f"+RUN_ID={run_id}",
                 f"+VECTOR_SET={vector_set}",
-                f"+DUMPFILE={cmd_path(result_dir / config['dumpfile'])}",
+                f"+DUMPFILE={cmd_path(result_dir / dumpfile_name)}",
             ]
         )
     return command
+
+
+def power_case_slug(case_name: str) -> str:
+    if case_name == "directed_006":
+        return "directed006"
+    return re.sub(r"[^A-Za-z0-9]+", "_", case_name).strip("_")
+
+
+def filtered_cases_path(vector_dir: Path, case_name: str | None, result_dir: Path) -> Path:
+    source_path = vector_dir / "cases.tsv"
+    if case_name is None:
+        return source_path
+
+    if not source_path.exists():
+        raise FileNotFoundError(f"missing cases table: {source_path}")
+
+    with source_path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        if not reader.fieldnames or "name" not in reader.fieldnames:
+            raise ValueError(f"cases table has no name column: {source_path}")
+        fieldnames = reader.fieldnames
+        matches = [row for row in reader if row.get("name") == case_name]
+
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one case named {case_name!r} in {source_path}, found {len(matches)}")
+
+    safe_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", case_name)
+    target_path = result_dir / f"cases_{safe_name}.tsv"
+    with target_path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerow(matches[0])
+    return target_path
 
 
 def parse_log_counts(log_text: str) -> tuple[dict[str, int], list[str]]:
@@ -527,7 +564,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--rtl-dir", type=Path, default=Path("rtl/gemm_accelerator"))
     parser.add_argument("--mac-mode", type=int, default=4)
     parser.add_argument("--jobs", default="0")
-    parser.add_argument("--trace-fst", action="store_true")
+    trace_group = parser.add_mutually_exclusive_group()
+    trace_group.add_argument("--trace-fst", action="store_true")
+    trace_group.add_argument("--trace-vcd", action="store_true")
+    parser.add_argument("--case-name", default=None)
     parser.add_argument("--no-clean-build", dest="clean_build", action="store_false")
     parser.set_defaults(clean_build=True)
     return parser
@@ -541,8 +581,15 @@ def main(argv: list[str] | None = None) -> int:
     vector_dir = project_path(args.vector_dir)
     results_root = project_path(args.results_root)
     vector_set = vector_dir.name
-    requested_run_id = args.run_id or f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.tb}"
-    run_id, result_dir = allocate_result_dir(results_root, vector_set, requested_run_id)
+    result_group = "power" if args.trace_vcd else vector_set
+    case_name = args.case_name or (DEFAULT_VCD_CASE if args.trace_vcd else None)
+    if args.run_id is not None:
+        requested_run_id = args.run_id
+    elif args.trace_vcd:
+        requested_run_id = f"step2_mode{args.mac_mode}_{power_case_slug(case_name)}"
+    else:
+        requested_run_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.tb}"
+    run_id, result_dir = allocate_result_dir(results_root, result_group, requested_run_id)
 
     build_log = result_dir / "build.log"
     run_log = result_dir / "run.log"
@@ -552,8 +599,9 @@ def main(argv: list[str] | None = None) -> int:
     report_path = result_dir / "report.md"
 
     try:
+        cases_path = filtered_cases_path(vector_dir, case_name, result_dir)
         build_cmd = build_command(args, config)
-    except FileNotFoundError as exc:
+    except (FileNotFoundError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     build_dir = project_path(config["build_dir"])
@@ -573,7 +621,7 @@ def main(argv: list[str] | None = None) -> int:
     run_cmd: list[str] | None = None
     run_rc: int | None = None
     if build_rc == 0:
-        run_cmd = simulation_command(args, config, vector_dir, vector_set, run_id, result_dir)
+        run_cmd = simulation_command(args, config, vector_dir, cases_path, vector_set, run_id, result_dir)
         print("[SIM] " + " ".join(run_cmd))
         run_rc = run_command(run_cmd, REPO_ROOT, run_log)
     else:
@@ -590,8 +638,13 @@ def main(argv: list[str] | None = None) -> int:
 
     reproduction = "python3 sim/scripts/run_gemm_verification.py"
     reproduction += f" --vector-dir {cmd_path(vector_dir)} --tb {args.tb}"
+    reproduction += f" --rtl-dir {cmd_path(project_path(args.rtl_dir))} --mac-mode {args.mac_mode}"
+    if case_name is not None:
+        reproduction += f" --case-name {case_name}"
     if args.trace_fst:
         reproduction += " --trace-fst"
+    if args.trace_vcd:
+        reproduction += " --trace-vcd"
 
     metadata = {
         "run_id": run_id,
@@ -601,8 +654,11 @@ def main(argv: list[str] | None = None) -> int:
         "tb_file": cmd_path(project_path(config["tb_file"])),
         "rtl_dir": cmd_path(project_path(args.rtl_dir)),
         "vector_set": vector_set,
+        "result_group": result_group,
         "vector_dir": cmd_path(vector_dir),
-        "cases_path": cmd_path(vector_dir / "cases.tsv"),
+        "cases_path": cmd_path(cases_path),
+        "case_name": case_name,
+        "trace_format": "vcd" if args.trace_vcd else ("fst" if args.trace_fst else "none"),
         "result_dir": cmd_path(result_dir),
         "verilator_version": command_output(["verilator", "--version"], REPO_ROOT),
         "git_commit": git_output(["git", "rev-parse", "--short", "HEAD"], REPO_ROOT),
