@@ -1,0 +1,126 @@
+*******************************************************************
+*                  Oasys-RTL™ - release 2022.2.R1                 *
+*                                                                 *
+* This material contains trade secrets or otherwise confidential  *
+* information owned by Siemens Industry Software Inc. or its      *
+* affiliates (collectively, "SISW"), or its licensors. Access to  *
+* and use of this information is strictly limited as set forth    *
+* in the Customer’s applicable agreements with SISW.              *
+*                                                                 *
+*                 Unpublished work. © 2023 Siemens                *
+*                                                                 *
+* Program : ../bin/Linux-x86_64-O/oasysGui                        *
+* Version : 22.2-p002                                             *
+* Date    : Mon Jan 16 21:36:23 PST 2023                          *
+* Build   : releases/22.2-54756.0-CentOS_6.5-O                    *
+*******************************************************************
+ config sdc-v1.7-cpd cli cmd explore mxdb o2n fp rta mpg-m-w dft
+loading: oa2tessent-d ctl verify edit bt upf-c aos conc ipc-l vcd o2pp prot int oa2ap
+checked out license: psyncore
+
+         date     : Wed Jun 17 20:19:07 KST 2026
+         ppid/pid : 613226/613236
+         hostname : aiws
+         arch/os  : x86_64/Linux-5.15.0-60-generic 
+         install  : /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+         currdir  : /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys
+         logfile  : /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.12
+         tmpdir   : /tmp/oasys.613226/
+> source /Tools/Oasys2022/Oasys-RTL-2022.2.R1/tcl/library/history.tcl
+> source /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/step2_mode1_vcd_config.tcl
+> read_verilog -sv -I /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator -D {} {/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode4.v}
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath4.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v:2)[26])  [VLOG-2320]
+info:    back to file '/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v' ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v:2)[26])  [VLOG-2320]
+> read_lef /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_tech.lef
+Reading /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_tech.lef
+info:    units per micron 1000 defined in LEF is ignored. Tool uses 20000 units per micron.  [LEF-118]
+note:    the above message has more detailed information, see "message LEF-118"
+info:    use manufacturing grid 100  [LEF-110]
+> read_library /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P50V_25C.lib -target_library default
+reading /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Liberty/TANNER_TT_2P50V_25C.lib...
+Finished reading. Elapsed time= 0 seconds
+info:    The technology cmos was specified.  [LIB-200]
+info:    delay_model specified was table_lookup.  [LIB-200]
+info:    Using the cmos syntax tables...  [LIB-200]
+info:    timer ignores arcs of type 'asynchronous'  [LIB-117]
+> read_lef /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_StdCells.lef
+Reading /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_StdCells.lef
+info:    units per micron 1000 defined in LEF is ignored. Tool uses 20000 units per micron.  [LEF-118]
+info:    use manufacturing grid 100  [LEF-110]
+info:    Site CORE defined in /mnt/NewHDD/home/vlsiadmin/TannerEDA/TannerTools_v2021.2/Process/Generic_250nm/Generic_250nm_LogicGates/Generic250nm_StdCells.lef  [LEF-119]
+warning: LEF macro FILLER not found in logical/timing library - creating a physical only cell  [LEF-108]
+warning: LEF macro DFFPC not found in logical/timing library - creating a physical only cell  [LEF-108]
+> set_target_library default
+> set_clock_gating_options -sequential_cell none -control_port {} -control_point {} -observation_point false -minimum_bitwidth 4
+> synthesize -module step2_gemm_accelerator_top_mode1
+starting synthesize at 00:00:01(cpu)/0:00:50(wall) 135MB(vsz)/332MB(peak)
+warning: no clock-gating cell found in target library 'default' for the given specification  [POWER-110]
+info:    no clock-gating cell found in target library 'default' for posedge FFs for the given specification  [POWER-113]
+info:    no clock-gating cell found in target library 'default' for negedge FFs for the given specification  [POWER-113]
+info:    clock_gating minimum_width = 4, maximum_fanout = 2147483647, num_stages = 2147483647, sequential_cell = none, control_port = (null), control_point = none, observability = no, use_discrete_cells = no, create_multi_stage = no, merge_multi_stage = no, exclude_instantiated_clock_gates = no, log = (null), allow_clock_inversion = no  [POWER-111]
+info:    synthesizing module 'step2_gemm_accelerator_top_mode1' (depth 1) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v:3)[7])  [VLOG-400]
+info:    synthesizing module 'gemm_accelerator_top' (depth 2) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v:13)[7])  [VLOG-400]
+info:    synthesizing module 'gemm_mmio_reg' (depth 3) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v:15)[7])  [VLOG-400]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_n_oor_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_k_oor_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_m_oor_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_k_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_n_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_m_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_c_base_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_b_base_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'r_a_base_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 's_done_reg' - ignored for clock-gating  [POWER-100]
+-------> Message [POWER-100] suppressed 2 times
+info:    done synthesizing module 'gemm_mmio_reg' (depth 3) (1#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mmio_reg.v:15)[7])  [VLOG-401]
+info:    synthesizing module 'gemm_controller_fsm' (depth 3) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v:13)[7])  [VLOG-400]
+info:    no appropriate clock-gating cell found in target library for register bank 'state_reg' - ignored for clock-gating  [POWER-100]
+info:    done synthesizing module 'gemm_controller_fsm' (depth 3) (2#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_controller_fsm.v:13)[7])  [VLOG-401]
+info:    synthesizing module 'gemm_local_buffer' (depth 3) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v:16)[7])  [VLOG-400]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[15]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[14]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[13]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[12]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[11]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[10]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[9]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[8]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[7]' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_buf_reg[6]' - ignored for clock-gating  [POWER-100]
+-------> Message [POWER-100] suppressed 38 times
+info:    done synthesizing module 'gemm_local_buffer' (depth 3) (3#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_local_buffer.v:16)[7])  [VLOG-401]
+info:    synthesizing module 'gemm_lsu' (depth 3) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v:26)[7])  [VLOG-400]
+info:    '+' operator could not be merged with '*' operator due to loss of accuracy ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v:197)[41], (/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v:58)[31])  [DP-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'c_raddr_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_wdata_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'b_waddr_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'a_wdata_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'word_reg_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'a_waddr_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'mem_wdata_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'mem_addr_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'selem_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'col_reg' - ignored for clock-gating  [POWER-100]
+-------> Message [POWER-100] suppressed 3 times
+info:    done synthesizing module 'gemm_lsu' (depth 3) (4#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_lsu.v:26)[7])  [VLOG-401]
+info:    synthesizing module 'gemm_mac_datapath' (depth 3) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v:14)[7])  [VLOG-400]
+info:    default block is never used ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v:125)[16])  [VLOG-505]
+note:    the above message has more detailed information, see "message VLOG-505"
+info:    no appropriate clock-gating cell found in target library for register bank 'c_wdata_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'c_waddr_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'i_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'j_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'k_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'phase_reg' - ignored for clock-gating  [POWER-100]
+info:    no appropriate clock-gating cell found in target library for register bank 'acc_reg' - ignored for clock-gating  [POWER-100]
+info:    done synthesizing module 'gemm_mac_datapath' (depth 3) (5#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_mac_datapath.v:14)[7])  [VLOG-401]
+info:    done synthesizing module 'gemm_accelerator_top' (depth 2) (6#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/rtl/gemm_accelerator/gemm_accelerator_top.v:13)[7])  [VLOG-401]
+info:    done synthesizing module 'step2_gemm_accelerator_top_mode1' (depth 1) (7#8) ((/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/step2_gemm_accelerator_top_mode1.v:3)[7])  [VLOG-401]
+finished synthesize at 00:00:03(cpu)/0:00:51(wall) 196MB(vsz)/406MB(peak)
+> read_sdc /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/clk.sdc
+> create_clock -name clk -period 100000.0 clk
