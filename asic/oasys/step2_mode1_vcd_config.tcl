@@ -12,8 +12,8 @@ namespace eval config {
     set input(sdc_files)                      {/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/clk.sdc}
     set input(def_files)                      {}
     set input(power_files)                    {}
-    set input(vcd_file)                       {/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/sim/results/power/step2_mode1_directed006_02/tb_gemm_vectors_single.vcd}
-    set input(vcd_scope)                      {/tb_gemm_vectors_single/dut}
+    set input(vcd_file)                       {/mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/sim/results/power/step2_mode1_directed006/tb_gemm_vectors_single.vcd}
+    set input(vcd_scope)                      {TOP.tb_gemm_vectors_single.dut}
     set input(sa_probability)                 {}
     set input(sa_togg_perc)                   {}
     set input(sa_togg_rate)                   {}
