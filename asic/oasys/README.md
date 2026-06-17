@@ -194,3 +194,33 @@ asic/oasys/
 
 `.f` 파일은 강의 PDF에서 요구한 형식은 아니지만, 학교 서버에서 repo를 clone한 뒤
 Oasys GUI에 추가할 RTL 목록을 일관되게 관리하기 위한 기준 파일로 사용한다.
+
+## 7. 변형 config 네이밍 규칙 (demo / vcd)
+
+step3는 메모리 크기(원본 4096-word vs 데모 256-word)와 power 소스(기본 toggle-rate
+가정 vs VCD 워크로드 실측) 두 축으로 config가 늘어난다. 파일명만 보고 구분할 수
+있도록 다음 규칙을 둔다.
+
+| 파일명 패턴 | 의미 |
+| --- | --- |
+| `step{N}_mode{M}_config.tcl` | 기본형. `vcd_file`/`vcd_scope` 비움(기본 toggle-rate 가정 power) |
+| `step{N}_mode{M}_vcd_config.tcl` | 같은 설계 + `vcd_file`/`vcd_scope` 채움(워크로드 VCD 기반 dynamic power) |
+| `step3_mode{M}_demo_config.tcl` | `asic/demo_mem256/gemm_system_top.v`(256-word, Oasys/Nitro P&R 전용) 대상, vcd 비움 |
+| `step3_mode{M}_demo_vcd_config.tcl` | 위 256-word 데모 + vcd 채움 |
+
+규칙: 파일명에 `vcd`가 있으면 그 config의 `vcd_file`/`vcd_scope`는 항상 채워져
+있어야 하고, 없으면 항상 비어 있어야 한다(둘 다 비어있지 않거나 둘 다 비어있는
+상태로만 존재). `demo`가 있으면 256-word 설계, 없으면 원본 설계(step3는
+`rtl_v2/gemm_system_top.v` 4096-word, step2는 `rtl/gemm_accelerator`)를 가리킨다.
+`vcd_file`이 가리키는 VCD는 `asic/README.md`의 Verilator 명령으로 로컬/서버에서
+직접 생성해야 한다(`sim/results/`는 `.gitignore`).
+
+현재 존재하는 조합:
+
+- step2(mode1/mode4): 기본형 + vcd형. step2는 BRAM이 없는 accelerator-only라
+  메모리 크기 이슈가 없으므로 데모가 없다.
+- step3 mode0: 기본형(4096) + demo(256)만 있다. mode0(AT)는 step2에 대응 모드가
+  없어 이번 VCD power 비교 대상에서 제외했으므로 vcd형은 만들지 않는다.
+- step3 mode1/mode4: 기본형(4096) + vcd형(4096) + demo(256) + demo_vcd(256) 전부
+  존재. 단 demo/demo_vcd는 Nitro P&R 시연용으로 준비해 둔 것이고, 현재
+  PPA 비교(이 README 5절 기준)에는 기본형/vcd형(4096)만 사용한다.
