@@ -1,0 +1,20 @@
+#--------------------------------------------------------------------
+#         date     : Wed Jun 17 12:59:13 KST 2026
+#         ppid/pid : 2357729/2357739
+#         hostname : aiws
+#         arch/os  : x86_64/Linux-5.15.0-60-generic 
+#         install  : /Tools/Oasys2022/Oasys-RTL-2022.2.R1
+#         currdir  : /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys
+#         logfile  : /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/oasys.log.05
+#         tmpdir   : /tmp/oasys.2357729/
+#--------------------------------------------------------------------
+# Starting Gui Interactive Session
+config::loadConfig config::input
+read_vcd -scope tb_gemm_system_v2.dut -verbose
+read_vcd -scope tb_gemm_system_v2.dut -verbose /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/sim/results/power/step3_mode1_directed4x4x4/tb_gemm_system_v2.vcd
+current_design
+read_vcd -scope dut /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/sim/results/power/step3_mode1_directed4x4x4/tb_gemm_system_v2.vcd
+read_vcd -scope /tb_gemm_system_v2/dut /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/sim/results/power/step3_mode1_directed4x4x4/tb_gemm_system_v2.vcd
+report power
+report_power
+report_power > /mnt/NewHDD/home/ddl2026/ddl2026_2021104248/simple-cpu-gemm-accelerator/asic/oasys/results/step3_mode1_power_vcd.rpt
