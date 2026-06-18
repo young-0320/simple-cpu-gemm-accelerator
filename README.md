@@ -51,8 +51,8 @@ python3 sim/scripts/run_gemm_system_verification.py --jobs 1
 
 | Target        | RTL                          | Testbench                | 검증 내용                                          |
 | ------------- | ---------------------------- | ------------------------ | -------------------------------------------------- |
-| `rtl`       | `rtl/gemm_accelerator`     | `single`               | single-port GEMM transaction 검증,`MAC_MODE=1/4` |
-| `rtl_AT`    | `rtl_AT/gemm_accelerator`  | `compat`               | `MEMORY_PORTS` 호환형 GEMM top 검증              |
+| `rtl`       | `rtl/gemm_accelerator`     | `single`               | single-port GEMM transaction 검증, `MAC_MODE=1/4` |
+| `rtl_AT`    | `rtl_AT/gemm_accelerator`  | `compat`               | `MEMORY_PORTS` 호환형 GEMM top 검증, Adder-Tree(AT, `MAC_MODE=0`) datapath 검증 |
 | `rtl_v2`    | `rtl_v2/gemm_accelerator`  | `dual`                 | fixed dual-port GEMM top 검증                      |
 | `system_v2` | `rtl_v2/gemm_system_top.v` | `tb_gemm_system_v2.sv` | CPU-driven system-level 통합 검증                  |
 
