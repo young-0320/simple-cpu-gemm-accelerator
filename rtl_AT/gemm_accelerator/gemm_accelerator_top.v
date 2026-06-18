@@ -90,7 +90,7 @@ module gemm_accelerator_top #(
   wire [11:0] c_elem_offset = {6'd0, c_row_offset} + {9'd0, col_idx};
 
   wire [31:0] c_sum;
-  gemm_mac_datapath u_at_mac (
+  gemm_mac_datapath_at u_at_mac (
       .gemm_k(k_dim_full),
       .cnt_k (32'd0),
       .a_buf (a_buf),

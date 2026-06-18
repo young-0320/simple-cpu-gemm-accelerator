@@ -1,6 +1,13 @@
 `timescale 1ns / 1ps
 
-module gemm_mac_datapath (
+// =======================================================
+// gemm_mac_datapath_at (rtl_AT 전용) -- Adder-Tree (AT) 구현
+//   K방향 4개 product를 가산기 트리로 합산하는 조합논리 구현이다.
+//   "AT"는 Adder-Tree를 줄인 이름이다. rtl_v2/gemm_accelerator/
+//   gemm_mac_datapath_at.v에 있는 동일 개념의 sequential 버전과는
+//   별개 구현이다.
+// =======================================================
+module gemm_mac_datapath_at (
     input  wire [31:0] gemm_k,     // 스펙 문서 명칭 반영
     input  wire [31:0] cnt_k,
     
