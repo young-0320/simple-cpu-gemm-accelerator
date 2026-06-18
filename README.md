@@ -113,6 +113,7 @@ Invalid dimension은 GEMM data phase를 시작하지 않고 `done=1`, `error=1`,
 | 문서                                                                                                | 역할                                               |
 | --------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | [docs/project2.md](docs/project2.md)                                                                   | Project2 요구사항                                  |
+| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)                                                           | 팀 협업 규칙 (폴더 배치 기준, 파일 네이밍 규칙, Git 커밋 컨벤션) |
 | [docs/reports/GEMM_accelerator_project2_report.md](docs/reports/GEMM_accelerator_project2_report.md)   | Project2 최종 종합 보고서 (설계/검증/ASIC·FPGA 분석/결론) |
 | [docs/spec/gemm_accelerator.md](docs/spec/gemm_accelerator.md)                                         | GEMM accelerator architecture and transaction flow |
 | [docs/spec/interface_cpu_gemm.md](docs/spec/interface_cpu_gemm.md)                                     | CPU-facing MMIO register contract                  |
@@ -123,6 +124,8 @@ Invalid dimension은 GEMM data phase를 시작하지 않고 `done=1`, `error=1`,
 | [docs/reports/project2_gemm_verification_report.md](docs/reports/project2_gemm_verification_report.md) | Project2 item 1 verification report                |
 | [docs/reports/speed_power_architecture_comparison_report.md](docs/reports/speed_power_architecture_comparison_report.md) | 속도·전력(에너지) 기준 dual/single memory × 1-MAC/4-MAC 비교 |
 | [docs/reports/nitro_step1_step2_comparison_report.md](docs/reports/nitro_step1_step2_comparison_report.md) | Nitro P&R 물리적 구현 품질 기준 dual/single memory 비교 |
+| [docs/log/verification_method_revision.md](docs/log/verification_method_revision.md) | single/dual-port 검증 방식 전환 배경과 phase별 cycle 비교 결정 기록 |
+| [docs/log/golden_model_decisions.md](docs/log/golden_model_decisions.md) | golden model/vector generator 역할 분리와 산출물 형식 결정 기록 |
 
 ## Waveform
 
