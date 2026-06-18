@@ -876,7 +876,7 @@ ASIC(VCD 기준)은 4-MAC이 1-MAC 대비 switching power가 +51% 증가한다(1
 
 기능 — Verilator transactional 검증에서 가속기 단독 및 CPU 통합 시스템이 모두 통과하여 연산 정확성을 확인하였다.
 
-속도(ASIC) — 250nm에서 step1/step2는 15 ns, step3 통합 시스템은 30 ns에서 모두 timing을 만족하였다. critical path는 CPU ALU 경로에 있었다.
+속도(ASIC) — 250nm에서 step1/step2는 15 ns, step3 통합 시스템은 30 ns에서 모두 timing을 만족하였다. critical path는 1-MAC/4-MAC에서는 CPU ALU 경로에 있었다(AT는 예외, V.2절 참고).
 
 전력(ASIC) — 4-MAC이 1-MAC보다 switching power가 높아, 병렬화와 전력의 trade-off를 정량적으로 확인하였다.
 
