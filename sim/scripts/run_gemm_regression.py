@@ -47,7 +47,7 @@ TARGETS = {
     "rtl_v2": TargetConfig(
         rtl_dir=Path("rtl_v2/gemm_accelerator"),
         tb="dual",
-        mac_modes=(4,),
+        mac_modes=(0, 1, 4),
         slug="rtl_v2",
     ),
 }
