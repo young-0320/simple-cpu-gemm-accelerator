@@ -38,7 +38,6 @@ Nitro Tcl은 Oasys보다 파일 수가 많아질 수 있으므로 step별 폴더
 ```text
 asic/nitro/
 ├── README.md
-├── myscript_nitro.tcl
 ├── step1_tcl/
 │   ├── mode0_20000ps_nitro.tcl
 │   ├── mode1_15000ps_nitro.tcl
@@ -46,18 +45,23 @@ asic/nitro/
 ├── step2_tcl/
 │   ├── mode1_15000ps_nitro.tcl
 │   └── mode4_15000ps_nitro.tcl
-├── step3_tcl/
-│   ├── mode0_100000ps_nitro.tcl
-│   ├── mode1_100000ps_nitro.tcl
-│   └── mode4_100000ps_nitro.tcl
+├── step3_demo_tcl/
+│   ├── mode0_30000ps_nitro.tcl
+│   ├── mode1_30000ps_nitro.tcl
+│   └── mode4_30000ps_nitro.tcl
 └── results/
     ├── step1/
     ├── step2/
-    └── step3/
+    └── step3_demo/
 ```
 
-`myscript_nitro.tcl`은 교수님 예제로 원본으로 보관하고, 실제 실행용 Tcl은
-`step1_tcl/`, `step2_tcl/`, `step3_tcl/` 아래에 개별 파일로 만든다.
+교수님 예제 Tcl을 그대로 베껴서 시작하고, 실제 실행용 Tcl은 `step1_tcl/`,
+`step2_tcl/`, `step3_demo_tcl/` 아래에 개별 파일로 만든다.
+
+`step3`(CPU+GEMM 통합, 원본 4096-word 메모리)는 Oasys netlist의 cell 수가 약
+480,000개까지 늘어 Nitro P&R이 routing congestion으로 끝나지 않았다
+(`asic/demo_mem256/README.md` 참고). 그래서 Nitro 단계부터는 256-word `step3_demo`
+netlist로 전환했고, `step3_tcl/`·`results/step3/`는 만들어진 적이 없다.
 
 ## 4. 예제 Tcl에서 수정해야 하는 부분
 

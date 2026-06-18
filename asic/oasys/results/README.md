@@ -95,6 +95,12 @@ mode별로 raw report 폴더를 줄일 때는 다음 순서로 남긴다.
 10 MHz 기준으로 두고, 고주파 참고 결과가 필요할 때는 우선 `30000ps` 또는 더 보수적인
 `40000ps`를 사용한다.
 
+`step3`(원본 4096-word 메모리)는 cell 수가 약 480,000개까지 늘어 Nitro P&R이 congestion으로
+끝나지 않았다(`asic/demo_mem256/README.md` 참고). 이후 비교/보고서는 256-word `step3_demo`로
+전환했고, `step3_demo`는 mode별 `100000ps` baseline을 모두 보관한다. 따라서 `mode4`처럼
+`step3`에 `100000ps` 결과가 빠진 경우는 추가 합성 없이 `step3_demo/mode4_100000ps`로 대체
+확인하면 된다 — `step3`(원본) 쪽 보관 기준 위반을 별도로 메울 필요는 없다.
+
 ## 정리 원칙
 
 - 모든 sweep의 결과 수치는 삭제하지 말고 `mode*_sweep_summary.md`에 남긴다.

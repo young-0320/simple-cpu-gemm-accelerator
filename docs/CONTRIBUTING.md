@@ -35,7 +35,7 @@ repo/
 2. `sw/`는 실제 CPU가 실행하는 program과 이를 만들기 위한 tool만 둔다. 검증용 Python golden model은 `sw/`가 아니라 `model/`에 둔다.
 3. `sim/`에는 testbench와 test case를 둔다. Verilator가 만든 `obj_dir`, waveform, log 같은 산출물은 Git에 올리지 않는다.
 4. `fpga/`와 `asic/`에는 source 역할을 하는 script, constraint, report 요약만 남긴다. Vivado project output, bitstream, tool log는 생성 산출물로 보고 Git 추적을 피한다.
-5. `docs/spec/`는 설계가 바뀔 때 같이 업데이트한다. 결과 캡처, 표, 최종 보고서 초안은 `docs/report/`에 둔다.
+5. `docs/spec/`는 설계가 바뀔 때 같이 업데이트한다. 결과 캡처, 표, 최종 보고서 초안은 `docs/reports/`에 둔다.
 
 ## 2. 파일 네이밍 규칙
 

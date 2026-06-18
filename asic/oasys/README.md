@@ -221,6 +221,8 @@ step3는 메모리 크기(원본 4096-word vs 데모 256-word)와 power 소스(�
   메모리 크기 이슈가 없으므로 데모가 없다.
 - step3 mode0: 기본형(4096) + demo(256)만 있다. mode0(AT)는 step2에 대응 모드가
   없어 이번 VCD power 비교 대상에서 제외했으므로 vcd형은 만들지 않는다.
-- step3 mode1/mode4: 기본형(4096) + vcd형(4096) + demo(256) + demo_vcd(256) 전부
-  존재. 단 demo/demo_vcd는 Nitro P&R 시연용으로 준비해 둔 것이고, 현재
-  PPA 비교(이 README 5절 기준)에는 기본형/vcd형(4096)만 사용한다.
+- step3 mode1/mode4: 기본형(4096) + vcd형(4096) + demo_vcd(256) 3가지만 존재한다.
+  demo(256, vcd 비움) 단독 파일은 만들지 않았다 — mode0의 demo는 vcd 없이 Nitro
+  P&R 시연용으로만 쓰지만, mode1/mode4의 데모는 처음부터 VCD 기반 power 비교
+  목적으로만 준비했기 때문이다. demo_vcd는 Nitro P&R 시연용으로 준비해 둔 것이고,
+  현재 PPA 비교(이 README 5절 기준)에는 기본형/vcd형(4096)만 사용한다.
