@@ -69,6 +69,8 @@ Project2 1번 요구사항은 Verilator를 이용해 CPU와 GEMM co-processor를
 
 `rtl_AT`는 AT datapath의 별도 연산 구조를 검증하기 위한 target이다. 이 target은 compute/store cycle이 크게 줄어드는 특성을 보였지만, 최종 대표 system-level target은 fixed dual-port 4-MAC 구조인 `rtl_v2`로 잡았다. PPA 전체 최적해 여부는 Project2 2번의 Oasys/Nitro 합성 결과까지 같이 봐야 하므로, 이 문서에서는 Verilator cycle 기준의 최적화 흐름으로만 해석한다.
 
+다만 `rtl_AT`는 datapath뿐 아니라 LSU/controller_fsm도 `rtl`/`rtl_v2`와 다르게 구현되어 있다 — 출력 원소(i,j)마다 A/B를 메모리에서 다시 읽어오는 구조라서, 위 표의 load total(`2688`)이 `rtl`(`2161`)보다 큰 것은 AT 연산 자체의 특성이 아니라 이 별도 LSU 구조 때문이다. 반대로 compute/store가 크게 줄어든 것은 AT 연산(adder tree) 자체가 빠르다는 근거로는 유효하다. 따라서 이 표의 AT 행을 `rtl`/`rtl_v2`와 동일 조건(LSU 공유) 비교로 해석해서는 안 된다. 최종 채택 target인 `rtl_v2`에도 동일한 AT datapath(`gemm_mac_datapath_at.v`)가 구현되어 있으나, 이 조합(`rtl_v2`, `MAC_MODE=0`)은 `sim/scripts/run_gemm_regression.py`의 Verilator regression 대상에 포함되지 않아 cycle이 별도로 측정된 적은 없다.
+
 ## 5. 실행 명령
 
 최종 검증 산출물은 repository root에서 아래 네 명령으로 재생성한다.

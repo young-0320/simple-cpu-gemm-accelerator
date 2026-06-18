@@ -43,9 +43,15 @@ busy 구간 값을 대신 사용했다. compute/store 값이 single-memory 쪽�
 load만 51→27로 줄어든 것은 dual-port가 A/B를 동시에 읽을 수 있어서다.
 
 AT(mode0)의 cycle 수는 2026-06-07 시점 결과(`sim/results/directed_case/
-20260607_222703_rtl_at_directed_case_m0/report.md`)에만 있는데, load=128
-사이클처럼 현재 RTL 구조와 맞지 않는 값이라 신뢰하지 않고 정량 비교에서
-제외했다(6절 참고).
+20260607_222703_rtl_at_directed_case_m0/report.md`)에만 있다. 이 결과는
+`rtl_AT` target 기준인데, `rtl_AT`는 datapath뿐 아니라 LSU/controller_fsm도
+`rtl`/`rtl_v2`와 다르게 구현되어 있다(출력 원소마다 A/B를 메모리에서
+재로드하는 구조). load=128 사이클처럼 큰 값은 측정 오류가 아니라 이 별도
+LSU 구조의 결과이지만, AT 연산(adder tree) 자체의 효율과는 무관한 값이
+섞여 있어 다른 target과 같은 조건으로 비교할 수 없다. 따라서 정량
+비교에서 제외했다(6절 참고). 최종 target인 `rtl_v2`에도 동일한 AT
+datapath(`gemm_mac_datapath_at.v`)가 구현되어 있으나, 이 조합은 Verilator
+regression 대상에 포함되지 않아 cycle이 측정된 적은 없다.
 
 ## 3. 결과
 
@@ -83,7 +89,8 @@ AT(mode0)의 cycle 수는 2026-06-07 시점 결과(`sim/results/directed_case/
 - single-memory는 두 MAC 모드 모두 dual보다 에너지효율이 낮다(102.5~
   103.8 nJ). single-port의 직렬 A/B 로드가 순수한 손해로 남는다.
 - AT(mode0)은 area/power가 1-MAC과 4-MAC 사이에 위치하지만, timing margin이
-  10.0%로 셋 중 가장 타이트하다. cycle 데이터를 신뢰할 수 없어 에너지
+  10.0%로 셋 중 가장 타이트하다. cycle 데이터는 LSU 구조가 다른 `rtl_AT`
+  기준만 있어 다른 target과 같은 조건으로 비교할 수 없으므로 에너지
   순위에는 포함하지 않았다(2절 참고). K방향 병렬 구조라 K가 큰 shape에서
   유리할 것으로 예상되나, 이번 비교 워크로드(M=N=K=4)에서는 정량적 우위를
   확인하지 못했다.
@@ -111,8 +118,11 @@ area, leaf cell 수, net 수, orphaned net, utilization을 기준으로 비교�
 
 ## 6. 한계 및 추가 확인 필요 사항
 
-- AT(mode0)의 정확한 cycle 수가 없어 에너지 비교에서 제외했다. 필요하면
-  현재 RTL 기준으로 AT cycle 수를 다시 측정해야 한다.
+- AT(mode0)의 cycle 수는 `rtl_AT`(LSU/controller_fsm이 다른 target과 다른
+  prototype) 기준만 있어 에너지 비교에서 제외했다. 최종 target인 `rtl_v2`,
+  `MAC_MODE=0` 조합은 Verilator regression에 포함된 적이 없어 cycle이
+  측정된 적이 없다. 필요하면 `rtl_v2 MAC_MODE=0`을 regression에 추가해
+  새로 측정해야 한다.
 - 전력 수치는 Oasys 기본 toggle-rate 가정 기준이다(VCD 기반 실측 power는
   이번 비교에 포함하지 않음).
 - latency 비교에 사용한 66.7MHz는 4개 조합이 공통으로 pass하는 지점일 뿐,
