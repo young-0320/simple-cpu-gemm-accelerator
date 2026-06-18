@@ -277,7 +277,7 @@ Baseline 구현에서 병목을 확인하고 단계적으로 구조를 발전시
 ## 4. Dual-port 메모리 구조 — compute 개선 이후 부각된 load 최적화
 
 ```verilog
-4-MAC으로 compute 사이클을 단축하고 나니, 상대적으로 LOAD 단계의 사이클 비중이 부각되었다. 단일 포트 구조에서는 A와 B를 순차적으로 읽어야 하므로 load 사이클이 compute 개선 효과를 일부 상쇄하는 구조였다. Port A(A 읽기 + C 쓰기)와 Port B(B 읽기)를 분리한 dual-port 구조로 전환하여 A·B를 병렬 로드함으로써 load 사이클을 절반으로 줄였다. 이 구조가 rtl_v2의 핵심 변경점이며, Vivado에서 RAMB36E1 4개로 정상 매핑됨을 FPGA 검증에서 확인하였다.
+4-MAC으로 compute 사이클을 단축하고 나니, 상대적으로 LOAD 단계의 사이클 비중이 부각되었다. 단일 포트 구조에서는 A와 B를 순차적으로 읽어야 하므로 load 사이클이 compute 개선 효과를 일부 상쇄하는 구조였다. Port A(A 읽기 + C 쓰기)와 Port B(B 읽기)를 분리한 dual-port 구조로 전환하여 A·B를 병렬 로드함으로써 load 사이클을 절반으로 줄였다(4×4×4 기준 51→27, 52.9%). 이 구조가 rtl_v2의 핵심 변경점이며, Vivado에서 RAMB36E1 4개로 정상 매핑됨을 FPGA 검증에서 확인하였다. 다만 이는 가장 큰 4×4×4 케이스 기준이고, 작은 차원이 섞인 mixed_case 집계 평균으로는 load 감소폭이 더 작다(`docs/reports/project2_gemm_verification_report.md`의 mixed_case 표 기준 2161→1394, 약 35% 감소).
 ```
 
 ## 5. 최적 아키텍처 선택
@@ -728,7 +728,7 @@ reset은 active-high로 직접 연결한다. 시뮬레이션 testbench(tb_gemm_s
 
 
 # V. 결과 및 분석
-검증은 (1) Verilator 기능 검증, (2) ASIC 합성/P&R(Oasys/Nitro, 250nm), (3) ASIC 전력 분석, (4) FPGA 검증(Zybo Z7-20)의 순서로 진행하였다. 평가 대상은 step1(rtl_v2 가속기 단독), step2(rtl 가속기 단독), step3(CPU+GEMM 통합 시스템), step3(Demo + CPU+GEMM 통합 시스템)로 구분한다.
+검증은 (1) Verilator 기능 검증, (2) ASIC 합성/P&R(Oasys/Nitro, 250nm), (3) ASIC 전력 분석, (4) FPGA 검증(Zybo Z7-20)의 순서로 진행하였다. 평가 대상은 step1(rtl_v2 가속기 단독), step2(rtl 가속기 단독), step3(CPU+GEMM 통합 시스템, 원본 4096-word 메모리), step3 데모(CPU+GEMM 통합 시스템, 256-word 메모리)로 구분한다.
 
 
 ## 1. 기능 검증 (Verilator)
@@ -793,11 +793,13 @@ Nitro P&R 최종 결과
 
 모든 step·mode 조합에서 WNS가 양수로 timing을 만족한다. step1/step2(가속기 단독)는 15 ns에서 동작하고, step3(CPU 포함 통합)은 30 ns에서 충분한 여유(+8.6 ns)를 확보한다.
 
-Critical path 는 step3에서 CPU의 inst_reg → accumulator 경로(CPU ALU 연산)로 확인되었다. 즉 통합 시스템의 속도 한계는 GEMM MAC datapath가 아니라 CPU 쪽에 있다. 이는 뒤의 FPGA 결과(1-MAC/4-MAC이 같은 Fmax로 수렴)와도 일치한다.
+Critical path는 step3의 1-MAC/4-MAC 모드에서 CPU의 inst_reg → accumulator 경로(CPU ALU 연산)로 확인되었다. 즉 이 두 모드에서는 통합 시스템의 속도 한계가 GEMM MAC datapath가 아니라 CPU 쪽에 있다. 이는 뒤의 FPGA 결과(1-MAC/4-MAC이 같은 Fmax로 수렴)와도 일치한다. 반면 AT(mode0)는 critical path가 `u_gemm/u_mac/k_reg[2]` → `u_gemm/u_mac/acc_reg[31]`, 즉 GEMM MAC accumulator 내부에 그대로 남아 있다(`asic/nitro/results/step3_demo/step3_demo_mode0_30000ps_summary.md` 참고) — 위 결론은 1-MAC/4-MAC에만 해당한다.
 
 step3은 통합 시스템이라 셀 수가 약 38,000개로 크지만, 256-word 데모 메모리 기준 utilization은 ~53%로 여유가 있다. 4-MAC은 1-MAC보다 datapath가 커서 면적이 소폭 증가한다.
 
 step1(dual mem)이 step2(single mem)보다 utilization이 높은 이유(mode1 기준 93.5% vs 84.5%)는 MAC datapath 차이가 아니라 LSU의 control 오버헤드다. `gemm_lsu.v`는 dual-port 버전(`rtl_v2`)에서 Port A/B 각각에 독립된 행/열 카운터와 FSM(`pa`/`pb` state)을 두어 A·B를 동시에 적재하는 반면, single-port 버전(`rtl`)은 하나의 FSM으로 A→B를 순차 처리해 이 control logic을 공유한다. 이 오버헤드는 행렬 크기와 무관하게 고정된 비용인데, 본 설계의 지원 범위가 M·N·K ≤ 4로 매우 작아 MAC datapath와 buffer 자체의 면적이 함께 작기 때문에, 고정 control 오버헤드의 비중이 상대적으로 크게 드러난다. 즉 dual-port의 area/utilization 손해는 "dual-port가 본질적으로 비효율적"이어서가 아니라, 이 프로젝트의 작은 행렬 규모(최대 4×4)에서 포트 복제 비용을 상쇄할 만큼 datapath가 크지 않기 때문이다.
+
+이 area/utilization 손해가 바로 `docs/reports/nitro_step1_step2_comparison_report.md`가 물리적 구현 품질(area, cell/net 수, utilization) 기준으로 step2(single-memory)를 최종 채택 후보로 권고한 근거다. 본 보고서는 다른 기준(속도·전력, `project2.md` 과제 요구사항)을 우선해 dual-memory+4-MAC(`rtl_v2`)을 채택했으므로, 두 보고서의 결론은 정면으로 배치된다 — 어느 한쪽이 틀린 게 아니라 비교 기준이 다르기 때문이며, 이 조정 근거는 `docs/reports/speed_power_architecture_comparison_report.md` 5절에 정리되어 있다.
 
 ## 3. FPGA 검증 (Zybo Z7-20, 주파수 sweep + 실물 동작)
 Vivado에서 원본 4096-word 메모리 그대로(rtl_v2/gemm_system_top) zybo_top wrapper를 합성·구현하였다. ASIC과 달리 Vivado는 이 메모리 코딩 스타일을 dual-port BRAM 템플릿으로 인식하여 RAMB36E1 4개로 정상 매핑하였다(모든 sweep 지점에서 Block RAM Tile = 4, FF로 펼쳐지지 않음).
@@ -884,7 +886,7 @@ FPGA — Zybo Z7-20에서 주파수 sweep으로 Fmax(약 83 MHz)와 권장 동�
 
 ASIC과 FPGA 양쪽에서 1-MAC/4-MAC의 동작 주파수가 비슷한 수준으로 수렴한 점은, 통합 시스템의 속도 한계가 GEMM datapath가 아니라 CPU에 있음을 일관되게 보여준다. 따라서 향후 성능 개선은 MAC 병렬화보다 CPU 경로 최적화에 우선순위를 두는 것이 효과적이라고 판단된다.
 
-datapath·메모리 구조 선택 관점에서는, 순간 전력과 면적만 보면 1-MAC + single-memory가 가장 작지만, 본 프로젝트의 평가 기준인 속도와 전력을 함께(에너지로) 고려하면, 4-MAC + dual port가 load 사이클이 절반, compute 사이클이 최대 1/4로 줄어 busy 구간 자체가 짧아지고, 그 결과 연산 1회당 에너지가 비교 대상 중 가장 낮다. FPGA에서도 4-MAC의 전력이 1-MAC보다 늘지 않아 이 결론을 약화시키지 않는다.
+datapath·메모리 구조 선택 관점에서는, 순간 전력과 면적만 보면 1-MAC + single-memory가 가장 작지만, 본 프로젝트의 평가 기준인 속도와 전력을 함께(에너지로) 고려하면, 4-MAC + dual port가 load 사이클(51→27)과 compute 사이클(68→36, 약 1.9배)을 함께 줄여 busy 구간 자체가 짧아지고, 그 결과 연산 1회당 에너지가 비교 대상 중 가장 낮다. (compute는 이론상 최대 N배(=4배)까지 줄 수 있는 구조지만, 4×4×4 실측에서는 약 1.9배였다.) FPGA에서도 4-MAC의 전력이 1-MAC보다 늘지 않아 이 결론을 약화시키지 않는다.
 
 따라서 III장 ⑤에서 대표 target으로 선정한 rtl_v2(4-MAC + dual-port) 구성이 본 프로젝트가 도달한 최종 구성이며, 전력과 속도 두 기준 모두에서 가장 우월한 조합이라고 판단한다.
 

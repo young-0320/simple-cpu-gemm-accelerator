@@ -189,7 +189,7 @@ Waveform 파일은 크기가 커질 수 있으므로 기본 산출물로 항상 
 권장 위치는 다음과 같다.
 
 ```text
-docs/report/artifacts/item1/
+docs/reports/artifacts/item1/
 ```
 
 권장 포함 파일은 다음과 같다.
