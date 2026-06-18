@@ -9,8 +9,8 @@
 [2조]
 
 
-| 학번 | 이름 |
-| --- | --- |
+| 학번       | 이름   |
+| ---------- | ------ |
 | 2021104248 | 박성모 |
 | 2022104291 | 유경민 |
 | 2023104135 | 한영웅 |
@@ -114,16 +114,16 @@ Stall-free 중재 — GEMM busy 동안 CPU를 freeze(clk_enable=0)시키고 LSU�
 
 ## 설계 사양 (Design Specification)
 
-| 항목 | 내용 |
-| --- | --- |
-| 기준 연산 | C = A × B |
-| 행렬 크기 | 1 ≤ M, N, K ≤ 4 |
-| 입력 타입 | signed int8 |
-| 곱 타입 / 누산·출력 타입 | signed int16 / signed int32 |
-| A/B 메모리 포맷 | 32-bit word에 signed int8 4개 packing |
-| C 메모리 포맷 | 32-bit word당 signed int32 1개 |
-| 주소 방식 | word address (12-bit, 4K word) |
-| CPU 제어 | MMIO register write/read |
+| 항목                     | 내용                                  |
+| ------------------------ | ------------------------------------- |
+| 기준 연산                | C = A × B                             |
+| 행렬 크기                | 1 ≤ M, N, K ≤ 4                       |
+| 입력 타입                | signed int8                           |
+| 곱 타입 / 누산·출력 타입 | signed int16 / signed int32           |
+| A/B 메모리 포맷          | 32-bit word에 signed int8 4개 packing |
+| C 메모리 포맷            | 32-bit word당 signed int32 1개        |
+| 주소 방식                | word address (12-bit, 4K word)        |
+| CPU 제어                 | MMIO register write/read              |
 
 추가적으로, 지원하지 않는 차원(M·N·K가 1~4 범위를 벗어남)이 들어오면 GEMM data phase를 시작하지 않고 done=1, error=1, invalid_size=1 상태로 종료하도록 설계하였다.
 
@@ -179,26 +179,26 @@ CPU는 status(0xFF7)를 폴링하다가 그 값이 정확히 2(busy=0, done=1, e
 CPU와 GEMM은 0xFF0~0xFF7의 MMIO register block으로 통신한다. CPU는 write로 작업 조건을 넘기고 read로 진행 상태를 확인한다.
 
 
-| 주소 | 레지스터 | 접근 | 의미 |
-| --- | --- | --- | --- |
-| 0xFF0 | GEMM_A_BASE | W | A matrix 시작 word address |
-| 0xFF1 | GEMM_B_BASE | W | B matrix 시작 word address |
-| 0xFF2 | GEMM_C_BASE | W | C matrix 저장 word address |
-| 0xFF3 | GEMM_M | W | C의 row 수 (= A의 row) |
-| 0xFF4 | GEMM_N | W | C의 column 수 (= B의 column) |
-| 0xFF5 | GEMM_K | W | A의 column (= B의 row) |
-| 0xFF6 | GEMM_CTRL | W | start / clear_done (pulse) |
-| 0xFF7 | GEMM_STATUS | R | busy / done / error / invalid_size |
+| 주소  | 레지스터    | 접근 | 의미                               |
+| ----- | ----------- | ---- | ---------------------------------- |
+| 0xFF0 | GEMM_A_BASE | W    | A matrix 시작 word address         |
+| 0xFF1 | GEMM_B_BASE | W    | B matrix 시작 word address         |
+| 0xFF2 | GEMM_C_BASE | W    | C matrix 저장 word address         |
+| 0xFF3 | GEMM_M      | W    | C의 row 수 (= A의 row)             |
+| 0xFF4 | GEMM_N      | W    | C의 column 수 (= B의 column)       |
+| 0xFF5 | GEMM_K      | W    | A의 column (= B의 row)             |
+| 0xFF6 | GEMM_CTRL   | W    | start / clear_done (pulse)         |
+| 0xFF7 | GEMM_STATUS | R    | busy / done / error / invalid_size |
 
 STATUS 비트 정의
 
 
-| Bit | Field | 의미 |
-| --- | --- | --- |
-| [0] | busy | GEMM accelerator 연산 중 (LOAD/COMPUTE/STORE) |
-| [1] | done | transaction 종료  (성공 여부는 error와 함께 판단) |
-| [2] | error | 정상 수행 불가 |
-| [3] | invalid_size | M·N·K가 지원 범위(1~4)를 벗어남 |
+| Bit | Field        | 의미                                              |
+| --- | ------------ | ------------------------------------------------- |
+| [0] | busy         | GEMM accelerator 연산 중 (LOAD/COMPUTE/STORE)     |
+| [1] | done         | transaction 종료  (성공 여부는 error와 함께 판단) |
+| [2] | error        | 정상 수행 불가                                    |
+| [3] | invalid_size | M·N·K가 지원 범위(1~4)를 벗어남                   |
 
 
 ```verilog
@@ -246,12 +246,12 @@ C 출력은 packing 없이 word당 int32 1개로 저장한다.
 다음은 memory 내부의 구성이다.
 
 
-| 주소 범위 | 영역 | 용도 |
-| --- | --- | --- |
-| 0x000 – 0x07F | Instruction | CPU 명령어 |
-| 0x080 – 0xFEF | Data | A/B 입력 및 C 출력 행렬 |
-| 0xFF0 – 0xFF7 | GEMM MMIO | GEMM 제어/상태 레지스터 |
-| 0xFF8 – 0xFFF | Reserved | 향후 MMIO 확장 (현재 미사용) |
+| 주소 범위     | 영역        | 용도                         |
+| ------------- | ----------- | ---------------------------- |
+| 0x000 – 0x07F | Instruction | CPU 명령어                   |
+| 0x080 – 0xFEF | Data        | A/B 입력 및 C 출력 행렬      |
+| 0xFF0 – 0xFF7 | GEMM MMIO   | GEMM 제어/상태 레지스터      |
+| 0xFF8 – 0xFFF | Reserved    | 향후 MMIO 확장 (현재 미사용) |
 
 
 # III. 설계 최적화 과정
@@ -294,12 +294,12 @@ Baseline 구현에서 병목을 확인하고 단계적으로 구조를 발전시
 이 두 축의 조합으로 평가 대상은 다음 4가지로 구성된다.
 
 
-| 구성 | MAC_MODE | 메모리 | RTL 버전 |
-| --- | --- | --- | --- |
-| single + 1-MAC | mode1 | single-port | rtl |
-| single + AT | mode0 | single-port | rtl_AT |
-| dual + 1-MAC | mode1 | dual-port | rtl_v2 |
-| dual + 4-MAC | mode4 | dual-port | rtl_v2 |
+| 구성           | MAC_MODE | 메모리      | RTL 버전 |
+| -------------- | -------- | ----------- | -------- |
+| single + 1-MAC | mode1    | single-port | rtl      |
+| single + AT    | mode0    | single-port | rtl_AT   |
+| dual + 1-MAC   | mode1    | dual-port   | rtl_v2   |
+| dual + 4-MAC   | mode4    | dual-port   | rtl_v2   |
 
 
 # IV. Module 구성
@@ -464,12 +464,12 @@ always @(posedge clk) begin        if (reset) begin
 레지스터 맵은 다음과 같다.
 
 
-| 주소 | 레지스터 | 접근 | 용도 |
-| --- | --- | --- | --- |
-| 0xFF0 ~ 0xFF2 | A,B,C_BASE | W | 각 행렬의 시작 (word address) |
-| 0xFF3 ~ 0xFF5 | M,N,K | W | 행렬 차원 (각 1~4) |
-| 0xFF6 | CTRL | W | [0] start. [1] clear_done (pulse) |
-| 0xFF7 | STATUS | R | [0]busy [1]done [2]error [3]invalid_size |
+| 주소          | 레지스터   | 접근 | 용도                                     |
+| ------------- | ---------- | ---- | ---------------------------------------- |
+| 0xFF0 ~ 0xFF2 | A,B,C_BASE | W    | 각 행렬의 시작 (word address)            |
+| 0xFF3 ~ 0xFF5 | M,N,K      | W    | 행렬 차원 (각 1~4)                       |
+| 0xFF6         | CTRL       | W    | [0] start. [1] clear_done (pulse)        |
+| 0xFF7         | STATUS     | R    | [0]busy [1]done [2]error [3]invalid_size |
 
 CTRL write는 저장되는 상태가 아니라 one-cycle pulse 명령 으로 해석된다. start는 IDLE에서만 의미가 있고, busy 동안에는 CPU가 freeze되어 새 start를 발행하지 못한다.
 
@@ -525,13 +525,13 @@ CTRL write는 저장되는 상태가 아니라 one-cycle pulse 명령 으로 해
 
 ```
 
-| 상태 | 역할 |
-| --- | --- |
-| IDLE | start 대기. dims_ok면 LOAD로, 아니면 DONE으로 (invalid 종료) |
-| LOAD | LSU로 A/B를 local buffer에 적재 |
-| COMPUTE | MAC datapath 구동 (mac_en), 누산 수행 |
-| STORE | 결과 C를 LSU로 외부 메모리에 기록 |
-| DONE | done=1, busy=0. clear_done 받으면 IDLE 복귀 |
+| 상태    | 역할                                                         |
+| ------- | ------------------------------------------------------------ |
+| IDLE    | start 대기. dims_ok면 LOAD로, 아니면 DONE으로 (invalid 종료) |
+| LOAD    | LSU로 A/B를 local buffer에 적재                              |
+| COMPUTE | MAC datapath 구동 (mac_en), 누산 수행                        |
+| STORE   | 결과 C를 LSU로 외부 메모리에 기록                            |
+| DONE    | done=1, busy=0. clear_done 받으면 IDLE 복귀                  |
 
 
 ```verilog
@@ -628,11 +628,11 @@ for each (i,j):
 [세 datapath 요약 비교]
 
 
-| Mode | 병렬화 축 | 연산 사이클 | 면적/전력 경향 |
-| --- | --- | --- | --- |
-| 1-MAC | 없음 (직렬) | ~ M·N·K | 최소 면적, 최저 전력, 최장 시간 |
-| 4-MAC | N (열 방향) | ~ M·K | 면적·전력 ↑, 연산 시간 ↓ |
-| Adder-Tree | K (내적 방향) | ~ M·N·⌈K/4⌉ | 곱셈기 4개 + 가산기 트리 |
+| Mode       | 병렬화 축     | 연산 사이클 | 면적/전력 경향                  |
+| ---------- | ------------- | ----------- | ------------------------------- |
+| 1-MAC      | 없음 (직렬)   | ~ M·N·K     | 최소 면적, 최저 전력, 최장 시간 |
+| 4-MAC      | N (열 방향)   | ~ M·K       | 면적·전력 ↑, 연산 시간 ↓        |
+| Adder-Tree | K (내적 방향) | ~ M·N·⌈K/4⌉ | 곱셈기 4개 + 가산기 트리        |
 
 이 datapath 선택 차이가 ASIC 합성/P&R의 면적·timing과 전력, FPGA의 LUT/FF 사용량 차이로 그대로 드러난다. 특히 통합 시스템에서는 critical path가 MAC datapath가 아니라 CPU ALU 경로에 있어, 세 모드의 최대 동작 주파수 차이가 크지 않다는 점이 결과에서 확인된다.
 
@@ -653,12 +653,12 @@ Zybo Z7-20 보드의 시스템 오실레이터는 125MHz(K17 핀)로 고정 되�
 IP 설정 요점은 다음과 같다.
 
 
-| 항목 | 설정값 | 비고 |
-| --- | --- | --- |
-| Primitive | MMCM | Mixed-Mode Clock Manager |
-| 입력 clk_in1 | 125 MHz | 보드 오실레이터(K17) |
-| 출력 clk_out1 | 66.667 MHz (Actual 66.677) | 회로 동작 주파수 |
-| reset / locked 포트 | 사용 | reset(Active High), 안정화 신호 |
+| 항목                | 설정값                     | 비고                            |
+| ------------------- | -------------------------- | ------------------------------- |
+| Primitive           | MMCM                       | Mixed-Mode Clock Manager        |
+| 입력 clk_in1        | 125 MHz                    | 보드 오실레이터(K17)            |
+| 출력 clk_out1       | 66.667 MHz (Actual 66.677) | 회로 동작 주파수                |
+| reset / locked 포트 | 사용                       | reset(Active High), 안정화 신호 |
 
 생성된 IP(clk_wiz_0)는 zybo_top wrapper에서 보드 클럭(clk)을 입력받아 분주된 클럭(clk_core)을 만들고, 이를 gemm_system_top의 클럭으로 연결한다. MMCM이 클럭을 안정화(lock)하기 전에 회로가 동작하면 오동작할 수 있으므로, reset을 MMCM의 locked 신호와 묶어 lock이 완료될 때까지 회로를 reset 상태로 유지한다.
 
@@ -707,14 +707,14 @@ XDC는 zybo_top의 포트(clk, reset, led)를 Zybo Z7-20 보드의 실제 물리
 
 ### 1) 핀 매핑
 
-| 포트 | 핀 (PACKAGE_PIN) | IOSTANDARD | 보드 위치 |
-| --- | --- | --- | --- |
-| clk | K17 | LVCMOS33 | 시스템 클럭 (sysclk, 125MHz) |
-| reset | K18 | LVCMOS33 | 버튼 btn[0] |
-| led[0] | M14 | LVCMOS33 | LD0 |
-| led[1] | M15 | LVCMOS33 | LD1 |
-| led[2] | G14 | LVCMOS33 | LD2 |
-| led[3] | D18 | LVCMOS33 | LD3 (정상종료 표시) |
+| 포트   | 핀 (PACKAGE_PIN) | IOSTANDARD | 보드 위치                    |
+| ------ | ---------------- | ---------- | ---------------------------- |
+| clk    | K17              | LVCMOS33   | 시스템 클럭 (sysclk, 125MHz) |
+| reset  | K18              | LVCMOS33   | 버튼 btn[0]                  |
+| led[0] | M14              | LVCMOS33   | LD0                          |
+| led[1] | M15              | LVCMOS33   | LD1                          |
+| led[2] | G14              | LVCMOS33   | LD2                          |
+| led[3] | D18              | LVCMOS33   | LD3 (정상종료 표시)          |
 
 
 ### 2) 클럭 제약과 MMCM의 관계
@@ -745,16 +745,16 @@ Oasys 논리합성 주파수 sweep
 margin(%) = WNS / period × 100이며, 아직 배선 지연을 반영하지 않은 pre-route 결과이다. step3(CPU+GEMM 통합)는 원본 4096-word 메모리로 합성하면 cell 수가 약 480,000개까지 늘어 Nitro P&R이 congestion으로 끝나지 않았으므로(III장 6.2절 참고), 이 표의 step3 행은 256-word 데모 메모리 기준이다.
 
 
-| Step | Mode | sweep  범위 | Fmax(pass 한계) | 권장 동작점 (margin) | area(sq um) | power(mW) |
-| --- | --- | --- | --- | --- | --- | --- |
-| step1 | 1-MAC | 100~7 ns | 15 ns(66.7 MHz) pass  7 ns(142.9 MHz) fail | 15 ns (26.2%) | 327,971 | 52.8 |
-| step1 | 4-MAC | 100~7 ns | 15 ns pass, 7 ns fail | 15 ns (25.1%) | 426,972 | 67.5 |
-| step1 | AT(0-MAC) | 100~8 ns | 10 ns(100 MHz) pass (margin 0.2%)  8 ns fail | 20 ns (32.5%)* | 406,367 | 48.4 |
-| step2 | 1-MAC | 100~7 ns | 8.5 ns(117.6 MHz) pass  7 ns fail | 15 ns (25.9%) | 315,406 | 50.2 |
-| step2 | 4-MAC | 100~8 ns | 10 ns(100 MHz) pass 8 ns fail | 15 ns (25.2%) | 414,415 | 64.5 |
-| step3 (데모) | 1-MAC | 100~30 ns | 30 ns까지만 점검 (margin 43.7%) | 30 ns (43.7%) | 2,884,194 | 280.4 |
-| step3 (데모) | 4-MAC | 100~30 ns | 30 ns까지만 점검 (margin 43.7%) | 30 ns( 43.7%) | 2,971,988 | 291.3 |
-| step3 (데모) | AT(0-MAC) | 100~10 ns | 10 ns(100 MHz) pass (margin 0.1%) | 30 ns (31.7%) | 2,968,141 | 286.2 |
+| Step         | Mode      | sweep  범위 | Fmax(pass 한계)                              | 권장 동작점 (margin) | area(sq um) | power(mW) |
+| ------------ | --------- | ----------- | -------------------------------------------- | -------------------- | ----------- | --------- |
+| step1        | 1-MAC     | 100~7 ns    | 15 ns(66.7 MHz) pass  7 ns(142.9 MHz) fail   | 15 ns (26.2%)        | 327,971     | 52.8      |
+| step1        | 4-MAC     | 100~7 ns    | 15 ns pass, 7 ns fail                        | 15 ns (25.1%)        | 426,972     | 67.5      |
+| step1        | AT(0-MAC) | 100~8 ns    | 10 ns(100 MHz) pass (margin 0.2%)  8 ns fail | 20 ns (32.5%)*       | 406,367     | 48.4      |
+| step2        | 1-MAC     | 100~7 ns    | 8.5 ns(117.6 MHz) pass  7 ns fail            | 15 ns (25.9%)        | 315,406     | 50.2      |
+| step2        | 4-MAC     | 100~8 ns    | 10 ns(100 MHz) pass 8 ns fail                | 15 ns (25.2%)        | 414,415     | 64.5      |
+| step3 (데모) | 1-MAC     | 100~30 ns   | 30 ns까지만 점검 (margin 43.7%)              | 30 ns (43.7%)        | 2,884,194   | 280.4     |
+| step3 (데모) | 4-MAC     | 100~30 ns   | 30 ns까지만 점검 (margin 43.7%)              | 30 ns( 43.7%)        | 2,971,988   | 291.3     |
+| step3 (데모) | AT(0-MAC) | 100~10 ns   | 10 ns(100 MHz) pass (margin 0.1%)            | 30 ns (31.7%)        | 2,968,141   | 286.2     |
 
 가속기 단독(step1/step2)은 mode별로 Fmax가 갈린다 — 1-MAC이 가장 높고(최대 117.6 MHz 부근), 4-MAC·AT는 곱셈기/가산기가 늘어난 만큼 더 낮은 주기에서 timing이 막힌다.
 
@@ -765,15 +765,15 @@ AT(0-MAC)는 step1·step3 양쪽에서 다른 두 모드보다 margin이 가장 
 Oasys → Nitro: pre-route 대비 post-route margin 변화
 
 
-| Step | Mode | Period | Oasys WNS | Nitro WNS |
-| --- | --- | --- | --- | --- |
-| step1 | 1-MAC | 15 ns | 3933.1 ps(26.2%) | +846 ps(5.6%) |
-| step1 | 4-MAC | 15 ns | 3761.6 ps(25.1%) | +710 ps(4.7%) |
-| step2 | 1-MAC | 15 ns | 3880.6 ps(25.9%) | +755 ps(5.0%) |
-| step2 | 4-MAC | 15 ns | 3780.8 ps(25.2%) | +685 ps(4.6%) |
-| step3(데모) | 1-MAC | 30 ns | 13095.5 ps(43.7%) | +8,643 ps(28.8%) |
-| step3(데모) | 4-MAC | 30 ns | 13095.5 ps(43.7%) | +8,552 ps(28.5%) |
-| step3(데모) | AT | 30 ns | 9517.5 ps(31.7%) | +5,331 ps(17.8%) |
+| Step        | Mode  | Period | Oasys WNS         | Nitro WNS        |
+| ----------- | ----- | ------ | ----------------- | ---------------- |
+| step1       | 1-MAC | 15 ns  | 3933.1 ps(26.2%)  | +846 ps(5.6%)    |
+| step1       | 4-MAC | 15 ns  | 3761.6 ps(25.1%)  | +710 ps(4.7%)    |
+| step2       | 1-MAC | 15 ns  | 3880.6 ps(25.9%)  | +755 ps(5.0%)    |
+| step2       | 4-MAC | 15 ns  | 3780.8 ps(25.2%)  | +685 ps(4.6%)    |
+| step3(데모) | 1-MAC | 30 ns  | 13095.5 ps(43.7%) | +8,643 ps(28.8%) |
+| step3(데모) | 4-MAC | 30 ns  | 13095.5 ps(43.7%) | +8,552 ps(28.5%) |
+| step3(데모) | AT    | 30 ns  | 9517.5 ps(31.7%)  | +5,331 ps(17.8%) |
 
 가속기 단독(step1/step2)은 배선 지연이 더해지면서 margin이 20%대 후반에서 한 자릿수%대까지 줄어든다 — 블록 규모가 작아 배선 지연의 비중이 상대적으로 크기 때문이다. full-system(step3)은 같은 방향으로 줄어들지만(43.7% → 28.8%) 여전히 충분한 여유가 남는데, CPU 경로가 critical path이고 그 절대 slack 자체가 워낙 크기 때문이다. 이 결과는 각 sweep 문서가 권장하는 "Oasys margin 20~30% 이상" 기준과 일치한다 — 가속기 단독은 정확히 그 경계에서 출발해 배선 후 한 자릿수%로 줄었고, full-system은 더 큰 여유에서 출발해 배선 후에도 충분한 마진을 유지했다.
 
@@ -782,14 +782,14 @@ Nitro P&R 최종 결과
 아래는 Nitro P&R 완료 후의 timing(WNS, 양수=여유)과 면적(utilization, leaf cell 수) 결과이다.
 
 
-| Step | Mode | Clock | WNS | Utilization | Leaf Cells |
-| --- | --- | --- | --- | --- | --- |
-| step1 (dual mem) | 1-MAC | 15 ns | +846 ps | 93.5% | — |
-| step1 (dual mem) | 4-MAC | 15 ns | +710 ps | 88.6% | — |
-| step2 (single mem) | 1-MAC | 15 ns | +755 ps | 84.5% | — |
-| step2 (single mem) | 4-MAC | 15 ns | +685 ps | 86.4% | — |
-| step3 (Demo CPU+GEMM) | 1-MAC | 30 ns | +8,643 ps | 52.9% | 38,246 |
-| step3 (Demo CPU+GEMM) | 4-MAC | 30 ns | +8,552 ps | 54.2% | — |
+| Step                  | Mode  | Clock | WNS       | Utilization | Leaf Cells |
+| --------------------- | ----- | ----- | --------- | ----------- | ---------- |
+| step1 (dual mem)      | 1-MAC | 15 ns | +846 ps   | 93.5%       | —          |
+| step1 (dual mem)      | 4-MAC | 15 ns | +710 ps   | 88.6%       | —          |
+| step2 (single mem)    | 1-MAC | 15 ns | +755 ps   | 84.5%       | —          |
+| step2 (single mem)    | 4-MAC | 15 ns | +685 ps   | 86.4%       | —          |
+| step3 (Demo CPU+GEMM) | 1-MAC | 30 ns | +8,643 ps | 52.9%       | 38,246     |
+| step3 (Demo CPU+GEMM) | 4-MAC | 30 ns | +8,552 ps | 54.2%       | —          |
 
 모든 step·mode 조합에서 WNS가 양수로 timing을 만족한다. step1/step2(가속기 단독)는 15 ns에서 동작하고, step3(CPU 포함 통합)은 30 ns에서 충분한 여유(+8.6 ns)를 확보한다.
 
@@ -807,28 +807,28 @@ Vivado에서 원본 4096-word 메모리 그대로(rtl_v2/gemm_system_top) zybo_t
 
 ### 주파수 sweep 결과 (MAC_MODE=1)
 
-| 주기(ns) | 주파수 | WNS(ns) | margin | LUT | FF | BRAM | Total P | 결과 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 20 | 50.0 | 7.081 | 35.4% | 1077 | 882 | 4 | 124 mW | pass |
-| 15 | 66.7 | 1.972 | 13.1% | 1077 | 882 | 4 | 130 mW | pass |
-| 13 | 76.9 | 0.592 | 4.5% | 1079 | 882 | 4 | 134 mW | pass |
-| 12 | 83.3 | 0.267 | 2.2% | 1080 | 882 | 4 | 136 mW | pass |
-| 11 | 90.9 | -0.379 | -3.4% | 1095 | 890 | 4 | 139 mW | fail |
-| 10 | 100.0 | -1.030 | -10.3% | 1102 | 884 | 4 | 142 mW | fail |
+| 주기(ns) | 주파수 | WNS(ns) | margin | LUT  | FF  | BRAM | Total P | 결과 |
+| -------- | ------ | ------- | ------ | ---- | --- | ---- | ------- | ---- |
+| 20       | 50.0   | 7.081   | 35.4%  | 1077 | 882 | 4    | 124 mW  | pass |
+| 15       | 66.7   | 1.972   | 13.1%  | 1077 | 882 | 4    | 130 mW  | pass |
+| 13       | 76.9   | 0.592   | 4.5%   | 1079 | 882 | 4    | 134 mW  | pass |
+| 12       | 83.3   | 0.267   | 2.2%   | 1080 | 882 | 4    | 136 mW  | pass |
+| 11       | 90.9   | -0.379  | -3.4%  | 1095 | 890 | 4    | 139 mW  | fail |
+| 10       | 100.0  | -1.030  | -10.3% | 1102 | 884 | 4    | 142 mW  | fail |
 
 
 ### 주파수 sweep 결과 (MAC_MODE=4)
 
-| 주기(ns) | 주파수 | WNS(ns) | margin | LUT | FF | BRAM | Total P | 결과 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 20 | 50.0 | 6.596 | 33.0% | 1444 | 979 | 4 | 123 mW | pass |
-| 16 | 62.5 | 2.867 | 17.9% | 1444 | 979 | 4 | 127 mW | pass |
-| 15 | 66.7 | 2.255 | 15.0% | 1444 | 979 | 4 | 128 mW | pass |
-| 14 | 71.4 | 1.054 | 7.5% | 1444 | 979 | 4 | 130 mW | pass |
-| 13 | 76.9 | 0.553 | 4.3% | 1445 | 979 | 4 | 132 mW | pass |
-| 12 | 83.3 | 0.006 | 0.05% | 1451 | 979 | 4 | 135 mW | pass |
-| 11 | 90.9 | -0.567 | -5.2% | 1470 | 984 | 4 | 137 mW | fail |
-| 10 | 100.0 | -1.961 | -19.6% | 1472 | 981 | 4 | 140 mW | fail |
+| 주기(ns) | 주파수 | WNS(ns) | margin | LUT  | FF  | BRAM | Total P | 결과 |
+| -------- | ------ | ------- | ------ | ---- | --- | ---- | ------- | ---- |
+| 20       | 50.0   | 6.596   | 33.0%  | 1444 | 979 | 4    | 123 mW  | pass |
+| 16       | 62.5   | 2.867   | 17.9%  | 1444 | 979 | 4    | 127 mW  | pass |
+| 15       | 66.7   | 2.255   | 15.0%  | 1444 | 979 | 4    | 128 mW  | pass |
+| 14       | 71.4   | 1.054   | 7.5%   | 1444 | 979 | 4    | 130 mW  | pass |
+| 13       | 76.9   | 0.553   | 4.3%   | 1445 | 979 | 4    | 132 mW  | pass |
+| 12       | 83.3   | 0.006   | 0.05%  | 1451 | 979 | 4    | 135 mW  | pass |
+| 11       | 90.9   | -0.567  | -5.2%  | 1470 | 984 | 4    | 137 mW  | fail |
+| 10       | 100.0  | -1.961  | -19.6% | 1472 | 981 | 4    | 140 mW  | fail |
 
 timing closure 한계는 83.3 MHz(12 ns)이며, 90.9 MHz(11 ns)에서 WNS 음수로 실패한다. margin 10~20% 구간의 가장 빠른 지점은 66.7 MHz(margin 13.1%)로, 이를 권장 동작점으로 선정하였다.
 
