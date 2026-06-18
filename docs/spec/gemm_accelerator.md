@@ -8,16 +8,16 @@ External data memory의 주소 단위, A/B packed lane mapping, zero padding, C 
 
 ## Design Snapshot
 
-| 항목                      | Baseline 결정                       |
-| ------------------------- | ----------------------------------- |
-| Operation                 | `C = A x B`                       |
-| Matrix size               | `1 <= M,N,K <= 4`                 |
-| Input type                | signed int8                         |
-| Product type              | signed int16                        |
-| Accumulator / output type | signed int32                        |
-| Input layout              | A/B row-based packed, up to 4 int8 per word |
-| Output layout             | C unpacked, 1 int32 per 32-bit word |
-| Compute datapath          | 1-MAC serial                        |
+| 항목                      | Baseline 결정                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------- |
+| Operation                 | `C = A x B`                                                                               |
+| Matrix size               | `1 <= M,N,K <= 4`                                                                         |
+| Input type                | signed int8                                                                                 |
+| Product type              | signed int16                                                                                |
+| Accumulator / output type | signed int32                                                                                |
+| Input layout              | A/B row-based packed, up to 4 int8 per word                                                 |
+| Output layout             | C unpacked, 1 int32 per 32-bit word                                                         |
+| Compute datapath          | `MAC_MODE` 파라미터로 선택 (0=Adder-Tree, 1=1-MAC serial, 4=4-MAC row-parallel; 기본값 1) |
 
 ## Dataflow
 
@@ -47,13 +47,13 @@ Store C to external memory
 
 ## Block Responsibilities
 
-| Block                  | 이 블록이 끝까지 책임지는 일                                                            |
-| ---------------------- | --------------------------------------------------------------------------------------- |
-| MMIO Register Block    | CPU가 쓴 base address, dimension, control bit를 보관하고 status bit를 CPU에게 보여준다. |
-| Controller FSM         | IDLE, LOAD, COMPUTE, STORE, DONE 순서를 결정하고 각 블록의 enable 조건을 만든다.        |
-| Memory Interface / LSU | A/B row-based packed word read, int8 lane unpack, C int32 writeback을 처리한다.          |
-| Local Buffer           | 최대 4x4 A/B/C tile을 accelerator 내부에 잡아두어 compute와 memory access를 분리한다.   |
-| MAC Datapath           | signed int8 곱셈과 signed int32 누산으로 C element를 만든다.                            |
+| Block                  | 이 블록이 끝까지 책임지는 일                                                                                                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MMIO Register Block    | CPU가 쓴 base address, dimension, control bit를 보관하고 status bit를 CPU에게 보여준다.                                                                                                                                          |
+| Controller FSM         | IDLE, LOAD, COMPUTE, STORE, DONE 순서를 결정하고 각 블록의 enable 조건을 만든다.                                                                                                                                                 |
+| Memory Interface / LSU | A/B row-based packed word read, int8 lane unpack, C int32 writeback을 처리한다.                                                                                                                                                  |
+| Local Buffer           | 최대 4x4 A/B/C tile을 accelerator 내부에 잡아두어 compute와 memory access를 분리한다.                                                                                                                                            |
+| MAC Datapath           | signed int8 곱셈과 signed int32 누산으로 C element를 만든다.`MAC_MODE` 파라미터로 1-MAC serial / 4-MAC row-parallel / Adder-Tree 세 구현 중 하나를 선택하며, 셋 다 FSM에는 동일한 `mac_en`/`mac_done` 핸드셰이크로 보인다. |
 
 ## Architecture
 
@@ -135,11 +135,15 @@ C: M x N
 C[i][j] = sum(A[i][k] * B[k][j]), k = 0..K-1
 ```
 
-1-MAC serial baseline에서는 한 cycle에 product 하나를 누산하는 구조를 기준으로 한다.
+Compute datapath는 `MAC_MODE` 파라미터로 선택하며, 셋 다 위 식을 계산하지만 연산 사이클은 다르다.
 
 ```text
-compute_cycles = M * N * K
+MAC_MODE=1 (1-MAC serial, 기본값) : compute_cycles ~ M * N * K          (병렬화 없음)
+MAC_MODE=4 (4-MAC row-parallel)   : compute_cycles ~ M * K              (한 row의 N개 column을 동시에 누산)
+MAC_MODE=0 (Adder-Tree)           : compute_cycles ~ M * N * ceil(K/4)  (K 방향으로 4개씩 묶어 가산)
 ```
+
+세 모드는 FSM/LSU/local buffer/MMIO를 그대로 공유하고 MAC datapath만 교체된다. 면적/전력 경향과 PPA 비교 결과는 `docs/reports/GEMM_accelerator_project2_report.md`의 "MAC Datapath 3종" 절을 참고한다.
 
 ## Local Buffers
 
@@ -155,13 +159,14 @@ compute_cycles = M * N * K
 
 ```text
 IDLE -> LOAD -> COMPUTE -> STORE -> DONE
+IDLE -> DONE                          (invalid dimension, LOAD/COMPUTE/STORE 생략)
 ```
 
 ### IDLE
 
 CPU의 설정을 기다리는 상태이다. CPU가 `CTRL.start`를 write하면 FSM은 `M`, `N`, `K`가 지원 범위 안에 있는지 먼저 검사한다.
 
-Valid transaction이면 `LOAD`로 이동한다. Invalid transaction이면 실제 연산은 시작하지 않고 `done=1`, `error=1`, `invalid_size=1`을 set한 뒤 `DONE` 의미의 종료 상태를 유지한다.
+Valid transaction이면 `LOAD`로 이동한다. Invalid transaction이면 실제 연산은 시작하지 않고 `done=1`, `error=1`, `invalid_size=1`을 set한 뒤 곧바로 `DONE`으로 이동한다.
 
 ### LOAD
 
@@ -213,10 +218,14 @@ done = 1
 
 `done`과 error-related flag는 CPU가 `CTRL.clear_done`을 write할 때까지 유지된다. `clear_done`이 들어오면 sticky flag를 clear하고 IDLE로 복귀한다.
 
-## Extension Roadmap
+## Compute Datapath Variants
 
-| 단계      | Compute 구조              | 기대 효과                                     |
-| --------- | ------------------------- | --------------------------------------------- |
-| Baseline  | 1-MAC serial              | 구현과 검증이 단순하다.                       |
-| Extension | 4-MAC row-parallel        | 한 row의 여러 column을 병렬로 계산할 수 있다. |
-| Stretch   | 8-MAC 또는 systolic array | 더 큰 병렬성을 실험할 수 있다.                |
+| MAC_MODE   | Compute 구조       | 병렬화 축     | 특징                                                                 |
+| ---------- | ------------------ | ------------- | -------------------------------------------------------------------- |
+| 1 (기본값) | 1-MAC serial       | 없음          | 면적·전력 최소, 연산 사이클 최장(`~M*N*K`).                       |
+| 4          | 4-MAC row-parallel | N (열 방향)   | 면적·전력 증가, 연산 사이클 단축(`~M*K`).                         |
+| 0          | Adder-Tree         | K (내적 방향) | 곱셈기 4개+가산기 트리, 본 설계의 `K<=4` 범위에서는 이득이 제한적. |
+
+세 모드 모두 같은 FSM/LSU/local buffer를 공유하고 MAC datapath만 교체되므로 PPA를 공정하게 비교할 수 있다. 비교 결과와 최종 채택 근거(`MAC_MODE=4`, dual-port)는 `docs/reports/GEMM_accelerator_project2_report.md`를 참고한다.
+
+8-MAC 또는 systolic array 확장은 아직 시도하지 않은 future work로 남아 있다.
