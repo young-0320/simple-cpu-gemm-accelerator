@@ -39,7 +39,8 @@ python3 sim/scripts/run_gemm_regression.py --target rtl_v2
 | `compat` | `tb_gemm_vectors_compat.sv` | `run_gemm_verification.py` | `rtl_AT/gemm_accelerator` | `MEMORY_PORTS` 호환형 GEMM top 검증 |
 | `dual` | `tb_gemm_vectors_dual.sv` | `run_gemm_verification.py` | `rtl_v2/gemm_accelerator` | fixed dual-port GEMM top 검증 |
 | `system_v2` | `tb_gemm_system_v2.sv` | `run_gemm_system_verification.py` | `rtl_v2/gemm_system_top.v` | CPU-driven system-level 통합 검증 |
-| CPU unit | `tb_alu.sv`, `tb_decoder.sv` | `run_all.py` (또는 파일 상단 주석의 수동 명령) | `rtl_v2/simple_cpu` | ALU 연산/zero flag, decoder 분류·제어신호 단위 스모크 (self-checking, 실패 시 nonzero exit) |
+| CPU unit | `tb_alu.sv`, `tb_decoder.sv`, `tb_cpu_seq.sv` | `run_all.py` (또는 파일 상단 주석의 수동 명령) | `rtl_v2/simple_cpu` | ALU 연산/zero flag, decoder 분류·제어신호, pc/inst_reg/accumulator/cpu_fsm reset·write·hold·freeze 단위 스모크 (self-checking, 실패 시 nonzero exit) |
+| FPGA top | (TB 없음 — lint) | `run_all.py`의 `lint zybo_top` 스텝 | `rtl_v2/zybo_top.v` | Vivado 없이 elaboration 오류를 조기 검출 |
 
 ### 1. `single` TB
 
