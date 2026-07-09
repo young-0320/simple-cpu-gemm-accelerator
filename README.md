@@ -26,6 +26,9 @@ python3 model/python/gen_gemm_vectors.py --directed-file model/gemm_directed_cas
 
 # Random valid 50개 + invalid 20개 -> sim/vectors/random_case/
 python3 model/python/gen_gemm_vectors.py --seed 20260603
+
+# Mixed (directed + random valid 50개 + invalid 20개) -> sim/vectors/mixed_case/
+python3 model/python/gen_gemm_vectors.py --directed-file model/gemm_directed_cases.json --seed 20260603
 ```
 
 각 출력 디렉토리에 `manifest.json`(상세 metadata), `cases.tsv`(testbench가 읽는 case table), `*_init.mem`/`*_expected.mem`(4096-word memory image)가 생성된다. 옵션과 directed file 포맷은 [model/README.md](model/README.md)를 본다.

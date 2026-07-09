@@ -108,6 +108,7 @@ asic/**/outputs/*
 !asic/**/outputs/.gitkeep
 
 # Large full-system Oasys netlists for new step3 modes are shared outside Git.
+/asic/oasys/results/step3/mode0_*/*.v
 /asic/oasys/results/step3/mode1_*/*.v
 /asic/oasys/results/step3/mode4_*/*.v
 

@@ -1,4 +1,11 @@
 import argparse
+import sys
+
+
+class AssemblerError(ValueError):
+    """Raised for malformed assembly input (unknown mnemonic, out-of-range
+    operand, or an opcode with no encoding implementation)."""
+
 
 OPCODE_MAP = {
     "LOAD":  "0000",
@@ -25,6 +32,24 @@ EXT_FUNCT_MAP = {
     "AND": "0010"
 }
 
+
+def is_known_mnemonic(cmd):
+    """True if cmd is assemblable -- i.e. assemble_line() has an encoding
+    branch for it. Shared by parse_labels() and assemble() so the two
+    passes can never disagree on what counts as an instruction (a
+    mismatch there silently shifts every later label address)."""
+    return cmd in OPCODE_MAP or cmd in EXT_FUNCT_MAP
+
+
+def _check_operand_range(cmd, dec_val, width):
+    max_val = (1 << width) - 1
+    if dec_val < 0 or dec_val > max_val:
+        raise AssemblerError(
+            f"operand {dec_val} for '{cmd}' is out of range: "
+            f"expected 0..{max_val} ({width}-bit unsigned)"
+        )
+
+
 def assemble_line (cmd, operand, label_map):
     if operand in label_map:
         dec_val = label_map[operand]
@@ -35,6 +60,7 @@ def assemble_line (cmd, operand, label_map):
         opcode_bin = "1111"
         funct_bin = EXT_FUNCT_MAP[cmd]
         reserved_bin = "000000000000"  # 12-bit 0
+        _check_operand_range(cmd, dec_val, 12)
         operand_bin = format (dec_val, '012b')
         bin_32 = opcode_bin + funct_bin + reserved_bin + operand_bin
 
@@ -42,17 +68,20 @@ def assemble_line (cmd, operand, label_map):
     elif cmd in ["LOAD","STORE","ADD","SUB","CMP"]:
         opcode_bin = OPCODE_MAP[cmd]
         reserved_bin = "0000000000000000" # 16-bit 0
+        _check_operand_range(cmd, dec_val, 12)
         operand_bin = format (dec_val, '012b')
         bin_32 = opcode_bin + reserved_bin + operand_bin
 
     elif cmd in ["LOADI","ADDI","CMPI"]:
         opcode_bin = OPCODE_MAP[cmd]
+        _check_operand_range(cmd, dec_val, 28)
         operand_bin = format (dec_val, '028b')
         bin_32 = opcode_bin + operand_bin
 
     elif cmd in ["JMP", "JZ", "JNZ"]:
         opcode_bin = OPCODE_MAP[cmd]
         reserved_bin = "0000000000000000" # 16-bit 0'
+        _check_operand_range(cmd, dec_val, 12)
         operand_bin = format (dec_val, '012b')
         bin_32 = opcode_bin + reserved_bin + operand_bin
 
@@ -64,8 +93,12 @@ def assemble_line (cmd, operand, label_map):
     elif cmd in ["OUT", "IN"]:
         opcode_bin = OPCODE_MAP[cmd]
         reserved_bin = "000000000000000000000000" # 24-bit 0
+        _check_operand_range(cmd, dec_val, 4)
         operand_bin = format (dec_val, '04b')
         bin_32 = opcode_bin + reserved_bin + operand_bin
+
+    else:
+        raise AssemblerError(f"opcode '{cmd}' has no encoding implementation")
 
     return format(int(bin_32,2),'08X')
 
@@ -73,7 +106,7 @@ def assemble_line (cmd, operand, label_map):
 def parse_labels(lines):
     label_map = {}
     current_address = 0
-    for line in lines:
+    for line_no, line in enumerate(lines, start=1):
         clean_line = line.split(';')[0].strip()
         if not clean_line:
             continue
@@ -88,6 +121,8 @@ def parse_labels(lines):
             label_name = clean_line[:-1]
             label_map[label_name] = current_address
         else:
+            if not is_known_mnemonic(parts[0]):
+                raise AssemblerError(f"line {line_no}: unknown mnemonic '{parts[0]}'")
             current_address += 1
     return label_map
 
@@ -95,7 +130,7 @@ def parse_labels(lines):
 def assemble(lines, label_map):
     current_address = 0
     machine_codes = {}
-    for line in lines:
+    for line_no, line in enumerate(lines, start=1):
         clean_line = line.split(';')[0].strip()
 
         if not clean_line or clean_line.endswith(":"):
@@ -110,9 +145,12 @@ def assemble(lines, label_map):
             current_address = int(parts[1], 16)
             continue
 
-        elif cmd in OPCODE_MAP or cmd in EXT_FUNCT_MAP:
+        elif is_known_mnemonic(cmd):
             machine_codes[current_address] = assemble_line(cmd, operand, label_map)
             current_address += 1
+
+        else:
+            raise AssemblerError(f"line {line_no}: unknown mnemonic '{cmd}'")
 
     return machine_codes
 
@@ -161,7 +199,11 @@ def main():
         stem = args.input.rsplit(".", 1)[0]
         output = f"{stem}.{args.format}"
 
-    machine_codes = assemble_file(args.input)
+    try:
+        machine_codes = assemble_file(args.input)
+    except AssemblerError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        sys.exit(1)
     if not machine_codes:
         return
 
