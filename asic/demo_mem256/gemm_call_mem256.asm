@@ -1,5 +1,8 @@
 ; GEMM call driver (2x2x2)
 ; A_BASE=0x20 B_BASE=0x50 C_BASE=0x80, M=N=K=2
+; Derived from sw/programs/gemm_call.asm; only the A/B/C base addresses differ
+; (relocated below 0x100 for the 256-word P&R map). Keep the program body in
+; sync with the canonical version.
 ORG 0
         LOADI 0x20
         STORE 0xFF0

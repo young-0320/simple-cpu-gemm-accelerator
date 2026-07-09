@@ -19,7 +19,9 @@
 //   it is replaced by the Block Memory Generator IP.
 // =======================================================
 module gemm_system_top #(
-    parameter MAC_MODE = 4   // default 4-MAC; override with -GMAC_MODE for 1/4/8
+    parameter MAC_MODE  = 4,     // default 4-MAC; override with -GMAC_MODE for 0/1/4
+    parameter MEM_DEPTH = 4096,  // BRAM depth in words; reduce (e.g. 256) for P&R demos
+    parameter ADDR_W    = 12     // = log2(MEM_DEPTH); set to 8 when MEM_DEPTH=256
 ) (
     input  wire        clk,
     input  wire        reset,
@@ -131,12 +133,12 @@ module gemm_system_top #(
     //   Port A: read + write (A load / C store)
     //   Port B: read only     (B load)
     // =======================================================
-    reg [31:0] mem [0:4095];
+    reg [31:0] mem [0:MEM_DEPTH-1];
     reg [31:0] bram_rdata_a_r, bram_rdata_b_r;
     always @(posedge clk) begin
-        if (bram_we_a) mem[bram_addr_a] <= bram_wdata_a;
-        bram_rdata_a_r <= mem[bram_addr_a];
-        bram_rdata_b_r <= mem[bram_addr_b];
+        if (bram_we_a) mem[bram_addr_a[ADDR_W-1:0]] <= bram_wdata_a;
+        bram_rdata_a_r <= mem[bram_addr_a[ADDR_W-1:0]];
+        bram_rdata_b_r <= mem[bram_addr_b[ADDR_W-1:0]];
     end
     assign bram_rdata_a = bram_rdata_a_r;
     assign bram_rdata_b = bram_rdata_b_r;

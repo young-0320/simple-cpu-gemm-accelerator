@@ -1,18 +1,6 @@
 `ifndef _DEFINE_VH_
 `define _DEFINE_VH_
 
-
-
-// =======================================================
-// 시스템 클럭 주파수 (필요 시 여기서만 수정)
-`define CLK_FREQ       10_000_000  // 10MHz
-// =======================================================
-// 디바운스 목표 시간 (20ms)
-`define DEBOUNCE_MS    20
-// 카운트 최대값 자동 계산 (주파수 * 시간 / 1000)
-`define DEBOUNCE_LIMIT ((`CLK_FREQ / 1000) * `DEBOUNCE_MS)
-
-
 // =======================================================
 // 1. Instruction Opcodes (4-bit)
 // =======================================================
@@ -43,22 +31,21 @@
 
 // =======================================================
 // 3. IN Port Map (operand[3:0] in IN instruction)
+//   Project1 Simple CPU에서 계승한 범용 IN 포트 선택자.
+//   GEMM은 MMIO로 제어하므로 IN 명령을 쓰지 않지만, 동일 CPU가
+//   실행하는 다른 program(예: doorlock.asm)이 이 매핑을 사용한다.
 // =======================================================
-`define IN_PORT_NUM     4'd0    // 숫자 입력값 (in_port[3:0])
-`define IN_PORT_BTN_IN  4'd1    // 입력 확정 버튼 (in_port[4])
-`define IN_PORT_BTN_CFM 4'd2    // 전체 확정 버튼 (in_port[5])
-`define IN_PORT_BTN_CAN 4'd3    // 취소 버튼 (in_port[6])
-`define IN_PORT_BTN_PW  4'd4    // 비밀번호 변경 (in_port[7])
-`define IN_PORT_MST_KEY 4'd5    // 마스터키 (in_port[8])
+`define IN_PORT_NUM     4'd0    // in_port[3:0]
+`define IN_PORT_BTN_IN  4'd1    // in_port[4]
+`define IN_PORT_BTN_CFM 4'd2    // in_port[5]
+`define IN_PORT_BTN_CAN 4'd3    // in_port[6]
+`define IN_PORT_BTN_PW  4'd4    // in_port[7]
+`define IN_PORT_MST_KEY 4'd5    // in_port[8]
 
 // =======================================================
-// 4. OUT Port State Codes (4-bit, OUT instruction)
+// 4. OUT Port reset code
 // =======================================================
-`define OUT_STATE_CLOSED 4'b0000 // 닫힘 / 정상 상태
-`define OUT_STATE_OPEN   4'b1000 // 열림
-`define OUT_STATE_FAIL1  4'b0100 // 1회 오답
-`define OUT_STATE_FAIL2  4'b0010 // 2회 오답
-`define OUT_STATE_FAIL3  4'b0001 // 3회 오답 + 잠금
+`define OUT_STATE_CLOSED 4'b0000 // out_port 리셋값
 
 // =======================================================
 // 5. ALU Control Codes (Internal Routing)

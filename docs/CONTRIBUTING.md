@@ -4,9 +4,13 @@
 
 ```
 repo/
-├── rtl/                         ← 합성 가능한 Verilog/SystemVerilog RTL, top-level/shared RTL
-│   ├── simple_cpu/              ← CPU core, decoder, controller, register file
-│   └── gemm_accelerator/        ← GEMM MMIO, FSM, LSU, buffer, MAC datapath
+├── rtl/                         ← single-port 베이스라인 GEMM accelerator RTL (PPA 비교용)
+│   └── gemm_accelerator/        ← GEMM MMIO, FSM, LSU, buffer, MAC datapath (single-port)
+├── rtl_AT/                      ← MEMORY_PORTS 호환형 GEMM accelerator RTL (PPA 비교용)
+│   └── gemm_accelerator/        ← rtl/과 동일 역할, 호환형 memory interface
+├── rtl_v2/                      ← 최종 채택 구성 (dual-port + 4-MAC, docs/reports/GEMM_accelerator_project2_report.md 5절 참고)
+│   ├── simple_cpu/              ← CPU core, decoder, controller, register file (유일한 사본 — 다른 target에 복사하지 않는다)
+│   └── gemm_accelerator/        ← GEMM MMIO, FSM, LSU, buffer, MAC datapath (dual-port)
 ├── sw/                          ← CPU에서 실행할 프로그램과 보조 도구
 │   ├── programs/                ← assembly/source program, test workload
 │   └── tools/                   ← assembler, loader, hex/coe 변환 스크립트
@@ -24,14 +28,14 @@ repo/
 │   └── vivado/                  ← generated Vivado project, Git에는 .gitkeep만 남김
 └── docs/                        ← 사람이 읽는 문서
     ├── spec/                    ← 설계 스펙과 인터페이스 계약
-    ├── report/                  ← 최종 보고서, 실험 결과, 성능/전력 분석
+    ├── reports/                 ← 최종 보고서, 실험 결과, 성능/전력 분석
     ├── project2.md              ← 과제 요구사항 정리
     └── CONTRIBUTING.md          ← 협업 규칙
 ```
 
 ### 배치 기준
 
-1. RTL은 소유 모듈 기준으로 둔다. CPU 전용이면 `rtl/simple_cpu/`, GEMM 전용이면 `rtl/gemm_accelerator/`, top-level이나 둘이 같이 쓰는 파일은 `rtl/` 바로 아래에 둔다.
+1. CPU RTL은 `rtl_v2/simple_cpu/` 한 곳에만 둔다 (최종 채택 target). `rtl/`, `rtl_AT/`는 GEMM accelerator PPA 비교용 target이라 CPU가 필요 없다 — 새 target을 만들 때 `rtl/` 전체를 복사하지 않는다. GEMM accelerator는 target별 비교가 목적이므로 `rtl/gemm_accelerator/`, `rtl_AT/gemm_accelerator/`, `rtl_v2/gemm_accelerator/`에 각각 따로 둔다. top-level이나 두 모듈이 같이 쓰는 파일은 해당 target 디렉토리 바로 아래에 둔다.
 2. `sw/`는 실제 CPU가 실행하는 program과 이를 만들기 위한 tool만 둔다. 검증용 Python golden model은 `sw/`가 아니라 `model/`에 둔다.
 3. `sim/`에는 testbench와 test case를 둔다. Verilator가 만든 `obj_dir`, waveform, log 같은 산출물은 Git에 올리지 않는다.
 4. `fpga/`와 `asic/`에는 source 역할을 하는 script, constraint, report 요약만 남긴다. Vivado project output, bitstream, tool log는 생성 산출물로 보고 Git 추적을 피한다.
@@ -76,7 +80,7 @@ git add <파일 경로>
 예시:
 
 ```
-git add rtl/simple_cpu/alu.v
+git add rtl_v2/simple_cpu/alu.v
 git add sim/tb/tb_alu.v
 git add docs/spec/simple_cpu.md
 ```

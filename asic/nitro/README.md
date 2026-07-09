@@ -39,11 +39,13 @@ Nitro Tcl은 Oasys보다 파일 수가 많아질 수 있으므로 step별 폴더
 asic/nitro/
 ├── README.md
 ├── step1_tcl/
-│   ├── mode0_20000ps_nitro.tcl
+│   ├── mode0_15000ps_nitro.tcl
 │   ├── mode1_15000ps_nitro.tcl
 │   └── mode4_15000ps_nitro.tcl
 ├── step2_tcl/
 │   ├── mode1_15000ps_nitro.tcl
+│   ├── mode1_20000ps_nitro.tcl
+│   ├── mode4_13000ps_nitro.tcl
 │   └── mode4_15000ps_nitro.tcl
 ├── step3_demo_tcl/
 │   ├── mode0_30000ps_nitro.tcl
@@ -80,16 +82,16 @@ netlist로 전환했고, `step3_tcl/`·`results/step3/`는 만들어진 적이 �
 예시:
 
 ```tcl
-read_verilog /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/asic/oasys/results/step1/mode0_20000ps/step1_mode0_synth.v
+read_verilog /mnt/NewHDD/home/ddl2026/ddl2026_2023104135/ddl2026_folder/simple-cpu-gemm-accelerator/asic/oasys/results/step1/mode0_15000ps/step1_mode0_synth.v
 
 create_floorplan_regions -partition step1_gemm_accelerator_top_mode0 -min_cells 0 -max_cells 1000000000 -min_area_percent 1 -max_area_percent 100 -core_cell_util 70
 
 create_rows -partition step1_gemm_accelerator_top_mode0 -core_site CORE -orient north -start_from core -gap 50a -xl_margin 0a -yb_margin 0a -xr_margin 0a -yt_margin 0a
 
-read_constraint step1_mode0_20000ps.sdc
+read_constraint step1_mode0_15000ps.sdc
 
-write_sdf ../results/step1/mode0_20000ps/step1_mode0_20000ps.sdf -skip_backslash true
-write_verilog -file "../results/step1/mode0_20000ps/step1_mode0_20000ps_nitro.v"
+write_sdf ../results/step1/mode0_15000ps/step1_mode0_15000ps.sdf -skip_backslash true
+write_verilog -file "../results/step1/mode0_15000ps/step1_mode0_15000ps_nitro.v"
 ```
 
 ## 5. 결과 보관 기준
@@ -99,12 +101,12 @@ Nitro 결과는 `asic/nitro/results/<step>/<mode>_<period>ps/` 아래에 둔다.
 예시:
 
 ```text
-asic/nitro/results/step1/mode0_20000ps/
-├── step1_mode0_20000ps.sdf
-├── step1_mode0_20000ps_nitro.v
-├── step1_mode0_20000ps_timing.rpt
-├── step1_mode0_20000ps_area.rpt
-└── step1_mode0_20000ps_summary.md
+asic/nitro/results/step1/mode0_15000ps/
+├── step1_mode0_15000ps.sdf
+├── step1_mode0_15000ps_nitro.v
+├── step1_mode0_15000ps_timing.rpt
+├── step1_mode0_15000ps_area.rpt
+└── step1_mode0_15000ps_summary.md
 ```
 
 최소로 확인할 항목:

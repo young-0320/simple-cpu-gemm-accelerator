@@ -14,7 +14,5 @@ rtl_v2/simple_cpu/accumulator.v
 rtl_v2/simple_cpu/cpu_fsm.v
 rtl_v2/simple_cpu/top_cpu.v
 rtl_v2/gemm_cpu_glue.v
-asic/demo_mem256/gemm_system_top.v
-asic/oasys/step3_system_top_mode0.v
-asic/oasys/step3_system_top_mode1.v
-asic/oasys/step3_system_top_mode4.v
+rtl_v2/gemm_system_top.v
+asic/demo_mem256/step3_system_top_demo.v

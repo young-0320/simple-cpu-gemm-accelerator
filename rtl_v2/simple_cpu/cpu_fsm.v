@@ -1,3 +1,5 @@
+`include "define.vh"
+
 module cpu_fsm (
     input  wire clk,
     input  wire reset,
@@ -6,10 +8,10 @@ module cpu_fsm (
     output reg [1:0] state
 );
 
-    localparam FETCH     = 2'd0;
-    localparam DECODE    = 2'd1;
-    localparam EXECUTE   = 2'd2;
-    localparam INCREMENT = 2'd3;
+    localparam FETCH     = `ST_FETCH;
+    localparam DECODE    = `ST_DECODE;
+    localparam EXECUTE   = `ST_EXECUTE;
+    localparam INCREMENT = `ST_INCREMENT;
 
     always @(posedge clk) begin
         if (reset) begin

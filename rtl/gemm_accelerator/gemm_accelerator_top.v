@@ -147,7 +147,7 @@ module gemm_accelerator_top #(
         // 4-MAC does not use c_raddr (accumulate in registers)
         assign mac_c_raddr = 4'd0;
     end
-    else begin : g_mac1
+    else if (MAC_MODE == 1) begin : g_mac1
         // 4-MAC row read port unused
         assign mac_b_row_k = 3'd0;
         assign mac_b_row_n = 3'd0;
@@ -166,6 +166,13 @@ module gemm_accelerator_top #(
             .c_raddr(mac_c_raddr), .c_rdata(buf_c_rdata),
             .mac_done(mac_done)
         );
+    end
+    else begin : g_bad
+        // Unsupported MAC_MODE: instantiating a non-existent module forces a
+        // "module not found" error at elaboration in both simulation and
+        // synthesis, so a bad -GMAC_MODE fails loudly instead of silently
+        // building 1-MAC.
+        ERROR_unsupported_MAC_MODE_use_1_or_4 u_bad();
     end
     endgenerate
 

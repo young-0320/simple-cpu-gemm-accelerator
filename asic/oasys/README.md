@@ -205,7 +205,7 @@ step3는 메모리 크기(원본 4096-word vs 데모 256-word)와 power 소스(�
 | --- | --- |
 | `step{N}_mode{M}_config.tcl` | 기본형. `vcd_file`/`vcd_scope` 비움(기본 toggle-rate 가정 power) |
 | `step{N}_mode{M}_vcd_config.tcl` | 같은 설계 + `vcd_file`/`vcd_scope` 채움(워크로드 VCD 기반 dynamic power) |
-| `step3_mode{M}_demo_config.tcl` | `asic/demo_mem256/gemm_system_top.v`(256-word, Oasys/Nitro P&R 전용) 대상, vcd 비움 |
+| `step3_mode{M}_demo_config.tcl` | `asic/demo_mem256/step3_system_top_demo.v`(256-word 래퍼, Oasys/Nitro P&R 전용) 대상, vcd 비움 |
 | `step3_mode{M}_demo_vcd_config.tcl` | 위 256-word 데모 + vcd 채움 |
 
 규칙: 파일명에 `vcd`가 있으면 그 config의 `vcd_file`/`vcd_scope`는 항상 채워져

@@ -76,8 +76,8 @@ module gemm_mmio_reg (
     // -------------------------------------------------------
     // Register write logic
     // -------------------------------------------------------
-    // a value is in range iff 1 <= full_wdata <= 4
-    wire wdata_in_range = (mmio_wdata >= 32'd1) && (mmio_wdata <= 32'd4);
+    // a value is in range iff GEMM_DIM_MIN <= full_wdata <= GEMM_DIM_MAX
+    wire wdata_in_range = (mmio_wdata >= `GEMM_DIM_MIN) && (mmio_wdata <= `GEMM_DIM_MAX);
 
     always @(posedge clk) begin
         if (reset) begin

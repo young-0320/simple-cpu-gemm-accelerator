@@ -2,12 +2,6 @@
 `define _GEMM_DEFINE_VH_
 
 // =======================================================
-// Data / Address widths  (data_memory.md)
-// =======================================================
-`define GEMM_DATA_W   32
-`define GEMM_ADDR_W   12
-
-// =======================================================
 // MMIO Register Map  (word addresses)
 //   0xFF0 ~ 0xFF7 : GEMM control/status block
 // =======================================================
