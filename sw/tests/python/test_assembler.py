@@ -93,6 +93,21 @@ class TestUnimplementedOpcode(unittest.TestCase):
             assemble_line("ADDITION", "0", {})
 
 
+class TestMalformedOperand(unittest.TestCase):
+    """int() failures must surface as AssemblerError (which main() catches
+    and prints cleanly), not as a raw ValueError traceback."""
+
+    def test_bad_numeric_operand_raises_assembler_error(self):
+        with self.assertRaises(AssemblerError):
+            assemble_line("LOADI", "Ox20", {})  # capital O typo, not 0x20
+
+    def test_bad_org_address_raises_assembler_error(self):
+        with self.assertRaises(AssemblerError):
+            parse_labels(["ORG xyz\n"])
+        with self.assertRaises(AssemblerError):
+            assemble(["ORG xyz\n"], {})
+
+
 class TestRoundTrip(unittest.TestCase):
     def test_label_address_round_trips_through_jump_operand(self):
         lines = [

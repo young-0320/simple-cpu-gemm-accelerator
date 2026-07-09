@@ -50,11 +50,25 @@ def _check_operand_range(cmd, dec_val, width):
         )
 
 
+def _parse_org_address(parts, line_no):
+    try:
+        return int(parts[1], 16)
+    except (IndexError, ValueError):
+        raise AssemblerError(
+            f"line {line_no}: ORG needs a hex address, got {parts[1:] or 'nothing'}"
+        ) from None
+
+
 def assemble_line (cmd, operand, label_map):
     if operand in label_map:
         dec_val = label_map[operand]
     else:
-        dec_val = int(operand, 0)
+        try:
+            dec_val = int(operand, 0)
+        except ValueError:
+            raise AssemblerError(
+                f"operand '{operand}' for '{cmd}' is neither a known label nor a number"
+            ) from None
 
     if cmd in EXT_FUNCT_MAP:
         opcode_bin = "1111"
@@ -114,7 +128,7 @@ def parse_labels(lines):
         parts = clean_line.split()
 
         if parts[0] == "ORG":
-            current_address = int(parts[1], 16)
+            current_address = _parse_org_address(parts, line_no)
             continue
 
         if len(parts) == 1 and clean_line.endswith(":"):
@@ -142,7 +156,7 @@ def assemble(lines, label_map):
         operand = parts[1] if len(parts) > 1 else "0"
 
         if cmd == "ORG":
-            current_address = int(parts[1], 16)
+            current_address = _parse_org_address(parts, line_no)
             continue
 
         elif is_known_mnemonic(cmd):
