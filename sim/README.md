@@ -27,7 +27,7 @@ python3 sim/scripts/run_gemm_regression.py --target rtl_v2
 | --- | --- | --- | --- | --- |
 | `rtl` | `rtl/gemm_accelerator` | `single` | `1`, `4` | directed, random, mixed |
 | `rtl_AT` | `rtl_AT/gemm_accelerator` | `compat` | `0` | directed, random, mixed |
-| `rtl_v2` | `rtl_v2/gemm_accelerator` | `dual` | `4` | directed, random, mixed |
+| `rtl_v2` | `rtl_v2/gemm_accelerator` | `dual` | `0`, `1`, `4` | directed, random, mixed |
 
 파이프라인 요약은 `sim/results/regression/<batch_id>/report.md`와 `summary.tsv`에 기록된다. 이 파이프라인은 GEMM accelerator 단독 vector 검증용이며, `system_v2` 통합 TB는 포함하지 않는다.
 

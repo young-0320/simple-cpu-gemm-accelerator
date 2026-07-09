@@ -15,6 +15,9 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+# Must exceed the wrapped run_gemm_verification.py's own worst case
+# (BUILD_ATTEMPTS x 120s build + 120s sim), or its build retry never runs.
+SUBPROCESS_TIMEOUT_S = 600
 
 VECTOR_DIRS = (
     Path("sim/vectors/directed_case"),
@@ -105,16 +108,25 @@ def format_warnings(warnings: dict[str, int]) -> str:
 
 def run_one(command: list[str]) -> tuple[int, str]:
     print("[PIPELINE] " + " ".join(command), flush=True)
-    proc = subprocess.run(
-        command,
-        cwd=REPO_ROOT,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            command,
+            cwd=REPO_ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+            timeout=SUBPROCESS_TIMEOUT_S,
+        )
+    except subprocess.TimeoutExpired as exc:
+        partial = exc.output or ""
+        if isinstance(partial, bytes):
+            partial = partial.decode("utf-8", errors="replace")
+        output = f"command timed out after {SUBPROCESS_TIMEOUT_S}s: {exc}\n{partial}"
+        print(output, end="")
+        return 124, output
     print(proc.stdout, end="")
     return proc.returncode, proc.stdout
 

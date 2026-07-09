@@ -17,6 +17,8 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+SUBPROCESS_TIMEOUT_S = 120
+BUILD_ATTEMPTS = 3  # Verilator 5.020 build aborts intermittently (thread-pool / .d races); retry
 DEFAULT_VCD_CASE = "directed_4x4x4_signed"
 
 TB_TOP = "tb_gemm_system_v2"
@@ -57,7 +59,16 @@ def run_command(command: list[str], log_path: Path) -> int:
             encoding="utf-8",
             errors="replace",
             check=False,
+            timeout=SUBPROCESS_TIMEOUT_S,
         )
+    except subprocess.TimeoutExpired as exc:
+        partial = exc.output or ""
+        if isinstance(partial, bytes):
+            partial = partial.decode("utf-8", errors="replace")
+        output = f"command timed out after {SUBPROCESS_TIMEOUT_S}s: {exc}\n{partial}"
+        log_path.write_text(output, encoding="utf-8")
+        print(output, end="")
+        return 124
     except OSError as exc:
         output = f"failed to run command: {exc}\n"
         log_path.write_text(output, encoding="utf-8")
@@ -530,6 +541,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"[RESULT_DIR] {cmd_path(result_dir)}")
     print("[BUILD] " + " ".join(build_cmd))
     build_rc = run_command(build_cmd, build_log)
+    for attempt in range(2, BUILD_ATTEMPTS + 1):
+        if build_rc == 0:
+            break
+        print(f"[BUILD] failed (rc={build_rc}), retrying {attempt}/{BUILD_ATTEMPTS}")
+        clean_build_dir(build_dir)
+        build_rc = run_command(build_cmd, build_log)
 
     run_cmd: list[str] | None = None
     run_rc: int | None = None

@@ -104,5 +104,5 @@ int main(int argc,char**argv){
 
     tfp->close();
     delete dut;
-    return 0;
+    return bad ? 1 : 0;
 }

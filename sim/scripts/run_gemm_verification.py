@@ -17,6 +17,8 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+SUBPROCESS_TIMEOUT_S = 120
+BUILD_ATTEMPTS = 3  # Verilator 5.020 build aborts intermittently (thread-pool / .d races); retry
 DEFAULT_VCD_CASE = "directed_006"
 
 TB_CONFIGS: dict[str, dict[str, Any]] = {
@@ -76,7 +78,16 @@ def run_command(command: list[str], cwd: Path, log_path: Path) -> int:
             text=True,
             encoding="utf-8",
             errors="replace",
+            timeout=SUBPROCESS_TIMEOUT_S,
         )
+    except subprocess.TimeoutExpired as exc:
+        partial = exc.output or ""
+        if isinstance(partial, bytes):
+            partial = partial.decode("utf-8", errors="replace")
+        output = f"command timed out after {SUBPROCESS_TIMEOUT_S}s: {exc}\n{partial}"
+        log_path.write_text(output, encoding="utf-8")
+        print(output, end="")
+        return 124
     except OSError as exc:
         output = f"failed to run command: {exc}\n"
         log_path.write_text(output, encoding="utf-8")
@@ -168,11 +179,13 @@ def build_command(args: argparse.Namespace, config: dict[str, Any]) -> list[str]
 
 def clean_build_dir(build_dir: Path) -> None:
     resolved_build_dir = build_dir.resolve()
-    resolved_repo_root = REPO_ROOT.resolve()
+    resolved_build_root = (REPO_ROOT / "sim" / "build").resolve()
     try:
-        resolved_build_dir.relative_to(resolved_repo_root)
+        resolved_build_dir.relative_to(resolved_build_root)
     except ValueError as exc:
-        raise ValueError(f"refusing to clean build dir outside repository: {build_dir}") from exc
+        raise ValueError(f"refusing build dir outside sim/build: {build_dir}") from exc
+    if resolved_build_dir == resolved_build_root:
+        raise ValueError("refusing to use the whole sim/build directory as one build target")
     if resolved_build_dir.exists():
         shutil.rmtree(resolved_build_dir)
 
@@ -617,6 +630,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"[RESULT_DIR] {cmd_path(result_dir)}")
     print("[BUILD] " + " ".join(build_cmd))
     build_rc = run_command(build_cmd, REPO_ROOT, build_log)
+    for attempt in range(2, BUILD_ATTEMPTS + 1):
+        if build_rc == 0:
+            break
+        print(f"[BUILD] failed (rc={build_rc}), retrying {attempt}/{BUILD_ATTEMPTS}")
+        # always clean on retry: the failure may have left corrupted .d state behind
+        clean_build_dir(build_dir)
+        build_rc = run_command(build_cmd, REPO_ROOT, build_log)
 
     run_cmd: list[str] | None = None
     run_rc: int | None = None
@@ -682,7 +702,7 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     print(f"[REPORT] {cmd_path(report_path)}")
-    return 0 if build_rc == 0 and (run_rc == 0 or run_rc is None) else 1
+    return 0 if build_rc == 0 and (run_rc == 0 or run_rc is None) and summary["total_transactions"] != 0 else 1
 
 
 if __name__ == "__main__":
