@@ -66,6 +66,20 @@ class TestGemmDefineTreesInSync(unittest.TestCase):
                 "alongside it -- not just silenced.",
             )
 
+    def test_shared_gemm_modules_identical_between_rtl_and_rtl_v2(self) -> None:
+        # These two modules are deliberate byte-identical copies between the
+        # single-port baseline (rtl/) and the final dual-port target
+        # (rtl_v2/); rtl_AT's versions are a different design and excluded.
+        for name in ("gemm_controller_fsm.v", "gemm_mmio_reg.v"):
+            a = (REPO_ROOT / "rtl" / "gemm_accelerator" / name).read_text(encoding="utf-8")
+            b = (REPO_ROOT / "rtl_v2" / "gemm_accelerator" / name).read_text(encoding="utf-8")
+            self.assertEqual(
+                a, b,
+                f"{name} has drifted between rtl/ and rtl_v2/. Apply the "
+                "change to both copies, or update this test if the split "
+                "is intentional.",
+            )
+
 
 class TestGemmDefineMatchesGoldenModel(unittest.TestCase):
     """Guards against exactly the failure mode this test was written for:
