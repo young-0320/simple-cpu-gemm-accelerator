@@ -26,7 +26,16 @@ STEPS: list[tuple[str, list[str]]] = [
     ("regress rtl_AT", ["python3", "sim/scripts/run_gemm_regression.py", "--target", "rtl_AT", "--jobs", "1"]),
     ("regress rtl_v2", ["python3", "sim/scripts/run_gemm_regression.py", "--target", "rtl_v2", "--jobs", "1"]),
     ("system verify", ["python3", "sim/scripts/run_gemm_system_verification.py", "--jobs", "1"]),
-    # 3. Python unit tests
+    # 3. CPU unit smoke TBs (self-checking; $fatal -> nonzero exit on FAIL)
+    ("build tb_alu", ["verilator", "--binary", "--timing", "-Wall", "-Wno-fatal",
+                      "-Irtl_v2/simple_cpu", "--Mdir", "sim/build/tb_alu",
+                      "sim/tb/tb_alu.sv", "rtl_v2/simple_cpu/alu.v", "--top-module", "tb_alu"]),
+    ("run tb_alu", ["sim/build/tb_alu/Vtb_alu"]),
+    ("build tb_decoder", ["verilator", "--binary", "--timing", "-Wall", "-Wno-fatal",
+                          "-Irtl_v2/simple_cpu", "--Mdir", "sim/build/tb_decoder",
+                          "sim/tb/tb_decoder.sv", "rtl_v2/simple_cpu/decoder.v", "--top-module", "tb_decoder"]),
+    ("run tb_decoder", ["sim/build/tb_decoder/Vtb_decoder"]),
+    # 4. Python unit tests
     ("unittest sim", ["python3", "-m", "unittest", "discover", "-s", "sim/tests/python", "-p", "test_*.py"]),
     ("unittest sw", ["python3", "-m", "unittest", "discover", "-s", "sw/tests/python", "-p", "test_*.py"]),
 ]
