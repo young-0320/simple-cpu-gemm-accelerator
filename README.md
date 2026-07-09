@@ -8,6 +8,8 @@ Project1 GitHub URL: https://github.com/young-0320/simple-cpu-smart-doorlock
 
 설계·검증·ASIC/FPGA 분석·결론을 모두 종합한 최종 보고서는 [docs/reports/GEMM_accelerator_project2_report.md](docs/reports/GEMM_accelerator_project2_report.md)에 있다.
 
+> **실행 환경**: Python 3.8+ (표준 라이브러리만 사용, 별도 패키지 설치 불필요), Verilator.
+
 ## 작업 흐름 요약
 
 1. [Golden vector 생성](#1-golden-vector-생성)
@@ -44,7 +46,10 @@ python3 sim/scripts/run_gemm_regression.py --target rtl_v2 --jobs 1
 python3 sim/scripts/run_gemm_system_verification.py --jobs 1
 ```
 
-각 명령은 `sim/results` 아래에 `report.md`, `summary.json`, `case_results.tsv`, `warning_summary.tsv`, build/run log를 생성한다.
+벡터 생성부터 위 회귀 전체와 Python 단위테스트까지 한 번에 돌리려면
+`python3 run_all.py` 하나로 충분하다(CI가 실행하는 것과 동일, [.github/workflows/ci.yml](.github/workflows/ci.yml) 참고).
+
+regression 명령은 배치 요약을 `sim/results/regression/<batch_id>/`의 `report.md`/`summary.tsv`에 남기고, 개별 run은 `sim/results/<vector_set>/<run_id>/` 아래에 `report.md`, `summary.json`, `case_results.tsv`, `warning_summary.tsv`, build/run log를 생성한다.
 
 자세한 실행법은 [sim/README.md](sim/README.md)를 본다.
 

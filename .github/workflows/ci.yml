@@ -1,0 +1,32 @@
+name: CI
+
+# push is limited to main so a PR from a same-repo branch runs once
+# (pull_request), not twice.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# cancel superseded runs of the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    # ubuntu-24.04 apt ships Verilator 5.020; the build uses --binary --timing
+    # which require Verilator 5.x, so do not downgrade to 22.04 (apt = 4.038).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator
+
+      - name: Verilator version
+        run: verilator --version
+
+      - name: Run full regression + unit tests
+        run: python3 run_all.py
